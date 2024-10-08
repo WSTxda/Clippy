@@ -1,0 +1,155 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/copy/CopyLinkRemoveTracker.kt",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 707,
+          "line": 19
+        },
+        "start": {
+          "column": 0,
+          "index": 707,
+          "line": 19
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/utils/RedirectionHandler.kt",
+      "selection": {
+        "end": {
+          "column": 56,
+          "index": 487,
+          "line": 16
+        },
+        "start": {
+          "column": 56,
+          "index": 487,
+          "line": 16
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/cleaner/QueryCleaner.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 2297,
+          "line": 55
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/cleaner/TrackerCleaner.kt",
+      "selection": {
+        "end": {
+          "column": 56,
+          "index": 1974,
+          "line": 49
+        },
+        "start": {
+          "column": 56,
+          "index": 1974,
+          "line": 49
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/utils/CustomTrackerRemover.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 2112,
+          "line": 53
+        },
+        "start": {
+          "column": 1,
+          "index": 2112,
+          "line": 53
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/utils/BuiltinRules.kt",
+      "selection": {
+        "end": {
+          "column": 51,
+          "index": 4402,
+          "line": 75
+        },
+        "start": {
+          "column": 51,
+          "index": 4402,
+          "line": 75
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/copy/activity/CopyClipboardActivity.kt",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/copy/CopyLinkStandard.kt",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/provider/RedirectionDomainsProvider.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 1703,
+          "line": 32
+        },
+        "start": {
+          "column": 1,
+          "index": 1703,
+          "line": 32
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/provider/TrackerParamsProvider.kt",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 1722,
+          "line": 33
+        },
+        "start": {
+          "column": 1,
+          "index": 1722,
+          "line": 33
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Clippy/app/src/main/java/com/wstxda/clippy/tracker/provider/TrackerParamsProvider.kt"
+}
