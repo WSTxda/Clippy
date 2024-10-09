@@ -26,7 +26,7 @@ object BuiltinRules {
     private const val URL_PARAM_TARGET = "target"
 
     fun applyBuiltinRules(url: String): String {
-        val cleanedUrl = when {
+        return when {
             matchesPattern(
                 url, DOUBAN_URL_PATTERN, "/link2/", ".*\\b$URL_PARAM_URL=.+"
             ) -> getQueryParameter(url, URL_PARAM_URL) ?: url
@@ -47,7 +47,6 @@ object BuiltinRules {
             matchesPattern(url, TWITTER_URL_PATTERN) -> clearQuery(url)
             matchesPattern(url, XIAOHONGSHU_URL_PATTERN) -> clearQuery(url)
             matchesPattern(url, YOUTUBE_URL_PATTERN) -> retainQueryParameters(url, "index|list|t|v")
-
             matchesPattern(url, SPOTIFY_URL_PATTERN) -> setEncodedQuery(url, "")
             matchesPattern(url, URL_SHORTENERS_PATTERN) -> clearQuery(url)
             matchesPattern(url, FACEBOOK_URL_PATTERN) -> retainQueryParameters(
@@ -59,7 +58,6 @@ object BuiltinRules {
             )
 
             matchesPattern(url, LINKEDIN_URL_PATTERN) -> retainQueryParameters(url, "trk")
-
             matchesPattern(url, PINTEREST_URL_PATTERN) -> retainQueryParameters(
                 url, "utm_source|utm_medium|utm_campaign|pin"
             )
@@ -78,8 +76,6 @@ object BuiltinRules {
 
             else -> url
         }
-
-        return cleanedUrl
     }
 
     private fun matchesPattern(
@@ -111,11 +107,9 @@ object BuiltinRules {
         val uri = Uri.parse(url)
         val newBuilder = uri.buildUpon().clearQuery()
 
-        uri.queryParameterNames.forEach { param ->
-            if (param.matches(Regex(paramsPattern))) {
-                uri.getQueryParameter(param)?.let { value ->
-                    newBuilder.appendQueryParameter(param, value)
-                }
+        uri.queryParameterNames.forEach { queryParam ->
+            if (queryParam.matches(Regex(paramsPattern))) {
+                newBuilder.appendQueryParameter(queryParam, uri.getQueryParameter(queryParam))
             }
         }
 

@@ -16,8 +16,12 @@ class CopyLinkRemoveTracker : CopyClipboardActivity() {
             try {
                 val cleanedLinks = withContext(Dispatchers.IO) {
                     link.split("\\s+".toRegex()).map { url ->
-                        val cleanedUrl = TrackerCleaner.removeTrackers(url)
-                        CustomTrackerRemover().removeCustomTrackers(cleanedUrl)
+                        try {
+                            val cleanedUrl = TrackerCleaner.cleanUrlOfTrackers(url)
+                            CustomTrackerRemover().removeCustomTrackers(cleanedUrl)
+                        } catch (e: Exception) {
+                            url
+                        }
                     }
                 }
 

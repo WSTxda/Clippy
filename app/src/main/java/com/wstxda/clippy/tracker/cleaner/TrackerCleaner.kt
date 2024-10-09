@@ -6,10 +6,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object TrackerCleaner {
-    suspend fun removeTrackers(url: String): String {
+    suspend fun cleanUrlOfTrackers(url: String): String {
         return withContext(Dispatchers.IO) {
-            val redirectedUrl = RedirectionHandler.handleRedirection(url)
-            UrlCleaner.cleanUrlQueryParameters(redirectedUrl)
+            try {
+                val redirectedUrl = RedirectionHandler.handleRedirection(url)
+                UrlCleaner.cleanUrlQueryParameters(redirectedUrl)
+            } catch (e: Exception) {
+                return@withContext url
+            }
         }.let { cleanedUrl ->
             BuiltinRules.applyBuiltinRules(cleanedUrl)
         }
