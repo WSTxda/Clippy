@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import com.wstxda.clippy.R
@@ -26,16 +27,20 @@ abstract class CopyClipboardActivity : Activity() {
             processLink(sharedLink)
         } else {
             showToastMessage(getString(R.string.copy_failure))
-            finish()
+            completeActivity()
         }
     }
 
     protected abstract fun processLink(link: String)
 
     protected fun copyLinkToClipboard(link: CharSequence) {
-        getSystemService<ClipboardManager>()?.setPrimaryClip(
-            ClipData.newPlainText("link", link)
-        )
+        val clipboardManager = getSystemService<ClipboardManager>()
+        if (clipboardManager != null) {
+            clipboardManager.setPrimaryClip(ClipData.newPlainText(LINK_LABEL, link))
+            showToastMessage(getString(R.string.copy_success))
+        } else {
+            showToastMessage(getString(R.string.copy_failure_clipboard))
+        }
     }
 
     protected fun showToastMessage(message: String) {
@@ -44,5 +49,9 @@ abstract class CopyClipboardActivity : Activity() {
 
     protected fun completeActivity() {
         finish()
+    }
+
+    companion object {
+        const val LINK_LABEL = "link"
     }
 }
