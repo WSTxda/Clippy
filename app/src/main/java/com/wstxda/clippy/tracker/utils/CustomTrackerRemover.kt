@@ -1,14 +1,12 @@
 package com.wstxda.clippy.tracker.utils
 
 import android.net.Uri
-
 import com.wstxda.clippy.tracker.cleaner.UrlCleaner
 import com.wstxda.clippy.tracker.provider.TrackersParametersProvider
 
-class CustomTrackerRemover {
+object CustomTrackerRemover {
 
-    private val trackingParameters: Set<String> =
-        TrackersParametersProvider.getTrackersParameters()
+    private val trackingParameters: Set<String> = TrackersParametersProvider.getTrackersParameters()
 
     fun removeCustomTrackers(
         url: String, customTrackingParameters: Set<String> = emptySet()
