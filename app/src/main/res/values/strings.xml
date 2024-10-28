@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Clippy</string>
+    <string name="app_name" translatable="false">Clippy</string>
 
     <string name="copy_link">Copy Link</string>
     <string name="copy_link_tracker">Copy Without Trackers</string>
 
-    <string name="copy_success">Link copied to clipboard</string>
+    <string name="copy_success">Copied to clipboard</string>
     <string name="copy_failure">Unable to copy link</string>
 </resources>

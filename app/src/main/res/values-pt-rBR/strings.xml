@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="copy_link">Copiar link</string>
+    <string name="copy_link_tracker">Copiar sem rastreadores</string>
+
+    <string name="copy_success">Copiado para área de transferência</string>
+    <string name="copy_failure">Não foi possível copiar o link</string>
+</resources>
