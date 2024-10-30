@@ -1,8 +1,5 @@
 package com.wstxda.clippy.activity.copy
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.lifecycle.lifecycleScope
 import com.wstxda.clippy.R
 import com.wstxda.clippy.activity.ClipboardLinkActivity
@@ -14,12 +11,6 @@ import kotlinx.coroutines.withContext
 class CopyLinkCleanerActivity : ClipboardLinkActivity() {
 
     override fun processLink(link: String) {
-        if (!isNetworkAvailable()) {
-            showToast(getString(R.string.copy_no_internet))
-            finishActivity()
-            return
-        }
-
         lifecycleScope.launch {
             try {
                 val cleanedLinks = withContext(Dispatchers.IO) {
@@ -42,13 +33,5 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
                 finishActivity()
             }
         }
-    }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }

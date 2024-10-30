@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.wstxda.clippy.activity.copy.CopyLinkStandard"
+            android:name="com.wstxda.clippy.activity.copy.CopyLinkActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_copy"
             android:label="@string/copy_link">
@@ -25,7 +24,7 @@
         </activity>
 
         <activity
-            android:name="com.wstxda.clippy.activity.copy.CopyLinkRemoveTracker"
+            android:name="com.wstxda.clippy.activity.copy.CopyLinkCleanerActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_copy_tracker"
             android:label="@string/copy_link_tracker">
