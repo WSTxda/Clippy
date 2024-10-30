@@ -5,7 +5,21 @@ Easily copy links directly from your device's sharing menu, with built-in suppor
 
 ![Banner](https://raw.githubusercontent.com/WSTxda/Clippy/main/images/Banner.svg)
 
-**Download**
+### How to use?
+
+ **Select a Link**  
+   - Choose any link by either tapping on it or using the "Share" option within any app.
+
+**Copy the Link**  
+   - **To copy the link as-is**:  
+     Select **"Copy Link"** to copy the original, unmodified link to your clipboard.
+   - **To clean the link**:  
+     Select **"Copy Link (Clean)"** to copy a version of the link that has been stripped of shorteners and tracking parameters.
+
+**Paste the Link Anywhere**  
+   - Once copied, your link (either original or cleaned) will be ready for you to paste wherever needed.
+
+### Download
 
 [<img src="https://raw.githubusercontent.com/WSTxda/QP-Gallery-Releases/master/Images/GitHub.svg"
       alt='Get it on GitHub'
@@ -13,7 +27,7 @@ Easily copy links directly from your device's sharing menu, with built-in suppor
       alt='Get it on Telegram'
       height="80">](https://t.me/WSTprojects)
 
-**Donate**
+### Donate
 
 [<img src="https://raw.githubusercontent.com/WSTxda/QP-Gallery-Releases/master/Images/PayPal.svg"
       alt='Donate with PayPal'
