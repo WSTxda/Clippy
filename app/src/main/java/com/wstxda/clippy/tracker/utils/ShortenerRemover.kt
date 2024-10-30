@@ -26,7 +26,10 @@ object ShortenerRemover {
         Regex("visitor_id", RegexOption.IGNORE_CASE),
         Regex("user_id", RegexOption.IGNORE_CASE),
         Regex("click_id", RegexOption.IGNORE_CASE),
-        Regex("tracking_id", RegexOption.IGNORE_CASE)
+        Regex("tracking_id", RegexOption.IGNORE_CASE),
+        Regex("full_url", RegexOption.IGNORE_CASE),
+        Regex("fallback_url", RegexOption.IGNORE_CASE),
+        Regex("feature", RegexOption.IGNORE_CASE)
     )
 
     fun removeShortenerParamsFromUrl(
