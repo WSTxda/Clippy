@@ -1,22 +1,22 @@
-package com.wstxda.clippy.copy
+package com.wstxda.clippy.activity.copy
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.lifecycleScope
 import com.wstxda.clippy.R
-import com.wstxda.clippy.copy.activity.CopyClipboardActivity
-import com.wstxda.clippy.tracker.cleaner.TrackerCleaner
+import com.wstxda.clippy.activity.ClipboardLinkActivity
+import com.wstxda.clippy.tracker.tools.SharedUrlResolver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CopyLinkRemoveTracker : CopyClipboardActivity() {
+class CopyLinkCleanerActivity : ClipboardLinkActivity() {
 
     override fun processLink(link: String) {
-        if (!isInternetAvailable()) {
-            showToastMessage(getString(R.string.copy_no_internet))
-            completeActivity()
+        if (!isNetworkAvailable()) {
+            showToast(getString(R.string.copy_no_internet))
+            finishActivity()
             return
         }
 
@@ -25,7 +25,7 @@ class CopyLinkRemoveTracker : CopyClipboardActivity() {
                 val cleanedLinks = withContext(Dispatchers.IO) {
                     link.split("\\s+".toRegex()).map { url ->
                         try {
-                            TrackerCleaner.cleanUrlOfTrackers(url)
+                            SharedUrlResolver.startResolveUrlUtils(url)
                         } catch (e: Exception) {
                             url
                         }
@@ -34,17 +34,17 @@ class CopyLinkRemoveTracker : CopyClipboardActivity() {
 
                 val finalCleanedLinks = cleanedLinks.joinToString("\n")
                 copyLinkToClipboard(finalCleanedLinks)
-                showToastMessage(getString(R.string.copy_success))
+                showToast(getString(R.string.copy_success))
             } catch (e: Exception) {
                 e.printStackTrace()
-                showToastMessage(getString(R.string.copy_failure))
+                showToast(getString(R.string.copy_failure))
             } finally {
-                completeActivity()
+                finishActivity()
             }
         }
     }
 
-    private fun isInternetAvailable(): Boolean {
+    private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities =

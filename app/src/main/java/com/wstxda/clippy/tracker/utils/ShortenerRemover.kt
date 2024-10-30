@@ -1,9 +1,9 @@
-package com.wstxda.clippy.tracker.cleaner
+package com.wstxda.clippy.tracker.utils
 
 import android.net.Uri
 
-object UrlCleaner {
-    val trackingRegexes = listOf(
+object ShortenerRemover {
+    val shortenerRegexes = listOf(
         Regex("trk_\\w+", RegexOption.IGNORE_CASE),
         Regex("aff\\w+", RegexOption.IGNORE_CASE),
         Regex("(src|source)\\d*", RegexOption.IGNORE_CASE),
@@ -12,25 +12,29 @@ object UrlCleaner {
         Regex("sid", RegexOption.IGNORE_CASE),
         Regex("(clid|irclickid|click_id|clickid)", RegexOption.IGNORE_CASE),
         Regex("utm_\\w+", RegexOption.IGNORE_CASE),
-        Regex("ref", RegexOption.IGNORE_CASE)
+        Regex("ref", RegexOption.IGNORE_CASE),
+        Regex("si", RegexOption.IGNORE_CASE)
     )
 
-    fun cleanUrlQueryParameters(url: String, trackingParameters: Set<String> = emptySet()): String {
+    fun removeShortenerParamsFromUrl(
+        url: String, shortenerParameters: Set<String> = emptySet()
+    ): String {
         val uri = Uri.parse(url)
         val cleanUriBuilder = uri.buildUpon().clearQuery()
 
         uri.queryParameterNames.forEach { queryParam ->
-            if (queryParam !in trackingParameters && !isTrackingParameter(queryParam)) {
+            if (queryParam !in shortenerParameters && !isShortenerParameter(queryParam)) {
                 uri.getQueryParameter(queryParam)?.let { value ->
                     cleanUriBuilder.appendQueryParameter(queryParam, value)
                 }
             }
         }
 
-        return cleanUriBuilder.build().toString()
+        val cleanUri = cleanUriBuilder.build().toString()
+        return if (uri.fragment != null) "$cleanUri#${uri.fragment}" else cleanUri
     }
 
-    private fun isTrackingParameter(param: String): Boolean {
-        return trackingRegexes.any { it.matches(param) }
+    private fun isShortenerParameter(param: String): Boolean {
+        return shortenerRegexes.any { it.matches(param) }
     }
 }

@@ -1,7 +1,7 @@
 package com.wstxda.clippy.tracker.provider
 
-object TrackersParametersProvider {
-    fun getTrackersParameters(): Set<String> {
+object TrackingParametersProvider {
+    fun getTrackingParameters(): Set<String> {
         return setOf(
             "a_id", "ab", "ab_id", "ad", "ad_id", "ad_name", "ad_position", "adgroup",
             "adgroup_id", "adgroup_name", "adset_id", "adset_name", "ad_type",

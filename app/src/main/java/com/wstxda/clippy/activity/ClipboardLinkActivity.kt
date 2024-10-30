@@ -1,4 +1,4 @@
-package com.wstxda.clippy.copy.activity
+package com.wstxda.clippy.activity
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import com.wstxda.clippy.R
 
-abstract class CopyClipboardActivity : AppCompatActivity() {
+abstract class ClipboardLinkActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +25,8 @@ abstract class CopyClipboardActivity : AppCompatActivity() {
         if (!sharedLink.isNullOrEmpty()) {
             processLink(sharedLink)
         } else {
-            showToastMessage(getString(R.string.copy_failure))
-            finish()
+            showToast(getString(R.string.copy_failure))
+            finishActivity()
         }
     }
 
@@ -38,11 +38,11 @@ abstract class CopyClipboardActivity : AppCompatActivity() {
         )
     }
 
-    protected fun showToastMessage(message: String) {
+    protected fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    protected fun completeActivity() {
+    protected fun finishActivity() {
         finish()
     }
 }

@@ -1,16 +1,17 @@
-package com.wstxda.clippy.tracker.cleaner
+package com.wstxda.clippy.tracker.tools
 
 import com.wstxda.clippy.tracker.utils.CustomTrackerRemover
 import com.wstxda.clippy.tracker.utils.RedirectionHandler
+import com.wstxda.clippy.tracker.utils.ShortenerRemover
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-object TrackerCleaner {
-    suspend fun cleanUrlOfTrackers(url: String): String {
+object SharedUrlResolver {
+    suspend fun startResolveUrlUtils(url: String): String {
         return withContext(Dispatchers.IO) {
             try {
                 val redirectedUrl = RedirectionHandler.handleRedirection(url)
-                UrlCleaner.cleanUrlQueryParameters(redirectedUrl)
+                ShortenerRemover.removeShortenerParamsFromUrl(redirectedUrl)
             } catch (e: Exception) {
                 url
             }

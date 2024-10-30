@@ -1,12 +1,11 @@
 package com.wstxda.clippy.tracker.utils
 
 import android.net.Uri
-import com.wstxda.clippy.tracker.cleaner.UrlCleaner
-import com.wstxda.clippy.tracker.provider.TrackersParametersProvider
+import com.wstxda.clippy.tracker.provider.TrackingParametersProvider
 
 object CustomTrackerRemover {
 
-    private val trackingParameters: Set<String> = TrackersParametersProvider.getTrackersParameters()
+    private val trackingParameters: Set<String> = TrackingParametersProvider.getTrackingParameters()
 
     fun removeCustomTrackers(
         url: String, customTrackingParameters: Set<String> = emptySet()
@@ -17,7 +16,7 @@ object CustomTrackerRemover {
 
         return uri.buildUpon().clearQuery().apply {
             uri.queryParameterNames.forEach { param ->
-                if (param !in allTrackingParameters && !matchesTrackingRegex(param)) {
+                if (param !in allTrackingParameters && !isTrackingParameter(param)) {
                     uri.getQueryParameter(param)?.let { value ->
                         appendQueryParameter(param, value)
                     }
@@ -26,7 +25,7 @@ object CustomTrackerRemover {
         }.build().toString()
     }
 
-    private fun matchesTrackingRegex(param: String): Boolean {
-        return UrlCleaner.trackingRegexes.any { it.matches(param) }
+    private fun isTrackingParameter(param: String): Boolean {
+        return ShortenerRemover.shortenerRegexes.any { it.matches(param) }
     }
 }

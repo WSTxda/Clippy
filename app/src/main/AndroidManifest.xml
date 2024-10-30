@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".copy.CopyLinkStandard"
+            android:name="com.wstxda.clippy.activity.copy.CopyLinkStandard"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_copy"
             android:label="@string/copy_link">
@@ -25,7 +25,7 @@
         </activity>
 
         <activity
-            android:name=".copy.CopyLinkRemoveTracker"
+            android:name="com.wstxda.clippy.activity.copy.CopyLinkRemoveTracker"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_copy_tracker"
             android:label="@string/copy_link_tracker">
