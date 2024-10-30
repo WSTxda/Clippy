@@ -14,7 +14,7 @@
         <activity
             android:name="com.wstxda.clippy.activity.copy.CopyLinkActivity"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_copy"
+            android:icon="@mipmap/ic_copy_link"
             android:label="@string/copy_link">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -26,8 +26,8 @@
         <activity
             android:name="com.wstxda.clippy.activity.copy.CopyLinkCleanerActivity"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_copy_tracker"
-            android:label="@string/copy_link_tracker">
+            android:icon="@mipmap/ic_copy_link_cleaner"
+            android:label="@string/copy_link_cleaner">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
