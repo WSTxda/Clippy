@@ -1,10 +1,10 @@
 package com.wstxda.clippy.copy
 
+import androidx.lifecycle.lifecycleScope
 import com.wstxda.clippy.R
 import com.wstxda.clippy.copy.activity.CopyClipboardActivity
 import com.wstxda.clippy.tracker.cleaner.TrackerCleaner
 import com.wstxda.clippy.tracker.utils.CustomTrackerRemover
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 class CopyLinkRemoveTracker : CopyClipboardActivity() {
 
     override fun processLink(link: String) {
-        CoroutineScope(Dispatchers.Main).launch {
+        lifecycleScope.launch {
             try {
                 val cleanedLinks = withContext(Dispatchers.IO) {
                     link.split("\\s+".toRegex()).map { url ->

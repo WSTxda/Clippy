@@ -1,15 +1,15 @@
 package com.wstxda.clippy.copy.activity
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import com.wstxda.clippy.R
 
-abstract class CopyClipboardActivity : Activity() {
+abstract class CopyClipboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
