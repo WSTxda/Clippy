@@ -5,7 +5,7 @@ import com.wstxda.clippy.tracker.provider.TrackingParametersProvider
 
 object CustomTrackerRemover {
 
-    private val trackingParameters: Set<String> = TrackingParametersProvider.getTrackingParameters()
+    private val trackingParameters: Set<String> = TrackingParametersProvider.getTrackingFilterList()
 
     fun removeCustomTrackers(
         url: String, customTrackingParameters: Set<String> = emptySet()
