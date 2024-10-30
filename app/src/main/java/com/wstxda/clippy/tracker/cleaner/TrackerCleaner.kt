@@ -1,6 +1,6 @@
 package com.wstxda.clippy.tracker.cleaner
 
-import com.wstxda.clippy.tracker.utils.BuiltinRules
+import com.wstxda.clippy.tracker.utils.CustomTrackerRemover
 import com.wstxda.clippy.tracker.utils.RedirectionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,10 +12,10 @@ object TrackerCleaner {
                 val redirectedUrl = RedirectionHandler.handleRedirection(url)
                 UrlCleaner.cleanUrlQueryParameters(redirectedUrl)
             } catch (e: Exception) {
-                return@withContext url
+                url
             }
         }.let { cleanedUrl ->
-            BuiltinRules.applyBuiltinRules(cleanedUrl)
+            CustomTrackerRemover.removeCustomTrackers(cleanedUrl)
         }
     }
 }

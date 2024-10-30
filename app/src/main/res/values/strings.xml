@@ -7,4 +7,5 @@
 
     <string name="copy_success">Copied to clipboard</string>
     <string name="copy_failure">Unable to copy link</string>
+    <string name="copy_no_internet">No internet connection</string>
 </resources>
