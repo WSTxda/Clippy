@@ -9,17 +9,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CopyLinkCleanerActivity : ClipboardLinkActivity() {
-
     override fun processLink(link: String) {
         lifecycleScope.launch {
             try {
                 val cleanedLinks = withContext(Dispatchers.IO) {
                     link.split("\\s+".toRegex()).map { url ->
-                        try {
-                            SharedUrlResolver.startResolveUrlUtils(url)
-                        } catch (e: Exception) {
-                            url
-                        }
+                        safeUrlProcessing(url) { SharedUrlResolver.startResolveUrlUtils(it) }
                     }
                 }
 
@@ -32,6 +27,14 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
             } finally {
                 finishActivity()
             }
+        }
+    }
+
+    private fun safeUrlProcessing(url: String, process: (String) -> String): String {
+        return try {
+            process(url)
+        } catch (e: Exception) {
+            url
         }
     }
 }
