@@ -6,12 +6,13 @@ object ShortenerRemover {
     val shortenerRegexes = listOf(
         Regex("trk_\\w+", RegexOption.IGNORE_CASE),
         Regex("aff\\w+", RegexOption.IGNORE_CASE),
-        Regex("(src|source|utm)_\\w*", RegexOption.IGNORE_CASE),
-        Regex("(ad|ads|advertising)_?\\w*", RegexOption.IGNORE_CASE),
+        Regex("(src|source|utm|nd)_?\\w*", RegexOption.IGNORE_CASE),
+        Regex("(ad|ads|advertising|product)_?\\w*", RegexOption.IGNORE_CASE),
         Regex("(session|visitor|user|click|tracking|promo|campaign|full|fallback)_?(id|code|url)?", RegexOption.IGNORE_CASE),
-        Regex("fbclid|gclid|msclkid|irclickid|clid", RegexOption.IGNORE_CASE),
+        Regex("fbclid|gclid|msclkid|irclickid|clid|si", RegexOption.IGNORE_CASE),
         Regex("ref|referrer", RegexOption.IGNORE_CASE),
-        Regex("si|feature|_t|_r", RegexOption.IGNORE_CASE)
+        Regex("feature|_t|_r|si", RegexOption.IGNORE_CASE),
+        Regex("\\$(full_url|fallback_url|uri)", RegexOption.IGNORE_CASE)
     )
 
     fun removeShortenerParamsFromUrl(
