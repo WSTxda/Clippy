@@ -9,20 +9,24 @@ object RedirectionHandler {
 
     fun handleRedirection(url: String): String {
         return try {
-            val urlConnection = URL(url).openConnection() as HttpURLConnection
-            urlConnection.instanceFollowRedirects = false
-            urlConnection.connectTimeout = TIMEOUT_MILLIS
-            urlConnection.readTimeout = TIMEOUT_MILLIS
-            urlConnection.connect()
+            var currentUrl = url
+            while (true) {
+                val connection = URL(currentUrl).openConnection() as HttpURLConnection
+                connection.instanceFollowRedirects = false
+                connection.connectTimeout = TIMEOUT_MILLIS
+                connection.readTimeout = TIMEOUT_MILLIS
+                connection.connect()
 
-            if (urlConnection.responseCode in 300..399) {
-                val redirectedUrl = urlConnection.getHeaderField("Location")
-                urlConnection.disconnect()
-                redirectedUrl ?: url
-            } else {
-                urlConnection.disconnect()
-                url
+                if (connection.responseCode in 300..399) {
+                    val location = connection.getHeaderField("Location") ?: break
+                    connection.disconnect()
+                    currentUrl = location
+                } else {
+                    connection.disconnect()
+                    break
+                }
             }
+            currentUrl
         } catch (e: UnknownHostException) {
             url
         } catch (e: Exception) {
