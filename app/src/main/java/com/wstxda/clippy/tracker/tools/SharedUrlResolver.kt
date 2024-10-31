@@ -10,10 +10,9 @@ object SharedUrlResolver {
     suspend fun startResolveUrlUtils(url: String): String {
         return withContext(Dispatchers.IO) {
             try {
-                val redirectedRemover = RedirectionHandler.handleRedirection(url)
-                val shortenerRemover = ShortenerRemover.removeShortenerParamsFromUrl(redirectedRemover)
-                val trackerRemover = CustomTrackerRemover.removeCustomTrackers(shortenerRemover)
-                trackerRemover
+                val redirectedUrl = RedirectionHandler.handleRedirection(url)
+                val shortenerRemoved = ShortenerRemover.removeShortenerParamsFromUrl(redirectedUrl)
+                CustomTrackerRemover.removeCustomTrackers(shortenerRemoved)
             } catch (e: Exception) {
                 url
             }
