@@ -6,23 +6,12 @@ object ShortenerRemover {
     val shortenerRegexes = listOf(
         Regex("trk_\\w+", RegexOption.IGNORE_CASE),
         Regex("aff\\w+", RegexOption.IGNORE_CASE),
-        Regex("(src|source)\\d*", RegexOption.IGNORE_CASE),
-        Regex("(ad|ads)_\\w+", RegexOption.IGNORE_CASE),
-        Regex("session([_\\-])?id", RegexOption.IGNORE_CASE),
-        Regex("sid", RegexOption.IGNORE_CASE),
-        Regex("(clid|clickid|irclickid)", RegexOption.IGNORE_CASE),
-        Regex("utm_\\w+", RegexOption.IGNORE_CASE),
-        Regex("ref", RegexOption.IGNORE_CASE),
-        Regex("campaign[_-]?id", RegexOption.IGNORE_CASE),
-        Regex("promo[_-]?code", RegexOption.IGNORE_CASE),
-        Regex("fbclid", RegexOption.IGNORE_CASE),
-        Regex("gclid", RegexOption.IGNORE_CASE),
-        Regex("msclkid", RegexOption.IGNORE_CASE),
-        Regex("referrer", RegexOption.IGNORE_CASE),
-        Regex("visitor_id", RegexOption.IGNORE_CASE),
-        Regex("tracking_id", RegexOption.IGNORE_CASE),
-        Regex("full_url", RegexOption.IGNORE_CASE),
-        Regex("fallback_url", RegexOption.IGNORE_CASE)
+        Regex("(src|source|utm)_\\w*", RegexOption.IGNORE_CASE),
+        Regex("(ad|ads|advertising)_?\\w*", RegexOption.IGNORE_CASE),
+        Regex("(session|visitor|user|click|tracking|promo|campaign|full|fallback)_?(id|code|url)?", RegexOption.IGNORE_CASE),
+        Regex("fbclid|gclid|msclkid|irclickid|clid", RegexOption.IGNORE_CASE),
+        Regex("ref|referrer", RegexOption.IGNORE_CASE),
+        Regex("si|feature|_t|_r", RegexOption.IGNORE_CASE)
     )
 
     fun removeShortenerParamsFromUrl(
