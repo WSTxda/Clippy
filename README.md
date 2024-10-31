@@ -7,17 +7,21 @@ Easily copy links directly from your device's sharing menu, with built-in suppor
 
 ### How to use?
 
- **Select a Link**  
-   - Choose any link by either tapping on it or using the "Share" option within any app.
+**1. Select a Link**
 
-**Copy the Link**  
-   - **To copy the link as-is**:  
-     Select **"Copy Link"** to copy the original, unmodified link to your clipboard.
-   - **To clean the link**:  
-     Select **"Copy Link (Clean)"** to copy a version of the link that has been stripped of shorteners and tracking parameters.
+* Choose any link by either tapping on it or using the "Share" option within any app.
 
-**Paste the Link Anywhere**  
-   - Once copied, your link (either original or cleaned) will be ready for you to paste wherever needed.
+**2. Copy the Link**
+
+- To copy the link as-is:
+  - Select `Copy Link` to copy the original, unmodified link to your clipboard.
+
+- To clean the link:
+  - Select `Copy Link (Clean)` to copy a version of the link that has been stripped of shorteners and tracking parameters.
+
+**3. Paste the Link Anywhere**
+
+* Once copied, your link (either original or cleaned) will be ready for you to paste wherever needed.
 
 ### Download
 
