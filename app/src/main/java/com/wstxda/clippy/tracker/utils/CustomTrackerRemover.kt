@@ -4,7 +4,6 @@ import android.net.Uri
 import com.wstxda.clippy.tracker.provider.TrackingParametersProvider
 
 object CustomTrackerRemover {
-
     private val trackingParameters: Set<String> = TrackingParametersProvider.getTrackingFilterList()
 
     fun removeCustomTrackers(
