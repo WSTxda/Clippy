@@ -30,7 +30,7 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
         }
     }
 
-    private fun safeUrlProcessing(url: String, process: (String) -> String): String {
+    private suspend fun safeUrlProcessing(url: String, process: suspend (String) -> String): String {
         return try {
             process(url)
         } catch (e: Exception) {
