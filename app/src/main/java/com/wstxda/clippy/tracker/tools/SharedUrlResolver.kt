@@ -9,17 +9,13 @@ import kotlinx.coroutines.withContext
 object SharedUrlResolver {
     suspend fun startResolveUrlUtils(url: String): String {
         return withContext(Dispatchers.IO) {
-            val redirectedRemover = safeUrlProcessing(url) { RedirectionHandler.handleRedirection(it) }
-            val shortenerRemover = ShortenerRemover.removeShortenerParamsFromUrl(redirectedRemover)
-            CustomTrackerRemover.removeCustomTrackers(shortenerRemover)
-        }
-    }
-
-    private fun safeUrlProcessing(url: String, process: (String) -> String): String {
-        return try {
-            process(url)
-        } catch (e: Exception) {
-            url
+            try {
+                val redirectedUrl = RedirectionHandler.handleRedirection(url)
+                val cleanedUrl = ShortenerRemover.removeShortenerParamsFromUrl(redirectedUrl)
+                CustomTrackerRemover.removeCustomTrackers(cleanedUrl)
+            } catch (e: Exception) {
+                url
+            }
         }
     }
 }
