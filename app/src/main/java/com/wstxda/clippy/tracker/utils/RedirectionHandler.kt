@@ -16,9 +16,9 @@ object RedirectionHandler {
             urlConnection.connect()
 
             if (urlConnection.responseCode in 300..399) {
-                val redirectedUrl = urlConnection.getHeaderField("Location")
+                val redirectedUrl = urlConnection.getHeaderField("Location") ?: url
                 urlConnection.disconnect()
-                redirectedUrl ?: url
+                redirectedUrl
             } else {
                 urlConnection.disconnect()
                 url
