@@ -13,9 +13,7 @@ object RedirectionHandler {
             when (responseCode) {
                 in 300..399 -> {
                     UrlConnectionManager.getRedirectLocation()?.let { location ->
-                        if (isValidUrl(location)) {
-                            location
-                        } else {
+                        location.takeIf { isValidUrl(it) } ?: run {
                             Log.e("RedirectionHandler", "Invalid redirection URL: $location")
                             url
                         }

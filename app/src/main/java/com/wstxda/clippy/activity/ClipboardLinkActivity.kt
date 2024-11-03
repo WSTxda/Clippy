@@ -30,11 +30,14 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
     }
 
     private fun handleLink(sharedLink: String?) {
-        val extractedLink = sharedLink?.let { TextCleaner.extractUrl(it) }
+        val links = sharedLink?.split("\\s+".toRegex()) ?: emptyList()
+        val cleanedLinks = links.mapNotNull { url ->
+            TextCleaner.extractUrl(url)?.takeIf { isValidUrl(it) }
+        }
 
-        if (!extractedLink.isNullOrEmpty() && isValidUrl(extractedLink)) {
-            processLink(extractedLink)
-        } else {
+        cleanedLinks.takeIf { it.isNotEmpty() }?.let {
+            processLink(it.joinToString("\n"))
+        } ?: run {
             showToast(getString(R.string.copy_failure))
             finishActivity()
         }

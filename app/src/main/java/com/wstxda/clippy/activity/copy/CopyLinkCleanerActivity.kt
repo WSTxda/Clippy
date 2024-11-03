@@ -10,13 +10,17 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
 
     override fun processLink(link: String) {
         lifecycleScope.launch {
-            val cleanedLinks = link.split("\\s+".toRegex()).map { url ->
-                UrlCleaner.startUrlCleanerModules(url)
-            }
-            val finalCleanedLinks = cleanedLinks.joinToString("\n")
-            copyLinkToClipboard(finalCleanedLinks)
+            val cleanedLinks = cleanLinks(link)
+            copyLinkToClipboard(cleanedLinks)
             showToast(getString(R.string.copy_success))
             finishActivity()
         }
+    }
+
+    private suspend fun cleanLinks(link: String): String {
+        val cleanedUrls = link.split("\\s+".toRegex()).map { url ->
+            UrlCleaner.startUrlCleanerModules(url)
+        }
+        return cleanedUrls.joinToString("\n")
     }
 }

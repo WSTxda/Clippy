@@ -16,13 +16,12 @@ object TrackerRemover {
         val allTrackingParameters = trackingParameters + customTrackingParameters
 
         return uri.buildUpon().clearQuery().apply {
-            uri.queryParameterNames.forEach { param ->
-                if (param !in allTrackingParameters && !isTrackingParameter(param)) {
+            uri.queryParameterNames.filter { it !in allTrackingParameters && !isTrackingParameter(it) }
+                .forEach { param ->
                     uri.getQueryParameter(param)?.let { value ->
                         appendQueryParameter(param, value)
                     }
                 }
-            }
         }.build().toString()
     }
 
