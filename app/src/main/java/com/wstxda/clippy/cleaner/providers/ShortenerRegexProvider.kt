@@ -1,4 +1,4 @@
-package com.wstxda.clippy.cleaner.provider
+package com.wstxda.clippy.cleaner.providers
 
 object ShortenerRegexProvider {
     val shortenerRegexes = listOf(
