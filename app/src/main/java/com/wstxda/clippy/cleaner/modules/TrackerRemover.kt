@@ -1,8 +1,8 @@
 package com.wstxda.clippy.cleaner.modules
 
 import android.net.Uri
-import com.wstxda.clippy.cleaner.provider.TrackingParametersProvider
-import com.wstxda.clippy.cleaner.provider.ShortenerRegexProvider
+import com.wstxda.clippy.cleaner.providers.TrackingParametersProvider
+import com.wstxda.clippy.cleaner.providers.ShortenerRegexProvider
 
 object TrackerRemover {
 

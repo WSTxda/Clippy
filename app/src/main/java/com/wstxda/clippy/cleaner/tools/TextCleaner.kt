@@ -1,6 +1,6 @@
 package com.wstxda.clippy.cleaner.tools
 
-import com.wstxda.clippy.cleaner.provider.TextRegexProvider
+import com.wstxda.clippy.cleaner.providers.TextRegexProvider
 
 object TextCleaner {
 
