@@ -1,4 +1,4 @@
-package com.wstxda.clippy.tracker.utils
+package com.wstxda.clippy.cleaner.modules
 
 import java.net.HttpURLConnection
 import java.net.URL
@@ -7,7 +7,7 @@ import java.net.UnknownHostException
 object RedirectionHandler {
     private const val TIMEOUT_MILLIS = 3000
 
-    fun handleRedirection(url: String): String {
+    fun resolveRedirectionParams(url: String): String {
         return try {
             val urlConnection = URL(url).openConnection() as HttpURLConnection
             urlConnection.instanceFollowRedirects = false

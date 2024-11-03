@@ -1,8 +1,6 @@
-package com.wstxda.clippy.tracker.utils
+package com.wstxda.clippy.cleaner.provider
 
-import android.net.Uri
-
-object ShortenerRemover {
+object ShortenerRegexProvider {
     val shortenerRegexes = listOf(
         Regex("trk_\\w+", RegexOption.IGNORE_CASE),
         Regex("aff\\w+", RegexOption.IGNORE_CASE),
@@ -31,30 +29,4 @@ object ShortenerRemover {
         Regex("fallback_url", RegexOption.IGNORE_CASE),
         Regex("feature", RegexOption.IGNORE_CASE)
     )
-
-    fun removeShortenerParamsFromUrl(
-        url: String, shortenerParameters: Set<String> = emptySet()
-    ): String {
-        val uri = Uri.parse(url)
-        val cleanUriBuilder = uri.buildUpon().clearQuery()
-
-        uri.queryParameterNames.forEach { queryParam ->
-            if (queryParam !in shortenerParameters && !isShortenerParameter(queryParam)) {
-                uri.getQueryParameter(queryParam)?.let { value ->
-                    cleanUriBuilder.appendQueryParameter(queryParam, value)
-                }
-            }
-        }
-
-        val cleanUri = cleanUriBuilder.build().toString()
-        return if (uri.fragment != null) {
-            "$cleanUri#${uri.fragment}"
-        } else {
-            cleanUri
-        }
-    }
-
-    private fun isShortenerParameter(param: String): Boolean {
-        return shortenerRegexes.any { it.matches(param) }
-    }
 }
