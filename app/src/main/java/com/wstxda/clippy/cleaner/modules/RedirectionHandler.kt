@@ -1,25 +1,18 @@
 package com.wstxda.clippy.cleaner.modules
 
-import java.net.HttpURLConnection
 import java.net.URL
 import android.util.Log
+import com.wstxda.clippy.cleaner.modules.utils.UrlConnectionManager
 
 object RedirectionHandler {
-    private const val TIMEOUT_MILLIS = 3000
+    const val TIMEOUT_MILLIS = 3000
 
     fun resolveRedirectionParams(url: String): String {
-        var urlConnection: HttpURLConnection? = null
         return try {
-            urlConnection = (URL(url).openConnection() as HttpURLConnection).apply {
-                instanceFollowRedirects = false
-                connectTimeout = TIMEOUT_MILLIS
-                readTimeout = TIMEOUT_MILLIS
-                connect()
-            }
-
-            when (urlConnection.responseCode) {
+            val responseCode = UrlConnectionManager.connect(url)
+            when (responseCode) {
                 in 300..399 -> {
-                    urlConnection.getHeaderField("Location")?.let { location ->
+                    UrlConnectionManager.getRedirectLocation()?.let { location ->
                         if (isValidUrl(location)) {
                             location
                         } else {
@@ -35,7 +28,7 @@ object RedirectionHandler {
             Log.e("RedirectionHandler", "Error resolving URL: ${e.message}", e)
             url
         } finally {
-            urlConnection?.disconnect()
+            UrlConnectionManager.disconnect()
         }
     }
 
