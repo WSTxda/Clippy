@@ -10,22 +10,19 @@ object ShortenerRemover {
     ): String {
         val uri = Uri.parse(url) ?: return url
 
-        val cleanUriBuilder = uri.buildUpon().clearQuery()
-
-        uri.queryParameterNames.forEach { queryParam ->
-            if (queryParam !in shortenerParameters && !isShortenerParameter(queryParam)) {
+        val cleanUri = uri.buildUpon().clearQuery().apply {
+            uri.queryParameterNames.filter { queryParam ->
+                queryParam !in shortenerParameters && !isShortenerParameter(
+                    queryParam
+                )
+            }.forEach { queryParam ->
                 uri.getQueryParameter(queryParam)?.let { value ->
-                    cleanUriBuilder.appendQueryParameter(queryParam, value)
+                    appendQueryParameter(queryParam, value)
                 }
             }
-        }
+        }.build().toString()
 
-        val cleanUri = cleanUriBuilder.build().toString()
-        return if (uri.fragment != null) {
-            "$cleanUri#${uri.fragment}"
-        } else {
-            cleanUri
-        }
+        return uri.fragment?.let { "$cleanUri#$it" } ?: cleanUri
     }
 
     private fun isShortenerParameter(param: String): Boolean {

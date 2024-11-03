@@ -14,7 +14,7 @@ object UrlConnectionManager {
             readTimeout = RedirectionHandler.TIMEOUT_MILLIS
             connect()
         }
-        return urlConnection!!.responseCode
+        return urlConnection?.responseCode ?: -1
     }
 
     fun getRedirectLocation(): String? {
@@ -23,5 +23,6 @@ object UrlConnectionManager {
 
     fun disconnect() {
         urlConnection?.disconnect()
+        urlConnection = null
     }
 }

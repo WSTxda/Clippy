@@ -24,7 +24,7 @@ object TrackingParametersProvider {
             "session", "session_id", "session_user_id",
             "segment_id",
             "source", "source_id",
-            "social_id",
+            "social_id", "share_id",
             "sub1", "sub2", "sub3", "sub4",
             "tracking", "tracking_id", "track", "track_id",
             "tid", "trk", "trk_id",
