@@ -7,16 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object UrlCleaner {
-    suspend fun startUrlCleanerModules(url: String): String {
-        return withContext(Dispatchers.IO) {
-            try {
-                val redirectedRemover = RedirectionHandler.resolveRedirectionParams(url)
-                val shortenerRemover = ShortenerRemover.removeShortenerParams(redirectedRemover)
-                val trackerRemover = TrackerRemover.removeTrackersParams(shortenerRemover)
-                trackerRemover
-            } catch (e: Exception) {
-                url
-            }
-        }
+    suspend fun startUrlCleanerModules(url: String): String = withContext(Dispatchers.IO) {
+        runCatching {
+            url.let { RedirectionHandler.resolveRedirectionParams(it) }
+                .let { ShortenerRemover.removeShortenerParams(it) }
+                .let { TrackerRemover.removeTrackersParams(it) }
+        }.getOrElse { url }
     }
 }
