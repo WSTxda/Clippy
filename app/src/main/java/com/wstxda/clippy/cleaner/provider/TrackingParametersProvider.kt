@@ -1,4 +1,4 @@
-package com.wstxda.clippy.tracker.provider
+package com.wstxda.clippy.cleaner.provider
 
 object TrackingParametersProvider {
     fun getTrackingFilterList(): Set<String> {
