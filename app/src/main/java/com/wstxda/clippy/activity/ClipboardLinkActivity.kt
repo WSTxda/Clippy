@@ -4,11 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import com.wstxda.clippy.R
 import com.wstxda.clippy.cleaner.tools.TextCleaner
+import java.net.URL
 
 abstract class ClipboardLinkActivity : AppCompatActivity() {
 
@@ -30,7 +32,7 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
     private fun handleLink(sharedLink: String?) {
         val extractedLink = sharedLink?.let { TextCleaner.extractUrl(it) }
 
-        if (!extractedLink.isNullOrEmpty()) {
+        if (!extractedLink.isNullOrEmpty() && isValidUrl(extractedLink)) {
             processLink(extractedLink)
         } else {
             showToast(getString(R.string.copy_failure))
@@ -52,5 +54,15 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
 
     protected fun finishActivity() {
         finish()
+    }
+
+    private fun isValidUrl(url: String): Boolean {
+        return try {
+            URL(url).toURI()
+            true
+        } catch (e: Exception) {
+            Log.e("ClipboardLinkActivity", "Invalid URL: $url", e)
+            false
+        }
     }
 }
