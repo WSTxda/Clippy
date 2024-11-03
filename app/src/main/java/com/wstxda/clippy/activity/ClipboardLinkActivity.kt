@@ -14,9 +14,16 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedLink = intent.getStringExtra(Intent.EXTRA_TEXT)?.trim() ?: intent.getStringExtra(
-            Intent.EXTRA_SUBJECT
-        )?.trim()
+        val action = intent.action
+        val sharedLink = when {
+            action == Intent.ACTION_PROCESS_TEXT -> intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
+                ?.trim()
+
+            action == Intent.ACTION_SEND -> intent.getStringExtra(Intent.EXTRA_TEXT)?.trim()
+                ?: intent.getStringExtra(Intent.EXTRA_SUBJECT)?.trim()
+
+            else -> null
+        }
 
         handleLink(sharedLink)
     }
