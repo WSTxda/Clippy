@@ -8,7 +8,8 @@ object ShortenerRemover {
     fun removeShortenerParams(
         url: String, shortenerParameters: Set<String> = emptySet()
     ): String {
-        val uri = Uri.parse(url)
+        val uri = Uri.parse(url) ?: return url
+
         val cleanUriBuilder = uri.buildUpon().clearQuery()
 
         uri.queryParameterNames.forEach { queryParam ->
