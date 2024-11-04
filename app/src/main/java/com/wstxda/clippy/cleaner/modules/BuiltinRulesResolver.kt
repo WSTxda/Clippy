@@ -24,31 +24,4 @@ object BuiltinRulesResolver {
 
         return hostMatches && pathMatches && queryMatches
     }
-
-    fun extractQueryParameter(url: String, param: String): String? {
-        return Uri.parse(url).getQueryParameter(param)
-    }
-
-    fun setEncodedQuery(url: String, newQuery: String?): String {
-        return Uri.parse(url).buildUpon().encodedQuery(newQuery).build().toString()
-    }
-
-    fun clearQuery(url: String): String {
-        return setEncodedQuery(url, null)
-    }
-
-    fun retainSpecificQueryParameters(url: String, paramsPattern: String): String {
-        val uri = Uri.parse(url)
-        val newBuilder = uri.buildUpon().clearQuery()
-
-        uri.queryParameterNames.filter { it.matches(Regex(paramsPattern)) }.forEach { queryParam ->
-            newBuilder.appendQueryParameter(queryParam, uri.getQueryParameter(queryParam))
-        }
-
-        return newBuilder.build().toString()
-    }
-
-    fun updatePathWithoutTrailingId(url: String, newPath: String): String {
-        return Uri.parse(url).buildUpon().encodedPath(newPath).build().toString()
-    }
 }
