@@ -6,8 +6,8 @@ import kotlinx.coroutines.withContext
 
 object UrlCleaner {
     private val applyCleaningModules = listOf(
-        BuiltinRulesResolver::applyBuiltinRules,
         RedirectionHandler::resolveRedirectionParams,
+        BuiltinRulesResolver::applyBuiltinRules,
         ShortenerRemover::removeShortenerParams,
         TrackerRemover::removeTrackersParams
     )
