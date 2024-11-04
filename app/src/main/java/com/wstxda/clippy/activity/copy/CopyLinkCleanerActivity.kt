@@ -10,10 +10,17 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
 
     override fun processLink(link: String) {
         lifecycleScope.launch {
-            val cleanedLinks = cleanLinks(link)
-            copyLinkToClipboard(cleanedLinks)
-            showToast(getString(R.string.copy_success))
-            finishActivity()
+            try {
+                val cleanedLinks = cleanLinks(link)
+                if (cleanedLinks.isNotEmpty()) {
+                    copyLinkToClipboard(cleanedLinks)
+                    showToast(getString(R.string.copy_success))
+                } else {
+                    handleFailure()
+                }
+            } catch (e: Exception) {
+                handleFailure()
+            }
         }
     }
 
@@ -21,6 +28,6 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
         val cleanedUrls = link.split("\\s+".toRegex()).map { url ->
             UrlCleaner.startUrlCleanerModules(url)
         }
-        return cleanedUrls.joinToString("\n")
+        return cleanedUrls.joinToString("\n").takeIf { it.isNotBlank() } ?: ""
     }
 }

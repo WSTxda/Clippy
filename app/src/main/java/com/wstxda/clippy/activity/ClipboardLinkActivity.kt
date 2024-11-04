@@ -35,12 +35,16 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
             TextCleaner.extractUrl(url)?.takeIf { isValidUrl(it) }
         }
 
-        cleanedLinks.takeIf { it.isNotEmpty() }?.let {
-            processLink(it.joinToString("\n"))
-        } ?: run {
-            showToast(getString(R.string.copy_failure))
-            finishActivity()
+        if (cleanedLinks.isNotEmpty()) {
+            processLink(cleanedLinks.joinToString("\n"))
+        } else {
+            handleFailure()
         }
+    }
+
+    fun handleFailure() {
+        showToast(getString(R.string.copy_failure))
+        finishActivity()
     }
 
     protected abstract fun processLink(link: String)
@@ -48,7 +52,7 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
     protected fun copyLinkToClipboard(link: CharSequence) {
         getSystemService<ClipboardManager>()?.setPrimaryClip(
             ClipData.newPlainText("link", link)
-        )
+        ) ?: showToast(getString(R.string.copy_failure))
     }
 
     protected fun showToast(message: String) {
