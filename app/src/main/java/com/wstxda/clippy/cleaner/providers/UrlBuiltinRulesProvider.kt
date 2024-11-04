@@ -81,6 +81,62 @@ object UrlBuiltinRulesProvider {
         BuiltinRulesData(
             pattern = Regex("www\\.aliexpress\\.com|m\\.aliexpress\\.com"),
             apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.amazon\\.com\\.br"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("shopee\\.com\\.br"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("br\\.temu\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.twitter\\.com|x\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.whatsapp\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.netflix\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.discord\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.ebay\\.com"),
+            apply = { url -> retainParameters(url, "id|item_id") }
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.tripadvisor\\.com"),
+            apply = { url -> retainParameters(url, "ref|adid") }
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.wikipedia\\.org"),
+            apply = { url -> retainParameters(url, "oldid|diff") }
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.yelp\\.com"),
+            apply = { url -> retainParameters(url, "ref") }
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.soundcloud\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.coursera\\.org"),
+            apply = { url -> retainParameters(url, "utm_source|utm_medium|utm_campaign") }
+        ),
+        BuiltinRulesData(
+            pattern = Regex("www\\.tumblr\\.com"),
+            apply = ::clearQuery
         )
     )
 
