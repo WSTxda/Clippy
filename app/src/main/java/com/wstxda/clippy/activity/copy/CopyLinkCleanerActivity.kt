@@ -15,6 +15,7 @@ class CopyLinkCleanerActivity : ClipboardLinkActivity() {
                 if (cleanedLinks.isNotEmpty()) {
                     copyLinkToClipboard(cleanedLinks)
                     showToast(getString(R.string.copy_success))
+                    finishActivity()
                 } else {
                     handleFailure()
                 }
