@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name" translatable="false">Clippy</string>
 
-    <string name="copy_link">Αντριγραφή Συνδέσμου</string>
+    <string name="copy_link">Αντιγραφή Συνδέσμου</string>
     <string name="copy_link_cleaner">Αντιγραφή Καθαρού Συνδέσμου</string>
 
-    <string name="copy_success">Αντριγράφηκε στο πρόχειρο</string>
+    <string name="copy_success">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_failure">Δεν είναι δυνατή η αντιγραφή του συνδέσμου</string>
 </resources>
