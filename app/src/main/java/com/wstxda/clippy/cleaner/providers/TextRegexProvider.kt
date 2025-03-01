@@ -1,5 +1,6 @@
 package com.wstxda.clippy.cleaner.providers
 
 object TextRegexProvider {
-    val urlRegex = """(https?://\S+)""".toRegex()
+    private val schemesRegex = UrlSchemeProvider.supportedSchemes.joinToString("|") { it.scheme }
+    val urlRegex = """($schemesRegex):\S+""".toRegex()
 }
