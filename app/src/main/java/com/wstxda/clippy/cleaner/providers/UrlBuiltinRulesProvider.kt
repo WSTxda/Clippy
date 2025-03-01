@@ -47,7 +47,7 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex("open\\.spotify\\.com"),
-            apply = ::clearQuery
+            apply = { url -> retainParameters(url, "si") }
         ),
         BuiltinRulesData(
             pattern = Regex("bit\\.ly|tinyurl\\.com|goo\\.gl|ow\\.ly|rebrand\\.ly|snip\\.ly"),
@@ -144,22 +144,24 @@ object UrlBuiltinRulesProvider {
     }
 
     private fun clearQuery(url: String): String {
-        return Uri.parse(url).buildUpon().clearQuery().build().toString()
+        val uri = Uri.parse(url)
+        return uri.buildUpon().clearQuery().scheme(uri.scheme).authority(uri.authority)
+            .path(uri.path).build().toString()
     }
 
     private fun retainParameters(url: String, regexPattern: String): String {
         val uri = Uri.parse(url)
         val regex = Regex(regexPattern)
         return uri.buildUpon().clearQuery().apply {
-            uri.queryParameterNames
-                .filter { regex.matches(it) }
+            uri.queryParameterNames.filter { regex.matches(it) }
                 .forEach { param -> appendQueryParameter(param, uri.getQueryParameter(param)) }
-        }.build().toString()
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
     }
 
     private fun clearTrailingId(url: String): String {
         val uri = Uri.parse(url)
         val modifiedPath = uri.path?.replace("/[0-9]+/?$".toRegex(), "") ?: uri.path
-        return uri.buildUpon().path(modifiedPath).build().toString()
+        return uri.buildUpon().path(modifiedPath).scheme(uri.scheme).authority(uri.authority)
+            .build().toString()
     }
 }
