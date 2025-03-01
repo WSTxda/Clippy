@@ -13,6 +13,7 @@ object ShortenerRemover {
                 uri.getQueryParameter(param)?.let { value -> appendQueryParameter(param, value) }
             }
         }.build().toString()
-        return uri.fragment?.let { "$cleanUri#$it" } ?: cleanUri
+        val fragment = uri.fragment
+        return if (fragment != null && !cleanUri.contains("#$fragment")) "$cleanUri#$fragment" else cleanUri
     }
 }
