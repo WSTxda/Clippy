@@ -1,5 +1,6 @@
 package com.wstxda.clippy.activity.copy
 
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.wstxda.clippy.R
 import com.wstxda.clippy.activity.ClipboardLinkActivity
@@ -8,27 +9,22 @@ import kotlinx.coroutines.launch
 
 class CopyLinkCleanerActivity : ClipboardLinkActivity() {
 
-    override fun processLink(link: String) {
+    override fun processLink(validLinks: List<String>) {
         lifecycleScope.launch {
             try {
-                val cleanedLinks = cleanLinks(link)
+                val cleanedLinks = validLinks.map { url ->
+                    UrlCleaner.startUrlCleanerModules(url)
+                }.filter { it.isNotBlank() }
+
                 if (cleanedLinks.isNotEmpty()) {
-                    copyLinkToClipboard(cleanedLinks)
-                    showToast(getString(R.string.copy_success))
-                    finishActivity()
+                    handleSuccess(cleanedLinks.joinToString("\n"))
                 } else {
-                    handleFailure()
+                    handleFailure(getString(R.string.copy_failure_no_valid_links))
                 }
             } catch (e: Exception) {
-                handleFailure()
+                Log.e("CopyLinkCleaner", "Error cleaning links: ${e.message}", e)
+                handleFailure(getString(R.string.copy_failure_error_cleaning))
             }
         }
-    }
-
-    private suspend fun cleanLinks(link: String): String {
-        val cleanedUrls = link.split("\\s+".toRegex()).map { url ->
-            UrlCleaner.startUrlCleanerModules(url)
-        }
-        return cleanedUrls.joinToString("\n").takeIf { it.isNotBlank() } ?: ""
     }
 }

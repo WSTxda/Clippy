@@ -4,7 +4,6 @@ import android.util.Log
 import com.wstxda.clippy.cleaner.modules.utils.UrlConnectionManager
 
 object RedirectionHandler {
-
     fun resolveRedirectionParams(url: String): String {
         return try {
             val responseCode = UrlConnectionManager.connect(url)

@@ -30,35 +30,41 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
 
     private fun handleLink(sharedLink: String?) {
         val links = sharedLink?.split("\\s+".toRegex()) ?: emptyList()
-        val cleanedLinks = links.mapNotNull { url ->
+        val validLinks = links.mapNotNull { url ->
             TextCleaner.extractUrl(url)?.takeIf { UrlValidator.isValidUrl(it) }
         }
 
-        if (cleanedLinks.isNotEmpty()) {
-            processLink(cleanedLinks.joinToString("\n"))
+        if (validLinks.isNotEmpty()) {
+            processLink(validLinks)
         } else {
             handleFailure()
         }
     }
 
-    fun handleFailure() {
-        showToast(getString(R.string.copy_failure))
+    protected fun handleFailure(message: String = getString(R.string.copy_failure)) {
+        showToast(message)
         finishActivity()
     }
 
-    protected abstract fun processLink(link: String)
+    protected fun handleSuccess(link: CharSequence) {
+        copyLinkToClipboard(link)
+        showToast(getString(R.string.copy_success))
+        finishActivity()
+    }
 
-    protected fun copyLinkToClipboard(link: CharSequence) {
+    protected abstract fun processLink(validLinks: List<String>)
+
+    private fun copyLinkToClipboard(link: CharSequence) {
         getSystemService<ClipboardManager>()?.setPrimaryClip(
             ClipData.newPlainText("link", link)
         ) ?: showToast(getString(R.string.copy_failure))
     }
 
-    protected fun showToast(message: String) {
+    private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    protected fun finishActivity() {
+    private fun finishActivity() {
         finish()
     }
 }

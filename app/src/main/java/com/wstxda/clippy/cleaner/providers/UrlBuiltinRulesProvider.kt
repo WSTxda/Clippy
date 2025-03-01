@@ -4,7 +4,6 @@ import android.net.Uri
 import com.wstxda.clippy.cleaner.modules.utils.BuiltinRulesData
 
 object UrlBuiltinRulesProvider {
-
     val builtinRulesData: List<BuiltinRulesData> = listOf(
         BuiltinRulesData(
             pattern = Regex("www\\.douban\\.com"),
@@ -151,7 +150,6 @@ object UrlBuiltinRulesProvider {
     private fun retainParameters(url: String, regexPattern: String): String {
         val uri = Uri.parse(url)
         val regex = Regex(regexPattern)
-
         return uri.buildUpon().clearQuery().apply {
             uri.queryParameterNames
                 .filter { regex.matches(it) }

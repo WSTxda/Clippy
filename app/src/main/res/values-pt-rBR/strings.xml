@@ -5,4 +5,7 @@
 
     <string name="copy_success">Copiado para área de transferência</string>
     <string name="copy_failure">Não foi possível copiar o link</string>
+
+    <string name="copy_failure_no_valid_links">Nenhum link válido encontrado</string>
+    <string name="copy_failure_error_cleaning">Erro ao limpar links</string>
 </resources>

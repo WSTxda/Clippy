@@ -7,4 +7,7 @@
 
     <string name="copy_success">Copiado al portapapeles</string>
     <string name="copy_failure">Link imposible de copiar</string>
+
+    <string name="copy_failure_no_valid_links">No se encontraron enlaces válidos</string>
+    <string name="copy_failure_error_cleaning">Error al limpiar enlaces</string>
 </resources>

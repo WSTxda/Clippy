@@ -7,4 +7,7 @@
 
     <string name="copy_success">Copied to clipboard</string>
     <string name="copy_failure">Unable to copy link</string>
+
+    <string name="copy_failure_no_valid_links">No valid links found</string>
+    <string name="copy_failure_error_cleaning">Error cleaning links</string>
 </resources>

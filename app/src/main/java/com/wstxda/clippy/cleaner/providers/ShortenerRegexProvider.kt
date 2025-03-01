@@ -27,6 +27,6 @@ object ShortenerRegexProvider {
         Regex("trk_\\w+", RegexOption.IGNORE_CASE),
         Regex("utm_(adgroup|campaign|content|medium|ref|source|term|term_id)", RegexOption.IGNORE_CASE),
         Regex("user_id", RegexOption.IGNORE_CASE),
-        Regex("visitor_id", RegexOption.IGNORE_CASE),
+        Regex("visitor_id", RegexOption.IGNORE_CASE)
     )
 }
