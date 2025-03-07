@@ -1,26 +1,22 @@
 package com.wstxda.clippy.cleaner.modules.utils
 
-import java.net.HttpURLConnection
-import java.net.URL
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.util.concurrent.TimeUnit
 
 object UrlConnectionManager {
-    private var urlConnection: HttpURLConnection? = null
-    private const val DEFAULT_TIMEOUT_MILLIS = 3000
+    private val client = OkHttpClient.Builder()
+        .followRedirects(false)
+        .connectTimeout(3, TimeUnit.SECONDS)
+        .readTimeout(3, TimeUnit.SECONDS)
+        .build()
 
-    fun connect(url: String): Int {
-        urlConnection = (URL(url).openConnection() as HttpURLConnection).apply {
-            instanceFollowRedirects = false
-            connectTimeout = DEFAULT_TIMEOUT_MILLIS
-            readTimeout = DEFAULT_TIMEOUT_MILLIS
-            connect()
+    suspend fun connect(url: String): Pair<Int, String?> = withContext(Dispatchers.IO) {
+        val request = Request.Builder().url(url).build()
+        client.newCall(request).execute().use { response ->
+            Pair(response.code, response.header("Location"))
         }
-        return urlConnection?.responseCode ?: -1
-    }
-
-    fun getRedirectLocation(): String? = urlConnection?.getHeaderField("Location")
-
-    fun disconnect() {
-        urlConnection?.disconnect()
-        urlConnection = null
     }
 }
