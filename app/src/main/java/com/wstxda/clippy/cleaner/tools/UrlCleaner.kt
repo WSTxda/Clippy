@@ -9,9 +9,9 @@ import kotlinx.coroutines.withContext
 object UrlCleaner {
     private val applyCleaningModules =
         listOf<suspend (String) -> String>({ url -> RedirectionHandler.resolveRedirectionParams(url) },
-            { url -> BuiltinRulesResolver.applyBuiltinRules(url) },
+            { url -> TrackerRemover.removeTrackersParams(url) },
             { url -> ShortenerRemover.removeShortenerParams(url) },
-            { url -> TrackerRemover.removeTrackersParams(url) })
+            { url -> BuiltinRulesResolver.applyBuiltinRules(url) })
 
     suspend fun startUrlCleanerModules(url: String): String = withContext(Dispatchers.IO) {
         val uri = Uri.parse(url)
