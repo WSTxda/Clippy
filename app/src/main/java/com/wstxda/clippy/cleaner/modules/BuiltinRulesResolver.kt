@@ -18,8 +18,8 @@ object BuiltinRulesResolver {
     private fun matchesPattern(url: String, rule: BuiltinRulesData): Boolean {
         val uri = Uri.parse(url)
         val hostMatches = uri.host?.matches(rule.pattern) ?: false
-        val pathMatches = rule.pathPattern?.let { uri.path?.matches(Regex(it)) } ?: true
-        val queryMatches = rule.queryPattern?.let { uri.query?.matches(Regex(it)) } ?: true
+        val pathMatches = rule.pathPattern?.let { uri.path?.matches(it) } ?: true
+        val queryMatches = rule.queryPattern?.let { uri.query?.matches(it) } ?: true
         return hostMatches && pathMatches && queryMatches
     }
 }

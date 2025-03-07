@@ -7,13 +7,13 @@ object UrlBuiltinRulesProvider {
     val builtinRulesData: List<BuiltinRulesData> = listOf(
         BuiltinRulesData(
             pattern = Regex("www\\.douban\\.com"),
-            pathPattern = "/link2/",
-            queryPattern = ".*\\burl=.+",
+            pathPattern = Regex("/link2/"),
+            queryPattern = Regex(".*\\burl=.+"),
             apply = { url -> extractParameter(url, "url") ?: url }
         ),
         BuiltinRulesData(
             pattern = Regex("link\\.zhihu\\.com"),
-            queryPattern = ".*\\btarget=.+",
+            queryPattern = Regex(".*\\btarget=.+"),
             apply = { url -> extractParameter(url, "target") ?: url }
         ),
         BuiltinRulesData(
@@ -22,7 +22,7 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex("(.+\\.stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com"),
-            pathPattern = "/[aq]/[0-9]+/[0-9]+/?",
+            pathPattern = Regex("/[aq]/[0-9]+/[0-9]+/?"),
             apply = { url -> clearTrailingId(url) }
         ),
         BuiltinRulesData(
