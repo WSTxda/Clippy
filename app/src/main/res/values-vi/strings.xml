@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Clippy</string>
+
+    <string name="copy_link">Sao chép liên kết</string>
+    <string name="copy_link_cleaner">Sao chép liên kết đã làm sạch</string>
+
+    <string name="copy_success">Đã sao chép vào bảng nhớ tạm</string>
+    <string name="copy_failure">Không thể sao chép liên kết</string>
+
+    <string name="copy_failure_no_valid_links">Không tìm thấy đường link hợp lệ</string>
+    <string name="copy_failure_error_cleaning">Không thể làm sạch đường link</string>
+</resources>
