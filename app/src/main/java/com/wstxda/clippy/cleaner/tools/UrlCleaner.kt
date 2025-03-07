@@ -7,12 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object UrlCleaner {
-    private val applyCleaningModules = listOf(
-        RedirectionHandler::resolveRedirectionParams,
-        BuiltinRulesResolver::applyBuiltinRules,
-        ShortenerRemover::removeShortenerParams,
-        TrackerRemover::removeTrackersParams
-    )
+    private val applyCleaningModules =
+        listOf<suspend (String) -> String>({ url -> RedirectionHandler.resolveRedirectionParams(url) },
+            { url -> BuiltinRulesResolver.applyBuiltinRules(url) },
+            { url -> ShortenerRemover.removeShortenerParams(url) },
+            { url -> TrackerRemover.removeTrackersParams(url) })
 
     suspend fun startUrlCleanerModules(url: String): String = withContext(Dispatchers.IO) {
         val uri = Uri.parse(url)

@@ -5,16 +5,17 @@ import androidx.lifecycle.lifecycleScope
 import com.wstxda.clippy.R
 import com.wstxda.clippy.activity.ClipboardLinkActivity
 import com.wstxda.clippy.cleaner.tools.UrlCleaner
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class CopyLinkCleanerActivity : ClipboardLinkActivity() {
-
     override fun processLink(validLinks: List<String>) {
         lifecycleScope.launch {
             try {
                 val cleanedLinks = validLinks.map { url ->
-                    UrlCleaner.startUrlCleanerModules(url)
-                }.filter { it.isNotBlank() }
+                    async { UrlCleaner.startUrlCleanerModules(url) }
+                }.awaitAll().filter { it.isNotBlank() }
 
                 if (cleanedLinks.isNotEmpty()) {
                     handleSuccess(cleanedLinks.joinToString("\n"))
