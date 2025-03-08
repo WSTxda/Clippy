@@ -11,8 +11,8 @@ android {
         applicationId = "com.wstxda.clippy"
         minSdk = 24
         targetSdk = 35
-        versionCode = 130
-        versionName = "1.3"
+        versionCode = 140
+        versionName = "1.4"
 
         vectorDrawables {
             useSupportLibrary = true
