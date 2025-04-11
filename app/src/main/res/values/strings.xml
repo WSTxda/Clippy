@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Clippy</string>
+
+    <string name="copy_link">Copy Link</string>
+    <string name="copy_link_cleaner">Copy Link (Clean)</string>
+
+    <string name="copy_success">Copied to clipboard</string>
+    <string name="copy_failure">Unable to copy link</string>
+
+    <string name="copy_failure_no_valid_links">No valid links found</string>
+    <string name="copy_failure_error_cleaning">Error cleaning links</string>
+</resources>
