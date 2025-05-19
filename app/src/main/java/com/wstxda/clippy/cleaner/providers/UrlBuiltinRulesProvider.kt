@@ -1,7 +1,7 @@
 package com.wstxda.clippy.cleaner.providers
 
-import android.net.Uri
 import com.wstxda.clippy.cleaner.modules.utils.BuiltinRulesData
+import androidx.core.net.toUri
 
 object UrlBuiltinRulesProvider {
     val builtinRulesData: List<BuiltinRulesData> = listOf(
@@ -140,17 +140,17 @@ object UrlBuiltinRulesProvider {
     )
 
     private fun extractParameter(url: String, paramName: String): String? {
-        return Uri.parse(url).getQueryParameter(paramName)
+        return url.toUri().getQueryParameter(paramName)
     }
 
     private fun clearQuery(url: String): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         return uri.buildUpon().clearQuery().scheme(uri.scheme).authority(uri.authority)
             .path(uri.path).build().toString()
     }
 
     private fun retainParameters(url: String, regexPattern: String): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         val regex = Regex(regexPattern)
         return uri.buildUpon().clearQuery().apply {
             uri.queryParameterNames.filter { regex.matches(it) }
@@ -159,7 +159,7 @@ object UrlBuiltinRulesProvider {
     }
 
     private fun clearTrailingId(url: String): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         val modifiedPath = uri.path?.replace("/[0-9]+/?$".toRegex(), "") ?: uri.path
         return uri.buildUpon().path(modifiedPath).scheme(uri.scheme).authority(uri.authority)
             .build().toString()
