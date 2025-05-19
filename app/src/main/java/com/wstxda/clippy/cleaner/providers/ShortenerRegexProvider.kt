@@ -23,13 +23,23 @@ object ShortenerRegexProvider {
         Regex("referrer[_\\-]?id", RegexOption.IGNORE_CASE),
         Regex("session[_\\-]?id", RegexOption.IGNORE_CASE),
         Regex("source[_\\-]?id", RegexOption.IGNORE_CASE),
-        Regex("tracking_id", RegexOption.IGNORE_CASE),
-        Regex("trk_\\w+", RegexOption.IGNORE_CASE),
-        Regex(
-            "utm_(adgroup|campaign|content|medium|ref|source|term|term_id)",
-            RegexOption.IGNORE_CASE
-        ),
-        Regex("user_id", RegexOption.IGNORE_CASE),
-        Regex("visitor_id", RegexOption.IGNORE_CASE)
+        Regex("tracking[_\\-]?id", RegexOption.IGNORE_CASE),
+        Regex("trk[_\\-]?\\w+", RegexOption.IGNORE_CASE),
+        Regex("utm_(adgroup|campaign|content|medium|ref|source|term|term_id)", RegexOption.IGNORE_CASE),
+        Regex("user[_\\-]?id", RegexOption.IGNORE_CASE),
+        Regex("visitor[_\\-]?id", RegexOption.IGNORE_CASE),
+        Regex("_hs(enc|mi)", RegexOption.IGNORE_CASE),
+        Regex("hs(fp|sc|cta)", RegexOption.IGNORE_CASE),
+        Regex("elqTrack(Id)?", RegexOption.IGNORE_CASE),
+        Regex("spm(_id_from)?", RegexOption.IGNORE_CASE),
+        Regex("spm", RegexOption.IGNORE_CASE),
+        Regex("sc(_\\w+)?", RegexOption.IGNORE_CASE),
+        Regex("sp(report|job|user|mailing)?id", RegexOption.IGNORE_CASE),
+        Regex("share(_\\w+)?", RegexOption.IGNORE_CASE),
+        Regex("ved|vet", RegexOption.IGNORE_CASE),
+        Regex("cvid|ocid|mbid", RegexOption.IGNORE_CASE),
+        Regex("rb_clickid", RegexOption.IGNORE_CASE),
+        Regex("wickedid|vero", RegexOption.IGNORE_CASE),
+        Regex("_openstat", RegexOption.IGNORE_CASE)
     )
 }
