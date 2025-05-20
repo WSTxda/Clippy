@@ -7,52 +7,50 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.wstxda.clippy.R
-import com.wstxda.clippy.cleaner.tools.TextCleaner
-import com.wstxda.clippy.cleaner.tools.UrlValidator
+import com.wstxda.clippy.cleaner.modules.utils.ClipboardLinkState
+import com.wstxda.clippy.viewmodel.ClipboardLinkViewModel
+import kotlinx.coroutines.launch
 
 abstract class ClipboardLinkActivity : AppCompatActivity() {
 
+    abstract val viewModel: ClipboardLinkViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val action = intent.action
-        val sharedLink = when (action) {
-            Intent.ACTION_PROCESS_TEXT -> intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim()
-            Intent.ACTION_SEND -> intent.getStringExtra(Intent.EXTRA_TEXT)?.trim()
-                ?: intent.getStringExtra(Intent.EXTRA_SUBJECT)?.trim()
-
-            else -> null
-        }
-
-        handleLink(sharedLink)
+        observeState()
+        intent.getSharedLink()?.let { sharedLink ->
+            onLinkReceived(sharedLink)
+        } ?: handleFailure()
     }
 
-    private fun handleLink(sharedLink: String?) {
-        val links = sharedLink?.split("\\s+".toRegex()) ?: emptyList()
-        val validLinks = links.mapNotNull { url ->
-            TextCleaner.extractUrl(url)?.takeIf { UrlValidator.isValidUrl(it) }
-        }
-
-        if (validLinks.isNotEmpty()) {
-            processLink(validLinks)
-        } else {
-            handleFailure()
+    private fun observeState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect { state ->
+                    when (state) {
+                        is ClipboardLinkState.Success -> handleSuccess(state.links.joinToString("\n"))
+                        is ClipboardLinkState.Error -> handleFailure(state.message)
+                        else -> Unit
+                    }
+                }
+            }
         }
     }
 
-    protected fun handleFailure(message: String = getString(R.string.copy_failure)) {
+    protected open fun handleFailure(message: String = getString(R.string.copy_failure)) {
         showToast(message)
-        finishActivity()
+        finish()
     }
 
-    protected fun handleSuccess(link: CharSequence) {
+    protected open fun handleSuccess(link: CharSequence) {
         copyLinkToClipboard(link)
         showToast(getString(R.string.copy_success))
-        finishActivity()
+        finish()
     }
-
-    protected abstract fun processLink(validLinks: List<String>)
 
     private fun copyLinkToClipboard(link: CharSequence) {
         getSystemService<ClipboardManager>()?.setPrimaryClip(
@@ -64,7 +62,17 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun finishActivity() {
-        finish()
+    protected open fun onLinkReceived(sharedLink: String) {
+        viewModel.processSharedLinks(sharedLink)
+    }
+}
+
+fun Intent.getSharedLink(): String? {
+    return when (action) {
+        Intent.ACTION_PROCESS_TEXT -> getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim()
+        Intent.ACTION_SEND -> getStringExtra(Intent.EXTRA_TEXT)?.trim()
+            ?: getStringExtra(Intent.EXTRA_SUBJECT)?.trim()
+
+        else -> null
     }
 }
