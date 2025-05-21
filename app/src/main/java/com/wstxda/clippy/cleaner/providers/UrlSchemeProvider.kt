@@ -29,5 +29,5 @@ object UrlSchemeProvider {
 
     fun isSupported(scheme: String) = supportedSchemes.any { it.scheme == scheme }
     fun needsCleaning(scheme: String) =
-        supportedSchemes.find { it.scheme == scheme }?.needsCleaning ?: false
+        supportedSchemes.find { it.scheme == scheme }?.needsCleaning == true
 }
