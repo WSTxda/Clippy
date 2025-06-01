@@ -4,6 +4,7 @@
     <string name="copy_link">Copy Link</string>
     <string name="copy_link_cleaner">Copy Link (Clean)</string>
 
+    <string name="copy_process">Processing link…</string>
     <string name="copy_success">Copied to clipboard</string>
     <string name="copy_failure">Unable to copy link</string>
 

@@ -2,6 +2,7 @@
     <string name="copy_link">Copiar Link</string>
     <string name="copy_link_cleaner">Copiar Link (Limpio)</string>
 
+    <string name="copy_process">Procesando link…</string>
     <string name="copy_success">Copiado al portapapeles</string>
     <string name="copy_failure">Link imposible de copiar</string>
 

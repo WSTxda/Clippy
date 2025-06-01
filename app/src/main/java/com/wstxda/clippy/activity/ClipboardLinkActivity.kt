@@ -32,6 +32,7 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
+                        is ClipboardLinkState.Loading -> showToast(getString(R.string.copy_process))
                         is ClipboardLinkState.Success -> handleSuccess(state.links.joinToString("\n"))
                         is ClipboardLinkState.Error -> handleFailure(state.message)
                         else -> Unit
