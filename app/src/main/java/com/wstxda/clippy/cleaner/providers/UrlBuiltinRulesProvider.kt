@@ -136,6 +136,23 @@ object UrlBuiltinRulesProvider {
         BuiltinRulesData(
             pattern = Regex("www\\.tumblr\\.com"),
             apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("medium\\.com"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("sourceforge\\.net"),
+            pathPattern = Regex("/projects/.+/files/.+/download/?"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("(www\\.)?(bbc\\.com|bbc\\.co\\.uk)"),
+            apply = ::clearQuery
+        ),
+        BuiltinRulesData(
+            pattern = Regex("imgur\\.com"),
+            apply = ::clearQuery
         )
     )
 
