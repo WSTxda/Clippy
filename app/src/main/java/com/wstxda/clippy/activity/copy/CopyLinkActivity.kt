@@ -8,6 +8,6 @@ class CopyLinkActivity : ClipboardLinkActivity() {
     override val viewModel: ClipboardLinkViewModel by viewModels()
 
     override fun onLinkReceived(sharedLink: String) {
-        viewModel.processSharedLinks(sharedLink)
+        viewModel.processSharedLinks(sharedLink, cleanLinks = false)
     }
 }
