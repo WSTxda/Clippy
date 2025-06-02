@@ -1,4 +1,4 @@
-package com.wstxda.clippy.utils
+package com.wstxda.clippy.activity.utils
 
 import android.content.Intent
 

@@ -2,13 +2,9 @@ package com.wstxda.clippy.cleaner.tools
 
 import android.util.Log
 import androidx.core.net.toUri
+import com.wstxda.clippy.cleaner.modules.utils.ValidationResult
 import com.wstxda.clippy.cleaner.providers.UrlSchemeProvider
 import com.wstxda.clippy.utils.Constants
-
-sealed class ValidationResult {
-    object Valid : ValidationResult()
-    data class Invalid(val reason: String, val cause: Throwable? = null) : ValidationResult()
-}
 
 object UrlValidator {
 

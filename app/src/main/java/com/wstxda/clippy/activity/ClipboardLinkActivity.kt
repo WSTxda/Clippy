@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.wstxda.clippy.R
 import com.wstxda.clippy.cleaner.modules.utils.ClipboardLinkState
-import com.wstxda.clippy.utils.getSharedLink
+import com.wstxda.clippy.activity.utils.getSharedLink
 import com.wstxda.clippy.viewmodel.ClipboardLinkViewModel
 import kotlinx.coroutines.launch
 
