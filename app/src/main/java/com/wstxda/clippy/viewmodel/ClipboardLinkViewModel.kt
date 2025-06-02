@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.wstxda.clippy.R
 import com.wstxda.clippy.cleaner.modules.utils.ClipboardLinkState
 import com.wstxda.clippy.cleaner.tools.TextCleaner
-import com.wstxda.clippy.cleaner.tools.UrlValidator
 import com.wstxda.clippy.cleaner.tools.UrlCleaner
+import com.wstxda.clippy.cleaner.tools.UrlValidator
+import com.wstxda.clippy.cleaner.tools.ValidationResult
+import com.wstxda.clippy.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -22,31 +24,73 @@ class ClipboardLinkViewModel(application: Application) : AndroidViewModel(applic
     val state: StateFlow<ClipboardLinkState> = _state
 
     fun processSharedLinks(input: String) {
-        val links = input.split("\\s+".toRegex()).mapNotNull { url ->
-            TextCleaner.extractUrl(url)?.takeIf { UrlValidator.isValidUrl(it) }
+        val potentialLinks = input.split("\\s+".toRegex())
+        val validLinks = mutableListOf<String>()
+        val invalidResults = mutableListOf<Pair<String, ValidationResult.Invalid>>()
+
+        potentialLinks.forEach { item ->
+            TextCleaner.extractUrl(item)?.let { extractedUrl ->
+                when (val validationResult = UrlValidator.validate(extractedUrl)) {
+                    is ValidationResult.Valid -> validLinks.add(extractedUrl)
+                    is ValidationResult.Invalid -> {
+                        invalidResults.add(Pair(extractedUrl, validationResult))
+                        Log.w(
+                            Constants.CLIPBOARD_LINK_VIEW_MODEL,
+                            "Invalid URL '$extractedUrl': ${validationResult.reason}"
+                        )
+                    }
+                }
+            }
         }
 
-        if (links.isEmpty()) {
+        if (validLinks.isEmpty()) {
+            if (invalidResults.isNotEmpty()) {
+                Log.w(
+                    Constants.CLIPBOARD_LINK_VIEW_MODEL,
+                    "No valid links found. ${invalidResults.size} invalid URLs were detected."
+                )
+            }
             _state.value = ClipboardLinkState.Error(
                 getApplication<Application>().getString(R.string.copy_failure_no_valid_links)
             )
             return
         }
-        copyLinks(links)
+        copyLinks(validLinks)
     }
 
     fun processSharedLinksAndClean(input: String) {
-        val links = input.split("\\s+".toRegex()).mapNotNull { url ->
-            TextCleaner.extractUrl(url)?.takeIf { UrlValidator.isValidUrl(it) }
+        val potentialLinks = input.split("\\s+".toRegex())
+        val validLinks = mutableListOf<String>()
+        val invalidResults = mutableListOf<Pair<String, ValidationResult.Invalid>>()
+
+        potentialLinks.forEach { item ->
+            TextCleaner.extractUrl(item)?.let { extractedUrl ->
+                when (val validationResult = UrlValidator.validate(extractedUrl)) {
+                    is ValidationResult.Valid -> validLinks.add(extractedUrl)
+                    is ValidationResult.Invalid -> {
+                        invalidResults.add(Pair(extractedUrl, validationResult))
+                        Log.w(
+                            Constants.CLIPBOARD_LINK_VIEW_MODEL,
+                            "Invalid URL '$extractedUrl' for cleaning: ${validationResult.reason}"
+                        )
+                    }
+                }
+            }
         }
 
-        if (links.isEmpty()) {
+        if (validLinks.isEmpty()) {
+            if (invalidResults.isNotEmpty()) {
+                Log.w(
+                    Constants.CLIPBOARD_LINK_VIEW_MODEL,
+                    "No valid links found for cleaning. ${invalidResults.size} invalid URLs were detected."
+                )
+            }
             _state.value = ClipboardLinkState.Error(
                 getApplication<Application>().getString(R.string.copy_failure_no_valid_links)
             )
             return
         }
-        cleanAndCopyLinks(links)
+        cleanAndCopyLinks(validLinks)
     }
 
     fun copyLinks(links: List<String>) {
@@ -65,11 +109,11 @@ class ClipboardLinkViewModel(application: Application) : AndroidViewModel(applic
                     _state.value = ClipboardLinkState.Success(cleanedLinks)
                 } else {
                     _state.value = ClipboardLinkState.Error(
-                        getApplication<Application>().getString(R.string.copy_failure_no_valid_links)
+                        getApplication<Application>().getString(R.string.copy_failure_empty_after_cleaning)
                     )
                 }
             } catch (e: Exception) {
-                Log.e("ClipboardLinkViewModel", "Error cleaning links: ${e.message}", e)
+                Log.e(Constants.CLIPBOARD_LINK_VIEW_MODEL, "Error cleaning links: ${e.message}", e)
                 _state.value = ClipboardLinkState.Error(
                     getApplication<Application>().getString(R.string.copy_failure_error_cleaning)
                 )

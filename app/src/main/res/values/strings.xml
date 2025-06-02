@@ -10,4 +10,5 @@
 
     <string name="copy_failure_no_valid_links">No valid links found</string>
     <string name="copy_failure_error_cleaning">Error cleaning links</string>
+    <string name="copy_failure_empty_after_cleaning">Links had no content after cleaning</string>
 </resources>

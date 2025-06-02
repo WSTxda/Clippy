@@ -2,7 +2,6 @@ package com.wstxda.clippy.activity
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.wstxda.clippy.R
 import com.wstxda.clippy.cleaner.modules.utils.ClipboardLinkState
+import com.wstxda.clippy.activity.utils.getSharedLink
 import com.wstxda.clippy.viewmodel.ClipboardLinkViewModel
 import kotlinx.coroutines.launch
 
@@ -65,15 +65,5 @@ abstract class ClipboardLinkActivity : AppCompatActivity() {
 
     protected open fun onLinkReceived(sharedLink: String) {
         viewModel.processSharedLinks(sharedLink)
-    }
-}
-
-fun Intent.getSharedLink(): String? {
-    return when (action) {
-        Intent.ACTION_PROCESS_TEXT -> getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim()
-        Intent.ACTION_SEND -> getStringExtra(Intent.EXTRA_TEXT)?.trim()
-            ?: getStringExtra(Intent.EXTRA_SUBJECT)?.trim()
-
-        else -> null
     }
 }
