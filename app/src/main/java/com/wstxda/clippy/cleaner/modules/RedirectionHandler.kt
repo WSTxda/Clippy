@@ -1,46 +1,46 @@
 package com.wstxda.clippy.cleaner.modules
 
 import android.util.Log
+import com.wstxda.clippy.utils.Constants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 
 object RedirectionHandler {
-    private const val DEFAULT_TIMEOUT_MILLIS = 3000
-    private const val MAX_REDIRECTS = 3
-    private const val TAG = "RedirectionHandler"
 
-    fun resolveRedirectionParams(initialUrl: String): String {
+    suspend fun resolveRedirectionParams(initialUrl: String): String = withContext(Dispatchers.IO) {
         var url = initialUrl
         var redirects = 0
 
-        while (redirects < MAX_REDIRECTS) {
+        while (redirects < Constants.MAX_REDIRECTS) {
             val result = runCatching {
                 (URL(url).openConnection() as HttpURLConnection).apply {
                     instanceFollowRedirects = false
-                    connectTimeout = DEFAULT_TIMEOUT_MILLIS
-                    readTimeout = DEFAULT_TIMEOUT_MILLIS
+                    connectTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
+                    readTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
                     connect()
                 }.use { connection ->
                     val responseCode = connection.responseCode
                     if (responseCode in 300..399) {
-                        connection.getHeaderField("Location") ?: return url
+                        connection.getHeaderField("Location") ?: return@runCatching url
                     } else {
-                        return url
+                        return@runCatching url
                     }
                 }
             }
 
             result.fold(onSuccess = { redirectedUrl ->
-                if (redirectedUrl == url) return redirectedUrl
+                if (redirectedUrl == url) return@withContext redirectedUrl
                 url = redirectedUrl
                 redirects++
             }, onFailure = { e ->
-                Log.e(TAG, "Error resolving URL: ${e.message}", e)
-                return url
+                Log.e(Constants.REDIRECTION_HANDLER, "Error resolving URL: ${e.message}", e)
+                return@withContext url
             })
         }
 
-        return url
+        return@withContext url
     }
 
     private inline fun <T> HttpURLConnection.use(block: (HttpURLConnection) -> T): T {

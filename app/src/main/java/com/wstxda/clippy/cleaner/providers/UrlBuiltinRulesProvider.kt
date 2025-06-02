@@ -4,6 +4,8 @@ import com.wstxda.clippy.cleaner.modules.utils.BuiltinRulesData
 import androidx.core.net.toUri
 
 object UrlBuiltinRulesProvider {
+    private val trailingIdRegex = Regex("/[0-9]+/?$")
+
     val builtinRulesData: List<BuiltinRulesData> = listOf(
         BuiltinRulesData(
             pattern = Regex("www\\.douban\\.com"),
@@ -27,7 +29,7 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex(".+\\.(taobao|tmall)\\.com"),
-            apply = { url -> retainParameters(url, "id") }
+            apply = { url -> retainParameters(url, Regex("id")) }
         ),
         BuiltinRulesData(
             pattern = Regex(".+\\.tiktok\\.com"),
@@ -43,11 +45,11 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex("youtu\\.be|((www|music)\\.)?youtube\\.com"),
-            apply = { url -> retainParameters(url, "index|list|t|v") }
+            apply = { url -> retainParameters(url, Regex("index|list|t|v")) }
         ),
         BuiltinRulesData(
             pattern = Regex("open\\.spotify\\.com"),
-            apply = { url -> retainParameters(url, "si") }
+            apply = { url -> retainParameters(url, Regex("si")) }
         ),
         BuiltinRulesData(
             pattern = Regex("bit\\.ly|tinyurl\\.com|goo\\.gl|ow\\.ly|rebrand\\.ly|snip\\.ly"),
@@ -55,27 +57,27 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.facebook\\.com|m\\.facebook\\.com"),
-            apply = { url -> retainParameters(url, "fbclid|refid|source") }
+            apply = { url -> retainParameters(url, Regex("fbclid|refid|source")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.instagram\\.com"),
-            apply = { url -> retainParameters(url, "igshid|utm_source|utm_medium") }
+            apply = { url -> retainParameters(url, Regex("igshid|utm_source|utm_medium")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.linkedin\\.com"),
-            apply = { url -> retainParameters(url, "trk") }
+            apply = { url -> retainParameters(url, Regex("trk")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.pinterest\\.com|api\\.pinterest\\.com"),
-            apply = { url -> retainParameters(url, "utm_source|utm_medium|utm_campaign|pin") }
+            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign|pin")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.reddit\\.com"),
-            apply = { url -> retainParameters(url, "utm_source|utm_medium|utm_campaign") }
+            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.quora\\.com"),
-            apply = { url -> retainParameters(url, "utm_source|utm_medium|utm_campaign") }
+            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.aliexpress\\.com|m\\.aliexpress\\.com"),
@@ -111,19 +113,19 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.ebay\\.com"),
-            apply = { url -> retainParameters(url, "id|item_id") }
+            apply = { url -> retainParameters(url, Regex("id|item_id")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.tripadvisor\\.com"),
-            apply = { url -> retainParameters(url, "ref|adid") }
+            apply = { url -> retainParameters(url, Regex("ref|adid")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.wikipedia\\.org"),
-            apply = { url -> retainParameters(url, "oldid|diff") }
+            apply = { url -> retainParameters(url, Regex("oldid|diff")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.yelp\\.com"),
-            apply = { url -> retainParameters(url, "ref") }
+            apply = { url -> retainParameters(url, Regex("ref")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.soundcloud\\.com"),
@@ -131,7 +133,7 @@ object UrlBuiltinRulesProvider {
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.coursera\\.org"),
-            apply = { url -> retainParameters(url, "utm_source|utm_medium|utm_campaign") }
+            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign")) }
         ),
         BuiltinRulesData(
             pattern = Regex("www\\.tumblr\\.com"),
@@ -166,18 +168,17 @@ object UrlBuiltinRulesProvider {
             .path(uri.path).build().toString()
     }
 
-    private fun retainParameters(url: String, regexPattern: String): String {
+    private fun retainParameters(url: String, paramNameRegex: Regex): String {
         val uri = url.toUri()
-        val regex = Regex(regexPattern)
         return uri.buildUpon().clearQuery().apply {
-            uri.queryParameterNames.filter { regex.matches(it) }
+            uri.queryParameterNames.filter { paramNameRegex.matches(it) }
                 .forEach { param -> appendQueryParameter(param, uri.getQueryParameter(param)) }
         }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
     }
 
     private fun clearTrailingId(url: String): String {
         val uri = url.toUri()
-        val modifiedPath = uri.path?.replace("/[0-9]+/?$".toRegex(), "") ?: uri.path
+        val modifiedPath = uri.path?.replace(trailingIdRegex, "") ?: uri.path
         return uri.buildUpon().path(modifiedPath).scheme(uri.scheme).authority(uri.authority)
             .build().toString()
     }
