@@ -8,4 +8,5 @@
 
     <string name="copy_failure_no_valid_links">No se encontraron enlaces válidos</string>
     <string name="copy_failure_error_cleaning">Error al limpiar enlaces</string>
+    <string name="copy_failure_empty_after_cleaning">Los enlaces no tenían contenido después de la limpieza</string>
 </resources>

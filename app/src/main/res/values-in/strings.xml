@@ -8,4 +8,5 @@
 
     <string name="copy_failure_no_valid_links">Tidak ada tautan valid yang ditemukan</string>
     <string name="copy_failure_error_cleaning">Kesalahan saat membersihkan tautan</string>
+    <string name="copy_failure_empty_after_cleaning">Tautan tidak memiliki konten setelah dibersihkan</string>
 </resources>

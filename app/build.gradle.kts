@@ -13,8 +13,6 @@ android {
         targetSdk = 35
         versionCode = 150
         versionName = "1.5"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {

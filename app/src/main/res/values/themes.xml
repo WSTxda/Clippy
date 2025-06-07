@@ -3,10 +3,14 @@
     <style name="AppTheme" parent="Base.AppTheme" />
 
     <style name="Base.AppTheme" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <!--app bars colors-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!--window transparent-->
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 </resources>

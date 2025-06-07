@@ -8,4 +8,5 @@
 
     <string name="copy_failure_no_valid_links">Không tìm thấy đường link hợp lệ</string>
     <string name="copy_failure_error_cleaning">Không thể làm sạch đường link</string>
+    <string name="copy_failure_empty_after_cleaning">Liên kết không có nội dung sau khi làm sạch</string>
 </resources>

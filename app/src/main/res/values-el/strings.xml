@@ -8,4 +8,5 @@
 
     <string name="copy_failure_no_valid_links">Δεν βρέθηκαν έγκυροι σύνδεσμοι</string>
     <string name="copy_failure_error_cleaning">Σφάλμα κατά τον καθαρισμό των συνδέσμων</string>
+    <string name="copy_failure_empty_after_cleaning">Οι σύνδεσμοι δεν είχαν περιεχόμενο μετά τον καθαρισμό</string>
 </resources>

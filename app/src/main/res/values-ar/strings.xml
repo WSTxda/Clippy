@@ -8,4 +8,5 @@
 
     <string name="copy_failure_no_valid_links">لم يتم العثور على روابط صالحة</string>
     <string name="copy_failure_error_cleaning">حدث خطأ أثناء تنظيف الروابط</string>
+    <string name="copy_failure_empty_after_cleaning">لم تحتوي الروابط على محتوى بعد التنظيف</string>
 </resources>
