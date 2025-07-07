@@ -10,7 +10,7 @@ object UrlValidator {
 
     fun validate(url: String): ValidationResult {
         if (url.isBlank()) {
-            val reason = "URL is blank."
+            val reason = "${Constants.URL_VALIDATOR}: URL is blank."
             Log.w(Constants.URL_VALIDATOR, reason)
             return ValidationResult.Invalid(reason)
         }
@@ -20,13 +20,14 @@ object UrlValidator {
             val scheme = uri.scheme
             when {
                 scheme == null -> {
-                    val reason = "URL scheme is null for: $url"
+                    val reason = "${Constants.URL_VALIDATOR}: URL scheme is null for: $url"
                     Log.w(Constants.URL_VALIDATOR, reason)
                     ValidationResult.Invalid(reason)
                 }
 
                 !UrlSchemeProvider.isSupported(scheme) -> {
-                    val reason = "URL scheme '$scheme' is not supported for: $url"
+                    val reason =
+                        "${Constants.URL_VALIDATOR}: URL scheme '$scheme' is not supported for: $url"
                     Log.w(Constants.URL_VALIDATOR, reason)
                     ValidationResult.Invalid(reason)
                 }
@@ -34,13 +35,14 @@ object UrlValidator {
                 else -> ValidationResult.Valid
             }
         } catch (e: IllegalArgumentException) {
-            val reason = "Malformed URL: $url"
+            val reason = "${Constants.URL_VALIDATOR}: Malformed URL: $url"
             Log.e(Constants.URL_VALIDATOR, reason, e)
-            ValidationResult.Invalid(reason, e)
+            return ValidationResult.Invalid(reason, e)
         } catch (e: Exception) {
-            val reason = "Unexpected error during URL validation for: $url"
+            val reason =
+                "${Constants.URL_VALIDATOR}: Unexpected error during URL validation for: $url"
             Log.e(Constants.URL_VALIDATOR, reason, e)
-            ValidationResult.Invalid(reason, e)
+            return ValidationResult.Invalid(reason, e)
         }
     }
 }
