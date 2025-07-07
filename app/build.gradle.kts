@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.wstxda.clippy"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.wstxda.clippy"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 150
         versionName = "1.5"
     }
