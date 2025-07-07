@@ -11,8 +11,8 @@ android {
         applicationId = "com.wstxda.clippy"
         minSdk = 26
         targetSdk = 36
-        versionCode = 150
-        versionName = "1.5"
+        versionCode = 160
+        versionName = "1.6"
     }
 
     buildTypes {
