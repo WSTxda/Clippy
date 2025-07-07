@@ -6,64 +6,64 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.wstxda.clippy.R
-import com.wstxda.clippy.cleaner.modules.utils.ClipboardLinkState
+import com.wstxda.clippy.cleaner.processor.LinkProcessor
 import com.wstxda.clippy.activity.utils.getSharedLink
-import com.wstxda.clippy.viewmodel.ClipboardLinkViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 
 abstract class ClipboardLinkActivity : AppCompatActivity() {
 
-    abstract val viewModel: ClipboardLinkViewModel
+    protected abstract val cleanLinks: Boolean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        observeState()
-        intent.getSharedLink()?.let { sharedLink ->
-            onLinkReceived(sharedLink)
-        } ?: handleFailure()
-    }
 
-    private fun observeState() {
+        val shared = intent.getSharedLink()
+        if (shared.isNullOrBlank()) {
+            finishWithToast(getString(R.string.copy_failure))
+            return
+        }
+
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    when (state) {
-                        is ClipboardLinkState.Loading -> showToast(getString(R.string.copy_process))
-                        is ClipboardLinkState.Success -> handleSuccess(state.links.joinToString("\n"))
-                        is ClipboardLinkState.Error -> handleFailure(state.message)
-                        else -> Unit
-                    }
-                }
+            val (valids, invalids) = LinkProcessor.extractAndValidateLinks(shared)
+            if (valids.isEmpty()) {
+                if (invalids.isNotEmpty()) LinkProcessor.logInvalids(invalids)
+                finishWithToast(getString(R.string.copy_failure_no_valid_links))
+                return@launch
             }
+
+            val output = if (cleanLinks) {
+                showToast(getString(R.string.copy_process))
+                val cleaned = withContext(Dispatchers.IO) { LinkProcessor.cleanLinks(valids) }
+                if (cleaned.isEmpty()) {
+                    finishWithToast(getString(R.string.copy_failure_empty_after_cleaning))
+                    return@launch
+                }
+                cleaned
+            } else {
+                valids
+            }
+
+            copyToClipboard(output.joinToString("\n"))
+            showToast(getString(R.string.copy_success))
+            finish()
         }
     }
 
-    protected open fun handleFailure(message: String = getString(R.string.copy_failure)) {
-        showToast(message)
+    private fun copyToClipboard(text: String) {
+        getSystemService<ClipboardManager>()?.setPrimaryClip(ClipData.newPlainText("link", text))
+            ?: showToast(getString(R.string.copy_failure))
+    }
+
+    protected fun showToast(msg: String) {
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun finishWithToast(msg: String) {
+        showToast(msg)
         finish()
-    }
-
-    protected open fun handleSuccess(link: CharSequence) {
-        copyLinkToClipboard(link)
-        showToast(getString(R.string.copy_success))
-        finish()
-    }
-
-    private fun copyLinkToClipboard(link: CharSequence) {
-        getSystemService<ClipboardManager>()?.setPrimaryClip(
-            ClipData.newPlainText("link", link)
-        ) ?: showToast(getString(R.string.copy_failure))
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    protected open fun onLinkReceived(sharedLink: String) {
-        viewModel.processSharedLinks(sharedLink)
     }
 }
