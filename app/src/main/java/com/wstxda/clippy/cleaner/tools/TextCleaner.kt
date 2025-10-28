@@ -3,7 +3,7 @@ package com.wstxda.clippy.cleaner.tools
 import com.wstxda.clippy.cleaner.providers.TextRegexProvider
 
 object TextCleaner {
-    fun extractUrl(text: String): String? {
-        return TextRegexProvider.urlRegex.find(text)?.value
+    fun extractUrls(text: String): List<String> {
+        return TextRegexProvider.urlRegex.findAll(text).map { it.value }.toList()
     }
 }

@@ -10,16 +10,14 @@ import com.wstxda.clippy.utils.Constants
 object LinkProcessor {
 
     fun extractAndValidateLinks(input: String): Pair<List<String>, List<Pair<String, ValidationResult.Invalid>>> {
-        val tokens = input.split("\\s+".toRegex())
+        val urls = TextCleaner.extractUrls(input)
         val valids = mutableListOf<String>()
         val invalids = mutableListOf<Pair<String, ValidationResult.Invalid>>()
 
-        for (token in tokens) {
-            TextCleaner.extractUrl(token)?.let { url ->
-                when (val result = UrlValidator.validate(url)) {
-                    is ValidationResult.Valid -> valids += url
-                    is ValidationResult.Invalid -> invalids += url to result
-                }
+        for (url in urls) {
+            when (val result = UrlValidator.validate(url)) {
+                is ValidationResult.Valid -> valids += url
+                is ValidationResult.Invalid -> invalids += url to result
             }
         }
         return valids to invalids
