@@ -10,4 +10,5 @@ object Constants {
     const val REDIRECTION_HANDLER = "RedirectionHandler"
     const val LINK_PROCESSOR = "LinkProcessor"
     const val URL_VALIDATOR = "UrlValidator"
+    const val URL_CLEANER = "UrlCleaner"
 }
