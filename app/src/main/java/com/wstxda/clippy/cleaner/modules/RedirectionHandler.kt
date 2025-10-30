@@ -15,17 +15,24 @@ object RedirectionHandler {
 
         while (redirects < Constants.MAX_REDIRECTS) {
             val result = runCatching {
-                (URL(url).openConnection() as HttpURLConnection).apply {
+                val connection = (URL(url).openConnection() as HttpURLConnection).apply {
                     instanceFollowRedirects = false
                     connectTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
                     readTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
                     connect()
-                }.use { connection ->
-                    val responseCode = connection.responseCode
+                }
+
+                connection.use {
+                    val responseCode = it.responseCode
                     if (responseCode in 300..399) {
-                        connection.getHeaderField("Location") ?: return@runCatching url
+                        val location = it.getHeaderField("Location")
+                        if (location.isNullOrEmpty()) {
+                            url
+                        } else {
+                            URL(it.url, location).toString()
+                        }
                     } else {
-                        return@runCatching url
+                        url
                     }
                 }
             }
