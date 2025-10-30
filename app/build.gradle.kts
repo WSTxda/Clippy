@@ -11,14 +11,14 @@ android {
         applicationId = "com.wstxda.clippy"
         minSdk = 26
         targetSdk = 36
-        versionCode = 160
-        versionName = "1.6"
+        versionCode = 170
+        versionName = "1.7"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
