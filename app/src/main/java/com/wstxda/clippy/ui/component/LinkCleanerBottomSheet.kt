@@ -47,11 +47,17 @@ class LinkCleanerBottomSheet : BaseBottomSheet<BottomSheetLinkItemBinding>() {
     override fun setupViews(savedInstanceState: Bundle?) {
         val initialLinks = arguments?.getStringArrayList(Constants.ARG_LINKS) ?: emptyList()
         val cleanLinks = arguments?.getBoolean(Constants.ARG_CLEAN) ?: true
+
+        val isFirstInit = viewModel.state.value.links.isEmpty()
         viewModel.setInitialLinks(initialLinks)
 
         setupRecyclerView()
         setupUIElements(cleanLinks)
         observeState()
+
+        if (cleanLinks && isFirstInit && initialLinks.isNotEmpty()) {
+            viewModel.processLinks()
+        }
     }
 
     override fun onStart() {
