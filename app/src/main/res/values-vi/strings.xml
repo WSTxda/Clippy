@@ -2,7 +2,6 @@
     <string name="copy_link">Sao chép liên kết</string>
     <string name="copy_link_cleaner">Sao chép liên kết đã làm sạch</string>
 
-    <string name="copy_process">Đang xử lý liên kết…</string>
     <string name="copy_success">Đã sao chép vào bảng nhớ tạm</string>
     <string name="copy_failure">Không thể sao chép liên kết</string>
 

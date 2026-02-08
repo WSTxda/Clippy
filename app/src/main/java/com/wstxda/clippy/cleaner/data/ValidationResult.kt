@@ -1,6 +1,7 @@
-package com.wstxda.clippy.cleaner.modules.utils
+package com.wstxda.clippy.cleaner.data
 
 sealed class ValidationResult {
-    object Valid : ValidationResult()
+
+    data object Valid : ValidationResult()
     data class Invalid(val reason: String, val cause: Throwable? = null) : ValidationResult()
 }

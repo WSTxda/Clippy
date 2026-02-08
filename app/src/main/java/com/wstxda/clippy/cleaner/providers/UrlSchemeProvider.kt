@@ -1,33 +1,39 @@
 package com.wstxda.clippy.cleaner.providers
 
 object UrlSchemeProvider {
-    data class SchemeInfo(val scheme: String, val needsCleaning: Boolean)
 
-    val supportedSchemes = listOf(
-        SchemeInfo("http", true),
-        SchemeInfo("https", true),
-        SchemeInfo("magnet", false),
-        SchemeInfo("ftp", false),
-        SchemeInfo("ftps", false),
-        SchemeInfo("rtsp", false),
-        SchemeInfo("rtmp", false),
-        SchemeInfo("file", false),
-        SchemeInfo("git", false),
-        SchemeInfo("svn", false),
-        SchemeInfo("ssh", false),
-        SchemeInfo("irc", false),
-        SchemeInfo("news", false),
-        SchemeInfo("nntp", false),
-        SchemeInfo("sftp", false),
-        SchemeInfo("sip", false),
-        SchemeInfo("sips", false),
-        SchemeInfo("xmpp", false),
-        SchemeInfo("vnc", false),
-        SchemeInfo("ldap", false),
-        SchemeInfo("ldaps", false)
+    data class SchemeInfo(
+        val scheme: String, val needsCleaning: Boolean
     )
 
-    fun isSupported(scheme: String) = supportedSchemes.any { it.scheme == scheme }
-    fun needsCleaning(scheme: String) =
-        supportedSchemes.find { it.scheme == scheme }?.needsCleaning == true
+    private val schemes = listOf(
+        SchemeInfo("http", needsCleaning = true),
+        SchemeInfo("https", needsCleaning = true),
+        SchemeInfo("magnet", needsCleaning = false),
+        SchemeInfo("ftp", needsCleaning = false),
+        SchemeInfo("ftps", needsCleaning = false),
+        SchemeInfo("rtsp", needsCleaning = false),
+        SchemeInfo("rtmp", needsCleaning = false),
+        SchemeInfo("file", needsCleaning = false),
+        SchemeInfo("git", needsCleaning = false),
+        SchemeInfo("svn", needsCleaning = false),
+        SchemeInfo("ssh", needsCleaning = false),
+        SchemeInfo("irc", needsCleaning = false),
+        SchemeInfo("news", needsCleaning = false),
+        SchemeInfo("nntp", needsCleaning = false),
+        SchemeInfo("sftp", needsCleaning = false),
+        SchemeInfo("sip", needsCleaning = false),
+        SchemeInfo("sips", needsCleaning = false),
+        SchemeInfo("xmpp", needsCleaning = false),
+        SchemeInfo("vnc", needsCleaning = false),
+        SchemeInfo("ldap", needsCleaning = false),
+        SchemeInfo("ldaps", needsCleaning = false)
+    )
+
+    val supportedSchemes: List<SchemeInfo> = schemes
+
+    fun isSupported(scheme: String): Boolean = schemes.any { it.scheme == scheme }
+
+    fun needsCleaning(scheme: String): Boolean =
+        schemes.find { it.scheme == scheme }?.needsCleaning == true
 }

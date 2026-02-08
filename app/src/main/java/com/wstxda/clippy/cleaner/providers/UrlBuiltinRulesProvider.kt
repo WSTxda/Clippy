@@ -1,356 +1,277 @@
 package com.wstxda.clippy.cleaner.providers
 
-import com.wstxda.clippy.cleaner.modules.utils.BuiltinRulesData
 import androidx.core.net.toUri
+import com.wstxda.clippy.cleaner.utils.UriUtils
+import com.wstxda.clippy.cleaner.data.BuiltinRulesRegex
 
 object UrlBuiltinRulesProvider {
-    private val trailingIdRegex = Regex("/[0-9]+/?$")
 
-    val builtinRulesData: List<BuiltinRulesData> = listOf(
+    val builtinRuleRegexes: List<BuiltinRulesRegex> = listOf(
 
         // AliExpress
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?aliexpress\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?aliexpress\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Amazon
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.amazon\\.(com|com\\.br|ca|de|es|fr|it|co\\.uk|co\\.jp)$"),
-            apply = { url -> retainParameters(url, Regex("dp|gp")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("dp|gp")) }),
 
         // Airbnb
-        BuiltinRulesData(
-            pattern = Regex("^www\\.airbnb\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.airbnb\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // AskUbuntu / StackExchange network
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("(.+\\.)?(stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com$"),
             pathPattern = Regex("/[aq]/[0-9]+/[0-9]+/?"),
-            apply = { url -> clearTrailingId(url) }
+            apply = UriUtils::clearTrailingId
         ),
 
         // BBC
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?(bbc\\.com|bbc\\.co\\.uk)$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?(bbc\\.com|bbc\\.co\\.uk)$"), apply = UriUtils::clearQuery
         ),
 
         // Bitly and other shorteners
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^(bit\\.ly|tinyurl\\.com|goo\\.gl|ow\\.ly|rebrand\\.ly|snip\\.ly|t\\.co|is\\.gd|v\\.gd|tiny\\.cc|cutt\\.ly)$"),
-            apply = ::clearQuery
+            apply = UriUtils::clearQuery
         ),
 
         // Bluesky
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?bluesky\\.app$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?bluesky\\.app$"), apply = UriUtils::clearQuery
         ),
 
         // Booking.com
-        BuiltinRulesData(
-            pattern = Regex("^www\\.booking\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.booking\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Canva
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?canva\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?canva\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Clear redirection link - Douban
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.douban\\.com$"),
             pathPattern = Regex("/link2/"),
             queryPattern = Regex(".*\\burl=.+"),
-            apply = { url -> extractParameter(url, "url") ?: url }
-        ),
+            apply = { url -> UriUtils.extractParameter(url, "url") ?: url }),
 
         // Coursera
-        BuiltinRulesData(
-            pattern = Regex("^www\\.coursera\\.org$"),
-            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign")) }
-        ),
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.coursera\\.org$"), apply = { url ->
+                UriUtils.retainParameters(
+                    url, Regex("utm_source|utm_medium|utm_campaign")
+                )
+            }),
 
         // Dailymotion
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?dailymotion\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?dailymotion\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Discord
-        BuiltinRulesData(
-            pattern = Regex("^www\\.discord\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.discord\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // eBay
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.ebay\\.com$"),
-            apply = { url -> retainParameters(url, Regex("id|item_id")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("id|item_id")) }),
 
         // Facebook
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^(www\\.)?(facebook|m\\.facebook)\\.com$"),
-            apply = { url -> retainParameters(url, Regex("^(?!fbclid|utm_).*")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("^(?!fbclid|utm_).*")) }),
 
-        // Forms (Google Forms)
-        BuiltinRulesData(
+        // Google Forms
+        BuiltinRulesRegex(
             pattern = Regex("^forms\\.google\\.com$"),
-            apply = { url -> retainParameters(url, Regex("id|usp")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("id|usp")) }),
 
         // Google Docs
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^docs\\.google\\.com$"),
-            apply = { url -> retainParameters(url, Regex("id|usp")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("id|usp")) }),
 
         // Imgur
-        BuiltinRulesData(
-            pattern = Regex("^imgur\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^imgur\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Instagram
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?instagram\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?instagram\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // LinkedIn
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^(.+\\.)?(linkedin\\.com|lnkd\\.in)$"),
-            apply = { url -> retainParameters(url, Regex("^(?!li_fat_id|trk|utm_).*")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("^(?!li_fat_id|trk|utm_).*")) }),
 
         // Mastodon
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?mastodon\\..+$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?mastodon\\..+$"), apply = UriUtils::clearQuery
         ),
 
         // Medium
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?medium\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?medium\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Mercado Livre
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.mercadolivre\\.com\\.br$"),
-            apply = { url -> retainParameters(url, Regex("item_id|id|oid")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("item_id|id|oid")) }),
 
         // Notion
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?notion\\.so$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?notion\\.so$"), apply = UriUtils::clearQuery
         ),
 
-        // Open Spotify
-        BuiltinRulesData(
-            pattern = Regex("^open\\.spotify\\.com$"),
-            apply = { url -> retainParameters(url, Regex("si")) }
-        ),
+        // Spotify
+        BuiltinRulesRegex(
+            pattern = Regex("^(open\\.)?spotify\\.com$"),
+            apply = { url -> UriUtils.retainParameters(url, Regex("si")) }),
 
         // Pinterest
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?(pinterest\\.com|api\\.pinterest\\.com)$"),
-            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign|pin")) }
-        ),
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?(pinterest\\.com|api\\.pinterest\\.com)$"), apply = { url ->
+                UriUtils.retainParameters(
+                    url, Regex("utm_source|utm_medium|utm_campaign|pin")
+                )
+            }),
 
         // Quora
-        BuiltinRulesData(
-            pattern = Regex("^www\\.quora\\.com$"),
-            apply = { url -> retainParameters(url, Regex("utm_source|utm_medium|utm_campaign")) }
-        ),
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.quora\\.com$"), apply = { url ->
+                UriUtils.retainParameters(
+                    url, Regex("utm_source|utm_medium|utm_campaign")
+                )
+            }),
 
         // Reddit
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?(reddit\\.com|redd\\.it)$"),
-            apply = { url ->
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?(reddit\\.com|redd\\.it)$"), apply = { url ->
                 val uri = url.toUri()
                 uri.buildUpon().clearQuery().apply {
-                    uri.queryParameterNames.filter { it == "context" }
-                        .forEach { param -> appendQueryParameter(param, uri.getQueryParameter(param)) }
+                    uri.queryParameterNames.filter { it == "context" }.forEach { param ->
+                        uri.getQueryParameter(param)?.let { value ->
+                            appendQueryParameter(param, value)
+                        }
+                    }
                 }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
-            }
-        ),
+            }),
 
         // Shein
-        BuiltinRulesData(
-            pattern = Regex("^www\\.shein\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.shein\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Shopee
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?shopee\\.com(\\.br)?$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?shopee\\.com(\\.br)?$"), apply = UriUtils::clearQuery
         ),
 
         // SoundCloud
-        BuiltinRulesData(
-            pattern = Regex("^www\\.soundcloud\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^www\\.soundcloud\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // SourceForge
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^sourceforge\\.net$"),
             pathPattern = Regex("/projects/.+/files/.+/download/?"),
-            apply = ::clearQuery
-        ),
-
-        // Spotify (already covered as open.spotify.com)
-        // included for redundancy safety
-        BuiltinRulesData(
-            pattern = Regex("^spotify\\.com$"),
-            apply = { url -> retainParameters(url, Regex("si")) }
+            apply = UriUtils::clearQuery
         ),
 
         // Substack
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?substack\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?substack\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Taobao / Tmall
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^(.+\\.)?(taobao|tmall)\\.com$"),
-            apply = { url -> retainParameters(url, Regex("id")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("id")) }),
 
         // Telegram
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^t\\.me$"),
-            apply = { url -> retainParameters(url, Regex("start|startapp|text")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("start|startapp|text")) }),
 
         // Temu
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?temu\\.com(\\.br)?$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?temu\\.com(\\.br)?$"), apply = UriUtils::clearQuery
         ),
 
         // Threads
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?threads\\.net$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?threads\\.net$"), apply = UriUtils::clearQuery
         ),
 
         // TikTok
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^(www\\.)?(tiktok\\.com|vm\\.tiktok\\.com)$"),
-            apply = ::clearQuery
+            apply = UriUtils::clearQuery
         ),
 
         // TripAdvisor
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.tripadvisor\\.com$"),
-            apply = { url -> retainParameters(url, Regex("ref|adid")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("ref|adid")) }),
 
         // Twitter / X
-        BuiltinRulesData(
-            pattern = Regex("^(twitter|x)\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(twitter|x)\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Udemy
-        BuiltinRulesData(
-            pattern = Regex("^(.+\\.)?udemy\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(.+\\.)?udemy\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // Vimeo
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?vimeo\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?vimeo\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // VK
-        BuiltinRulesData(
-            pattern = Regex("^(www\\.)?vk\\.com$"),
-            apply = ::clearQuery
+        BuiltinRulesRegex(
+            pattern = Regex("^(www\\.)?vk\\.com$"), apply = UriUtils::clearQuery
         ),
 
         // WhatsApp
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^api\\.whatsapp\\.com$"),
-            apply = { url -> retainParameters(url, Regex("phone|text")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("phone|text")) }),
 
         // Wikipedia
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.wikipedia\\.org$"),
-            apply = { url -> retainParameters(url, Regex("oldid|diff")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("oldid|diff")) }),
 
         // Yelp
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^www\\.yelp\\.com$"),
-            apply = { url -> retainParameters(url, Regex("ref")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("ref")) }),
 
         // YouTube
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^(youtu\\.be|((www|music)\\.)?youtube\\.com)$"),
-            apply = { url -> retainParameters(url, Regex("v|list|t|index")) }
-        ),
+            apply = { url -> UriUtils.retainParameters(url, Regex("v|list|t|index")) }),
 
         // Zhihu redirect
-        BuiltinRulesData(
+        BuiltinRulesRegex(
             pattern = Regex("^link\\.zhihu\\.com$"),
             queryPattern = Regex(".*\\btarget=.+"),
-            apply = { url -> extractParameter(url, "target") ?: url }
-        )
+            apply = { url -> UriUtils.extractParameter(url, "target") ?: url })
     )
-
-    private fun extractParameter(url: String, paramName: String): String? {
-        return url.toUri().getQueryParameter(paramName)
-    }
-
-    private fun clearQuery(url: String): String {
-        val uri = url.toUri()
-        return uri.buildUpon()
-            .clearQuery()
-            .scheme(uri.scheme)
-            .authority(uri.authority)
-            .path(uri.path)
-            .build()
-            .toString()
-    }
-
-    private fun retainParameters(url: String, paramNameRegex: Regex): String {
-        val uri = url.toUri()
-        return uri.buildUpon().clearQuery().apply {
-            uri.queryParameterNames
-                .filter { paramNameRegex.matches(it) }
-                .forEach { param -> appendQueryParameter(param, uri.getQueryParameter(param)) }
-        }.scheme(uri.scheme)
-            .authority(uri.authority)
-            .path(uri.path)
-            .build()
-            .toString()
-    }
-
-    private fun clearTrailingId(url: String): String {
-        val uri = url.toUri()
-        val modifiedPath = uri.path?.replace(trailingIdRegex, "") ?: uri.path
-        return uri.buildUpon()
-            .path(modifiedPath)
-            .scheme(uri.scheme)
-            .authority(uri.authority)
-            .build()
-            .toString()
-    }
 }

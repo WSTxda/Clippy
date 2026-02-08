@@ -2,7 +2,6 @@
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_link_cleaner">نسخ الرابط (منظّف)</string>
 
-    <string name="copy_process">جارٍ معالجة الرابط…</string>
     <string name="copy_success">تم النسخ إلى الحافظة</string>
     <string name="copy_failure">تعذّر نسخ الرابط</string>
 

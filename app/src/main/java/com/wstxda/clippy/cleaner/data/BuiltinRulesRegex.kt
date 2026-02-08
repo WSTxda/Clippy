@@ -1,6 +1,7 @@
-package com.wstxda.clippy.cleaner.modules.utils
+package com.wstxda.clippy.cleaner.data
 
-data class BuiltinRulesData(
+data class BuiltinRulesRegex(
+
     val pattern: Regex,
     val pathPattern: Regex? = null,
     val queryPattern: Regex? = null,

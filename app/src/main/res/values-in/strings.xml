@@ -2,7 +2,6 @@
     <string name="copy_link">Salin Tautan</string>
     <string name="copy_link_cleaner">Salin Tautan (Bersih)</string>
 
-    <string name="copy_process">Memproses tautan…</string>
     <string name="copy_success">Disalin ke papan klip</string>
     <string name="copy_failure">Tidak dapat menyalin tautan</string>
 

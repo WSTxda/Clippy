@@ -9,45 +9,50 @@ import java.net.URL
 
 object RedirectionHandler {
 
-    suspend fun resolveRedirectionParams(initialUrl: String): String = withContext(Dispatchers.IO) {
-        var url = initialUrl
-        var redirects = 0
+    suspend fun resolveRedirects(initialUrl: String): String = withContext(Dispatchers.IO) {
+        var currentUrl = initialUrl
+        var redirectCount = 0
 
-        while (redirects < Constants.MAX_REDIRECTS) {
+        while (redirectCount < Constants.MAX_REDIRECTS) {
             val result = runCatching {
-                val connection = (URL(url).openConnection() as HttpURLConnection).apply {
-                    instanceFollowRedirects = false
-                    connectTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
-                    readTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
-                    connect()
-                }
-
-                connection.use {
-                    val responseCode = it.responseCode
+                val connection = createConnection(currentUrl)
+                connection.use { conn ->
+                    val responseCode = conn.responseCode
                     if (responseCode in 300..399) {
-                        val location = it.getHeaderField("Location")
+                        val location = conn.getHeaderField("Location")
                         if (location.isNullOrEmpty()) {
-                            url
+                            currentUrl
                         } else {
-                            URL(it.url, location).toString()
+                            URL(conn.url, location).toString()
                         }
                     } else {
-                        url
+                        currentUrl
                     }
                 }
             }
 
             result.fold(onSuccess = { redirectedUrl ->
-                if (redirectedUrl == url) return@withContext redirectedUrl
-                url = redirectedUrl
-                redirects++
-            }, onFailure = { e ->
-                Log.e(Constants.REDIRECTION_HANDLER, "Error resolving URL: ${e.message}", e)
-                return@withContext url
+                if (redirectedUrl == currentUrl) return@withContext redirectedUrl
+                currentUrl = redirectedUrl
+                redirectCount++
+            }, onFailure = { error ->
+                Log.e(
+                    Constants.REDIRECTION_HANDLER, "Error resolving URL: ${error.message}", error
+                )
+                return@withContext currentUrl
             })
         }
 
-        return@withContext url
+        return@withContext currentUrl
+    }
+
+    private fun createConnection(url: String): HttpURLConnection {
+        return (URL(url).openConnection() as HttpURLConnection).apply {
+            instanceFollowRedirects = false
+            connectTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
+            readTimeout = Constants.DEFAULT_TIMEOUT_MILLIS
+            connect()
+        }
     }
 
     private inline fun <T> HttpURLConnection.use(block: (HttpURLConnection) -> T): T {

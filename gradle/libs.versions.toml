@@ -1,10 +1,17 @@
 [versions]
-agp = "8.13.0"
-kotlin = "2.2.21"
+agp = "8.13.2"
+kotlin = "2.3.0"
 appcompat = "1.7.1"
+fragment = "1.8.9"
+lifecycle = "2.10.0"
+material = "1.14.0-alpha09"
 
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
