@@ -51,14 +51,14 @@ object UrlCleaner {
     ): List<suspend (String) -> String> {
         val actions = mutableListOf<suspend (String) -> String>()
 
+        if (modules.contains(CleaningModule.REDIRECTION)) {
+            actions.add { url -> RedirectionHandler.resolveRedirects(url) }
+        }
         if (modules.contains(CleaningModule.SHORTENERS)) {
             actions.add { url -> ShortenerRemover.removeShortenerParams(url) }
         }
         if (modules.contains(CleaningModule.TRACKERS)) {
             actions.add { url -> TrackerRemover.removeTrackers(url) }
-        }
-        if (modules.contains(CleaningModule.REDIRECTION)) {
-            actions.add { url -> RedirectionHandler.resolveRedirects(url) }
         }
         if (modules.contains(CleaningModule.BUILTIN)) {
             actions.add { url -> BuiltinRulesResolver.applyBuiltinRules(url) }
