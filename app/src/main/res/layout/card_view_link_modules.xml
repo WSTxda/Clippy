@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="?attr/colorSecondaryContainer"
-    app:cardCornerRadius="16dp">
+    app:cardCornerRadius="20dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
