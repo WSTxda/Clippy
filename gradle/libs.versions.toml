@@ -1,6 +1,6 @@
 [versions]
 agp = "8.13.2"
-kotlin = "2.3.0"
+kotlin = "2.3.10"
 appcompat = "1.7.1"
 fragment = "1.8.9"
 lifecycle = "2.10.0"
