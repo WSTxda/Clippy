@@ -13,7 +13,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 abstract class BaseBottomSheet<VB : ViewBinding> : BottomSheetDialogFragment() {
 
     private var _binding: VB? = null
-    protected val binding get() = _binding!!
+
+    protected val binding: VB
+        get() = checkNotNull(_binding) {
+            "Binding accessed before onCreateView or after onDestroyView"
+        }
 
     protected abstract fun getBinding(inflater: LayoutInflater, container: ViewGroup?): VB
     protected abstract val topDivider: View

@@ -18,6 +18,7 @@
         <activity
             android:name="com.wstxda.clippy.activity.copy.CopyLinkActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:icon="@mipmap/ic_copy_link"
             android:label="@string/copy_link"
@@ -39,6 +40,7 @@
         <activity
             android:name="com.wstxda.clippy.activity.copy.CopyLinkCleanerActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:icon="@mipmap/ic_copy_link_cleaner"
             android:label="@string/copy_link_cleaner"

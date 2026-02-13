@@ -1,36 +1,34 @@
 package com.wstxda.clippy.cleaner.providers
 
+import com.wstxda.clippy.cleaner.data.UrlSchemeInfo
+
 object UrlSchemeProvider {
 
-    data class SchemeInfo(
-        val scheme: String, val needsCleaning: Boolean
-    )
-
     private val schemes = listOf(
-        SchemeInfo("http", needsCleaning = true),
-        SchemeInfo("https", needsCleaning = true),
-        SchemeInfo("magnet", needsCleaning = false),
-        SchemeInfo("ftp", needsCleaning = false),
-        SchemeInfo("ftps", needsCleaning = false),
-        SchemeInfo("rtsp", needsCleaning = false),
-        SchemeInfo("rtmp", needsCleaning = false),
-        SchemeInfo("file", needsCleaning = false),
-        SchemeInfo("git", needsCleaning = false),
-        SchemeInfo("svn", needsCleaning = false),
-        SchemeInfo("ssh", needsCleaning = false),
-        SchemeInfo("irc", needsCleaning = false),
-        SchemeInfo("news", needsCleaning = false),
-        SchemeInfo("nntp", needsCleaning = false),
-        SchemeInfo("sftp", needsCleaning = false),
-        SchemeInfo("sip", needsCleaning = false),
-        SchemeInfo("sips", needsCleaning = false),
-        SchemeInfo("xmpp", needsCleaning = false),
-        SchemeInfo("vnc", needsCleaning = false),
-        SchemeInfo("ldap", needsCleaning = false),
-        SchemeInfo("ldaps", needsCleaning = false)
+        UrlSchemeInfo("http", needsCleaning = true),
+        UrlSchemeInfo("https", needsCleaning = true),
+        UrlSchemeInfo("magnet", needsCleaning = false),
+        UrlSchemeInfo("ftp", needsCleaning = false),
+        UrlSchemeInfo("ftps", needsCleaning = false),
+        UrlSchemeInfo("rtsp", needsCleaning = false),
+        UrlSchemeInfo("rtmp", needsCleaning = false),
+        UrlSchemeInfo("file", needsCleaning = false),
+        UrlSchemeInfo("git", needsCleaning = false),
+        UrlSchemeInfo("svn", needsCleaning = false),
+        UrlSchemeInfo("ssh", needsCleaning = false),
+        UrlSchemeInfo("irc", needsCleaning = false),
+        UrlSchemeInfo("news", needsCleaning = false),
+        UrlSchemeInfo("nntp", needsCleaning = false),
+        UrlSchemeInfo("sftp", needsCleaning = false),
+        UrlSchemeInfo("sip", needsCleaning = false),
+        UrlSchemeInfo("sips", needsCleaning = false),
+        UrlSchemeInfo("xmpp", needsCleaning = false),
+        UrlSchemeInfo("vnc", needsCleaning = false),
+        UrlSchemeInfo("ldap", needsCleaning = false),
+        UrlSchemeInfo("ldaps", needsCleaning = false)
     )
 
-    val supportedSchemes: List<SchemeInfo> = schemes
+    val supportedSchemes: List<UrlSchemeInfo> = schemes
 
     fun isSupported(scheme: String): Boolean = schemes.any { it.scheme == scheme }
 

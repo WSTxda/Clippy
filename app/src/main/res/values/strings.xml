@@ -19,6 +19,7 @@
 
     <string name="dialog_clean_button">Clear link</string>
     <string name="dialog_copy_clipboard_button">Copy to clipboard</string>
+    <string name="dialog_open_in_browser_button">Open in browser</string>
 
     <string name="dialog_original_link">Original link</string>
     <string name="dialog_cleaned_link">Cleaned link</string>

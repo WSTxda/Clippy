@@ -1,53 +1,100 @@
 package com.wstxda.clippy.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.wstxda.clippy.R
-import com.wstxda.clippy.cleaner.processor.LinkProcessor
-import com.wstxda.clippy.cleaner.tools.UrlValidator
-import com.wstxda.clippy.cleaner.data.CleaningModule
+import com.wstxda.clippy.cleaner.data.UrlCleaningModule
 import com.wstxda.clippy.cleaner.data.LinkActionResult
+import com.wstxda.clippy.cleaner.data.ValidationResult
+import com.wstxda.clippy.cleaner.processor.LinkProcessor
 import com.wstxda.clippy.data.LinkItem
 import com.wstxda.clippy.data.LinkProcessState
+import com.wstxda.clippy.utils.Constants
+import com.wstxda.clippy.utils.Logcat
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LinkCleanerViewModel : ViewModel() {
+class LinkCleanerViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _state = MutableStateFlow(
         LinkProcessState(
-            isCleanAllEnabled = true, selectedModules = CleaningModule.entries.toSet()
+            isCleanAllEnabled = true, selectedModules = UrlCleaningModule.entries.toSet()
         )
     )
-    val state: StateFlow<LinkProcessState> = _state
+
+    val state: StateFlow<LinkProcessState> = _state.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = LinkProcessState(
+            isCleanAllEnabled = true, selectedModules = UrlCleaningModule.entries.toSet()
+        )
+    )
 
     fun setInitialLinks(links: List<String>) {
-        if (_state.value.links.isEmpty()) {
-            _state.update { currentState ->
-                currentState.copy(
-                    links = links.map { url -> LinkItem(url, url) })
-            }
+        if (_state.value.links.isNotEmpty()) {
+            Logcat.d(Constants.LINK_CLEANER_VIEW_MODEL, "Links already set, ignoring")
+            return
+        }
+
+        Logcat.d(Constants.LINK_CLEANER_VIEW_MODEL, "Setting ${links.size} initial link(s)")
+
+        val items = links.map { url ->
+            LinkItem(inputUrl = url, resultUrl = url)
+        }
+        _state.update { currentState ->
+            currentState.copy(links = items)
         }
     }
 
     fun setCleanAllEnabled(enabled: Boolean) {
-        _state.update { it.copy(isCleanAllEnabled = enabled) }
+        _state.update { currentState ->
+            currentState.copy(isCleanAllEnabled = enabled)
+        }
     }
 
-    fun updateModuleSelection(module: CleaningModule, isChecked: Boolean) {
+    fun updateModuleSelection(module: UrlCleaningModule, isChecked: Boolean) {
         _state.update { currentState ->
-            val updatedModules = currentState.selectedModules.toMutableSet()
-            if (isChecked) {
-                updatedModules.add(module)
-            } else {
-                updatedModules.remove(module)
+            val updatedModules = currentState.selectedModules.toMutableSet().apply {
+                if (isChecked) add(module) else remove(module)
             }
             currentState.copy(selectedModules = updatedModules)
+        }
+    }
+
+    fun processLinks() {
+        viewModelScope.launch {
+            try {
+                setProcessingState()
+
+                val modulesToUse = getModulesToApply()
+                Logcat.i(
+                    Constants.LINK_CLEANER_VIEW_MODEL,
+                    "Processing links with ${modulesToUse.size} module(s): ${modulesToUse.joinToString { it.name }}"
+                )
+
+                val processedLinks = processAllLinks(modulesToUse)
+
+                _state.update { currentState ->
+                    currentState.copy(
+                        links = processedLinks, isGlobalProcessing = false, isFinished = true
+                    )
+                }
+
+                Logcat.i(Constants.LINK_CLEANER_VIEW_MODEL, "All links processed successfully")
+            } catch (e: Exception) {
+                Logcat.e(Constants.LINK_CLEANER_VIEW_MODEL, "Error processing links", e)
+                _state.update { currentState ->
+                    currentState.copy(isGlobalProcessing = false)
+                }
+            }
         }
     }
 
@@ -58,71 +105,72 @@ class LinkCleanerViewModel : ViewModel() {
             return LinkActionResult.Error(R.string.copy_failure_no_valid_links)
         }
 
+        // Check if there's any validation error
         val firstError = itemsToCopy.firstNotNullOfOrNull { it.validationErrorRes }
         if (firstError != null) {
             return LinkActionResult.Error(firstError)
         }
 
-        val text = buildCopyText(itemsToCopy)
-        if (text.isBlank()) {
-            return LinkActionResult.Error(R.string.copy_failure_empty_after_cleaning)
+        val text = itemsToCopy.joinToString("\n") { link ->
+            link.resultUrl ?: link.inputUrl
         }
 
-        return LinkActionResult.Success(text)
-    }
-
-    fun processLinks() {
-        viewModelScope.launch {
-            setProcessingState()
-
-            val modulesToUse = getModulesToApply()
-            val processedLinks = processAllLinks(modulesToUse)
-
-            _state.update { currentState ->
-                currentState.copy(
-                    links = processedLinks, isGlobalProcessing = false, isFinished = true
-                )
-            }
+        return if (text.isBlank()) {
+            LinkActionResult.Error(R.string.copy_failure_empty_after_cleaning)
+        } else {
+            LinkActionResult.Success(text)
         }
-    }
-
-    private fun buildCopyText(items: List<LinkItem>): String {
-        return items.joinToString("\n") { it.resultUrl ?: it.inputUrl }
     }
 
     private fun setProcessingState() {
         _state.update { currentState ->
             currentState.copy(
-                isGlobalProcessing = true,
-                links = currentState.links.map { it.copy(isProcessing = true) })
+                isGlobalProcessing = true, links = currentState.links.map { link ->
+                    link.copy(isProcessing = true)
+                })
         }
     }
 
-    private fun getModulesToApply(): Set<CleaningModule> {
+    private fun getModulesToApply(): Set<UrlCleaningModule> {
         return if (_state.value.isCleanAllEnabled) {
-            CleaningModule.entries.toSet()
+            UrlCleaningModule.entries.toSet()
         } else {
             _state.value.selectedModules
         }
     }
 
-    private suspend fun processAllLinks(modules: Set<CleaningModule>): List<LinkItem> =
-        coroutineScope {
-            _state.value.links.map { item ->
-                async { processLinkItem(item, modules) }
-            }.awaitAll()
-        }
+    private suspend fun processAllLinks(
+        modules: Set<UrlCleaningModule>
+    ): List<LinkItem> = coroutineScope {
+        _state.value.links.map { item ->
+            async {
+                processLinkItem(item, modules)
+            }
+        }.awaitAll()
+    }
 
     private suspend fun processLinkItem(
-        item: LinkItem, modules: Set<CleaningModule>
+        item: LinkItem, modules: Set<UrlCleaningModule>
     ): LinkItem {
-        val result = LinkProcessor.cleanLink(item.inputUrl, modules)
-        val errorRes = UrlValidator.getValidationErrorRes(result)
+        return try {
+            val result = LinkProcessor.process(item.inputUrl, modules)
 
-        return item.copy(
-            resultUrl = result.ifBlank { item.inputUrl },
-            validationErrorRes = errorRes,
-            isProcessing = false
-        )
+            item.copy(
+                resultUrl = result.cleanedUrl,
+                validationErrorRes = if (result.validationResult is ValidationResult.Invalid) {
+                    R.string.copy_failure_error_cleaning
+                } else {
+                    null
+                },
+                isProcessing = false
+            )
+        } catch (e: Exception) {
+            Logcat.e(
+                Constants.LINK_CLEANER_VIEW_MODEL, "Error processing link: ${item.inputUrl}", e
+            )
+            item.copy(
+                validationErrorRes = R.string.copy_failure_error_cleaning, isProcessing = false
+            )
+        }
     }
 }

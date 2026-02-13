@@ -17,6 +17,9 @@
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusTopStart="12dp"
+        app:endIconContentDescription="@string/dialog_open_in_browser_button"
+        app:endIconDrawable="@drawable/ic_open"
+        app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +28,9 @@
             android:id="@+id/input_original_link_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textUri" />
+            android:gravity="start|center"
+            android:inputType="textMultiLine"
+            android:maxLines="20" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -48,16 +53,15 @@
         android:hint="@string/dialog_cleaned_link"
         android:importantForAccessibility="no"
         android:paddingTop="6dp"
-        android:textColorHint="?attr/colorOnTertiaryContainer"
         android:visibility="gone"
         app:boxBackgroundColor="?attr/colorTertiaryContainer"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusTopStart="12dp"
-        app:boxStrokeColor="?attr/colorOnTertiaryContainer"
-        app:helperTextTextColor="?attr/colorOnTertiaryContainer"
-        app:hintTextColor="?attr/colorOnTertiaryContainer"
+        app:endIconContentDescription="@string/dialog_open_in_browser_button"
+        app:endIconDrawable="@drawable/ic_open"
+        app:endIconMode="custom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +72,8 @@
             android:id="@+id/input_cleaned_link_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textUri" />
+            android:gravity="start|center"
+            android:inputType="textMultiLine"
+            android:maxLines="20" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

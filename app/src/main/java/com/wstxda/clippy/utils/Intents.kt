@@ -2,7 +2,7 @@ package com.wstxda.clippy.utils
 
 import android.content.Intent
 
-object IntentUtils {
+object Intents {
 
     fun Intent.getSharedLink(): String? {
 

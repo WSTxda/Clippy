@@ -1,5 +1,6 @@
 package com.wstxda.clippy.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -8,8 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wstxda.clippy.data.LinkItem
 import com.wstxda.clippy.databinding.TextInputLinkContainerBinding
+import androidx.core.net.toUri
 
 class LinkItemAdapter : ListAdapter<LinkItem, LinkItemAdapter.LinkViewHolder>(LinkDiffCallback()) {
+
+    var showCleanedLink: Boolean = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinkViewHolder {
         val binding = TextInputLinkContainerBinding.inflate(
@@ -19,7 +23,7 @@ class LinkItemAdapter : ListAdapter<LinkItem, LinkItemAdapter.LinkViewHolder>(Li
     }
 
     override fun onBindViewHolder(holder: LinkViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), showCleanedLink)
     }
 
     class LinkViewHolder(
@@ -41,29 +45,47 @@ class LinkItemAdapter : ListAdapter<LinkItem, LinkItemAdapter.LinkViewHolder>(Li
             }
         }
 
-        fun bind(item: LinkItem) {
+        fun bind(item: LinkItem, showCleanedLink: Boolean) {
             binding.inputOriginalLinkText.setText(item.inputUrl)
 
-            val error = item.validationErrorRes?.let { binding.root.context.getString(it) }
-                ?: item.validationError
-            binding.inputOriginalLink.error = error
-            binding.inputOriginalLink.isErrorEnabled = error != null
+            val inputError = item.validationErrorRes?.let { binding.root.context.getString(it) }
+            binding.inputOriginalLink.error = inputError
+            binding.inputOriginalLink.isErrorEnabled = inputError != null
+
+            binding.inputOriginalLink.setEndIconOnClickListener {
+                openInBrowser(item.inputUrl)
+            }
 
             binding.progressIndicatorModules.isVisible = item.isProcessing
 
             val hasResult = item.resultUrl != null
-            binding.inputCleanedLink.isVisible = hasResult
+            binding.inputCleanedLink.isVisible = hasResult && showCleanedLink
 
-            if (hasResult) {
+            if (hasResult && showCleanedLink) {
                 binding.inputCleanedLinkText.setText(item.resultUrl)
+                binding.inputCleanedLink.error = null
+                binding.inputCleanedLink.isErrorEnabled = false
+
+                binding.inputCleanedLink.setEndIconOnClickListener {
+                    openInBrowser(item.resultUrl)
+                }
             }
+        }
+
+        private fun openInBrowser(url: String) {
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri()).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            binding.root.context.startActivity(intent)
         }
     }
 
     private class LinkDiffCallback : DiffUtil.ItemCallback<LinkItem>() {
         override fun areItemsTheSame(oldItem: LinkItem, newItem: LinkItem) =
-            oldItem.originalUrl == newItem.originalUrl
+            oldItem.inputUrl == newItem.inputUrl
 
-        override fun areContentsTheSame(oldItem: LinkItem, newItem: LinkItem) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: LinkItem, newItem: LinkItem): Boolean {
+            return oldItem.resultUrl == newItem.resultUrl && oldItem.isProcessing == newItem.isProcessing && oldItem.validationErrorRes == newItem.validationErrorRes
+        }
     }
 }

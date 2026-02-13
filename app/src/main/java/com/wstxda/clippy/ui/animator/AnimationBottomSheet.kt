@@ -10,7 +10,9 @@ import com.wstxda.clippy.utils.Constants
 
 object AnimationBottomSheet {
 
-    fun beginDelayedTransition(container: ViewGroup, duration: Long = Constants.DEFAULT_DURATION) {
+    fun beginDelayedTransition(
+        container: ViewGroup, duration: Long = Constants.ANIMATION_DURATION_MILLIS
+    ) {
         val transition = TransitionSet().apply {
             ordering = TransitionSet.ORDERING_TOGETHER
             addTransition(Fade())

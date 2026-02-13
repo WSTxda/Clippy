@@ -7,8 +7,10 @@ import com.wstxda.clippy.R
 import com.wstxda.clippy.cleaner.processor.LinkProcessor
 import com.wstxda.clippy.ui.component.LinkCleanerBottomSheet
 import com.wstxda.clippy.utils.Constants
-import com.wstxda.clippy.utils.IntentUtils.getSharedLink
+import com.wstxda.clippy.utils.Intents.getSharedLink
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class ClipboardLinkActivity : BaseActivity() {
 
@@ -35,12 +37,17 @@ abstract class ClipboardLinkActivity : BaseActivity() {
         }
 
         lifecycleScope.launch {
-            val (validUrls, invalidUrls) = LinkProcessor.extractAndValidateLinks(sharedText)
+            // Run URL extraction and validation on Default dispatcher
+            val (validUrls) = withContext(Dispatchers.Default) {
+                LinkProcessor.extractAndValidate(sharedText)
+            }
+
+            // Check lifecycle before updating UI
+            if (isFinishing || isDestroyed) {
+                return@launch
+            }
 
             if (validUrls.isEmpty()) {
-                if (invalidUrls.isNotEmpty()) {
-                    LinkProcessor.logInvalidUrls(invalidUrls)
-                }
                 finishWithToast(getString(R.string.copy_failure_no_valid_links))
                 return@launch
             }

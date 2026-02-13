@@ -2,7 +2,7 @@ package com.wstxda.clippy.cleaner.utils
 
 import androidx.core.net.toUri
 
-object UriUtils {
+object BuiltinRulesUri {
 
     private val trailingIdRegex = Regex("/[0-9]+/?$")
 

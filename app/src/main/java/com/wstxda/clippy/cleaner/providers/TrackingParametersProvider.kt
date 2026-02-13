@@ -2,7 +2,7 @@ package com.wstxda.clippy.cleaner.providers
 
 object TrackingParametersProvider {
 
-    private val trackingParameters = setOf(
+    val trackingParameters = setOf(
         "ad_click_id",
         "ad_id",
         "ad_name",
@@ -108,6 +108,4 @@ object TrackingParametersProvider {
         "_hsenc",
         "_hsmi"
     )
-
-    fun getTrackingParameters(): Set<String> = trackingParameters
 }

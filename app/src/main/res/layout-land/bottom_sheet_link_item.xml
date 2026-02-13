@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="16dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/title_dialog"
@@ -81,16 +81,17 @@
         android:id="@+id/fixed_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingHorizontal="?attr/dialogPreferredPadding"
         android:paddingVertical="12dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_clear_link"
             style="@style/Widget.Material3Expressive.Button.TonalButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
             android:text="@string/dialog_clean_button"
             app:icon="@drawable/ic_sweep"
             app:iconGravity="textStart" />
@@ -98,8 +99,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_copy_link_clipboard"
             style="@style/Widget.Material3Expressive.Button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="@string/dialog_copy_clipboard_button"
             app:icon="@drawable/ic_clipboard"
             app:iconGravity="textStart" />

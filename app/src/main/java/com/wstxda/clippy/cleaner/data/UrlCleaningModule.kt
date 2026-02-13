@@ -1,6 +1,6 @@
 package com.wstxda.clippy.cleaner.data
 
-enum class CleaningModule {
+enum class UrlCleaningModule {
 
     REDIRECTION, TRACKERS, SHORTENERS, BUILTIN
 }
