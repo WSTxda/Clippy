@@ -8,4 +8,17 @@
     <string name="copy_failure_no_valid_links">No se encontraron enlaces válidos</string>
     <string name="copy_failure_error_cleaning">Error al limpiar enlaces</string>
     <string name="copy_failure_empty_after_cleaning">Los enlaces no tenían contenido después de la limpieza</string>
+
+    <string name="dialog_apply_all_modules">Aplicar todos los módulos</string>
+    <string name="dialog_module_shorteners">Eliminar acortadores</string>
+    <string name="dialog_module_trackers">Eliminar rastreadores</string>
+    <string name="dialog_module_redirection">Resolver redirecciones</string>
+    <string name="dialog_module_builtin_rules">Aplicar reglas integradas</string>
+
+    <string name="dialog_clean_button">Limpiar enlace</string>
+    <string name="dialog_copy_clipboard_button">Copiar al portapapeles</string>
+    <string name="dialog_open_in_browser_button">Abrir en el navegador</string>
+
+    <string name="dialog_original_link">Enlace original</string>
+    <string name="dialog_cleaned_link">Enlace limpio</string>
 </resources>

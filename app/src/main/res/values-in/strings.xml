@@ -8,4 +8,17 @@
     <string name="copy_failure_no_valid_links">Tidak ada tautan valid yang ditemukan</string>
     <string name="copy_failure_error_cleaning">Kesalahan saat membersihkan tautan</string>
     <string name="copy_failure_empty_after_cleaning">Tautan tidak memiliki konten setelah dibersihkan</string>
+
+    <string name="dialog_apply_all_modules">Terapkan semua modul</string>
+    <string name="dialog_module_shorteners">Hapus penyingkat</string>
+    <string name="dialog_module_trackers">Hapus pelacak</string>
+    <string name="dialog_module_redirection">Selesaikan pengalihan</string>
+    <string name="dialog_module_builtin_rules">Terapkan aturan bawaan</string>
+
+    <string name="dialog_clean_button">Bersihkan tautan</string>
+    <string name="dialog_copy_clipboard_button">Salin ke papan klip</string>
+    <string name="dialog_open_in_browser_button">Buka di peramban</string>
+
+    <string name="dialog_original_link">Tautan asli</string>
+    <string name="dialog_cleaned_link">Tautan bersih</string>
 </resources>

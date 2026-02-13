@@ -8,4 +8,17 @@
     <string name="copy_failure_no_valid_links">لم يتم العثور على روابط صالحة</string>
     <string name="copy_failure_error_cleaning">حدث خطأ أثناء تنظيف الروابط</string>
     <string name="copy_failure_empty_after_cleaning">لم تحتوي الروابط على محتوى بعد التنظيف</string>
+
+    <string name="dialog_apply_all_modules">تطبيق جميع الوحدات</string>
+    <string name="dialog_module_shorteners">إزالة الروابط المختصرة</string>
+    <string name="dialog_module_trackers">إزالة أدوات التتبع</string>
+    <string name="dialog_module_redirection">حل عمليات إعادة التوجيه</string>
+    <string name="dialog_module_builtin_rules">تطبيق القواعد المدمجة</string>
+
+    <string name="dialog_clean_button">مسح الرابط</string>
+    <string name="dialog_copy_clipboard_button">نسخ إلى الحافظة</string>
+    <string name="dialog_open_in_browser_button">فتح في المتصفح</string>
+
+    <string name="dialog_original_link">الرابط الأصلي</string>
+    <string name="dialog_cleaned_link">الرابط المنظف</string>
 </resources>

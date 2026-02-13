@@ -8,4 +8,17 @@
     <string name="copy_failure_no_valid_links">Không tìm thấy đường link hợp lệ</string>
     <string name="copy_failure_error_cleaning">Không thể làm sạch đường link</string>
     <string name="copy_failure_empty_after_cleaning">Liên kết không có nội dung sau khi làm sạch</string>
+
+    <string name="dialog_apply_all_modules">Áp dụng tất cả mô-đun</string>
+    <string name="dialog_module_shorteners">Xóa liên kết rút gọn</string>
+    <string name="dialog_module_trackers">Xóa trình theo dõi</string>
+    <string name="dialog_module_redirection">Giải quyết chuyển hướng</string>
+    <string name="dialog_module_builtin_rules">Áp dụng các quy tắc tích hợp</string>
+
+    <string name="dialog_clean_button">Xóa link</string>
+    <string name="dialog_copy_clipboard_button">Sao chép vào bộ nhớ tạm</string>
+    <string name="dialog_open_in_browser_button">Mở trong trình duyệt</string>
+
+    <string name="dialog_original_link">Liên kết gốc</string>
+    <string name="dialog_cleaned_link">Liên kết đã làm sạch</string>
 </resources>

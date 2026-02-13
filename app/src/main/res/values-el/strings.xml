@@ -8,4 +8,17 @@
     <string name="copy_failure_no_valid_links">Δεν βρέθηκαν έγκυροι σύνδεσμοι</string>
     <string name="copy_failure_error_cleaning">Σφάλμα κατά τον καθαρισμό των συνδέσμων</string>
     <string name="copy_failure_empty_after_cleaning">Οι σύνδεσμοι δεν είχαν περιεχόμενο μετά τον καθαρισμό</string>
+
+    <string name="dialog_apply_all_modules">Εφαρμογή όλων των ενοτήτων</string>
+    <string name="dialog_module_shorteners">Αφαίρεση συντομεύσεων</string>
+    <string name="dialog_module_trackers">Αφαίρεση ιχνηλατών</string>
+    <string name="dialog_module_redirection">Επίλυση ανακατευθύνσεων</string>
+    <string name="dialog_module_builtin_rules">Εφαρμογή ενσωματωμένων κανόνων</string>
+
+    <string name="dialog_clean_button">Εκκαθάριση συνδέσμου</string>
+    <string name="dialog_copy_clipboard_button">Αντιγραφή στο πρόχειρο</string>
+    <string name="dialog_open_in_browser_button">Άνοιγμα στο πρόγραμμα περιήγησης</string>
+
+    <string name="dialog_original_link">Αρχικός σύνδεσμος</string>
+    <string name="dialog_cleaned_link">Καθαρισμένος σύνδεσμος</string>
 </resources>
