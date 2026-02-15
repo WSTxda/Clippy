@@ -1,0 +1,53 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:layout="@layout/preference_material_category"
+        android:title="@string/pref_category_appearance"
+        app:allowDividerAbove="false" />
+
+    <ListPreference
+        android:defaultValue="system"
+        android:entries="@array/theme_entries"
+        android:entryValues="@array/theme_values"
+        android:key="select_theme"
+        android:layout="@layout/preference_material_single"
+        android:title="@string/pref_theme"
+        app:dialogIcon="@drawable/ic_theme_color"
+        app:dialogTitle="@string/theme_select"
+        app:iconSpaceReserved="false"
+        app:useSimpleSummaryProvider="true" />
+
+    <PreferenceCategory
+        android:layout="@layout/preference_material_category"
+        android:title="@string/pref_category_about"
+        app:allowDividerAbove="false" />
+
+    <Preference
+        android:key="developer"
+        android:layout="@layout/preference_material_top"
+        android:summary="@string/pref_developer"
+        android:title="@string/pref_wstxda"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        android:key="github_repository"
+        android:layout="@layout/preference_material_middle"
+        android:summary="@string/pref_source_code"
+        android:title="@string/pref_github"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        android:key="library"
+        android:layout="@layout/preference_material_middle"
+        android:summary="@string/pref_used_library_summary"
+        android:title="@string/pref_used_library"
+        app:iconSpaceReserved="false" />
+
+    <com.wstxda.clippy.fragment.preferences.UpdaterPreference
+        android:key="version"
+        android:summary="@string/pref_version_number"
+        android:title="@string/pref_version"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false" />
+</androidx.preference.PreferenceScreen>

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.aboutLibraries)
 }
 
 android {
@@ -25,10 +26,6 @@ android {
         }
     }
 
-    buildFeatures {
-        viewBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -39,12 +36,31 @@ android {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
+    aboutLibraries {
+        library {
+            duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+            duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+        }
+    }
 }
 
 dependencies {
+    implementation(libs.androidx.preference)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.navigation)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.google.material)
+    implementation(libs.aboutlibraries.view)
 }

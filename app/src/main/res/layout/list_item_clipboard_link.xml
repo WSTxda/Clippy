@@ -1,0 +1,58 @@
+<com.google.android.material.listitem.ListItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_item_layout"
+    android:layout_marginBottom="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.listitem.ListItemCardView
+        android:id="@+id/list_item_card_view"
+        style="?attr/listItemCardViewSegmentedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/link_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_link"
+            android:drawablePadding="12dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:paddingVertical="12dp"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface"
+            tools:text="https://www.example.com" />
+    </com.google.android.material.listitem.ListItemCardView>
+
+    <com.google.android.material.listitem.ListItemRevealLayout
+        android:id="@+id/reveal_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:primaryActionSwipeMode="disabled">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_button"
+            style="@style/Widget.Material3Expressive.Button.IconButton.Tonal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/clipboard_save_button"
+            app:icon="@drawable/ic_save"
+            app:iconGravity="textStart" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete_button"
+            style="@style/Widget.Material3Expressive.Button.IconButton.Tonal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/clipboard_delete_button"
+            app:backgroundTint="?attr/colorErrorContainer"
+            app:icon="@drawable/ic_delete"
+            app:iconGravity="textStart"
+            app:iconTint="?attr/colorOnErrorContainer" />
+    </com.google.android.material.listitem.ListItemRevealLayout>
+</com.google.android.material.listitem.ListItemLayout>

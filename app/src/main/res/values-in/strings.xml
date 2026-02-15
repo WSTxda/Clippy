@@ -1,9 +1,9 @@
 <resources>
-    <string name="copy_link">Salin Tautan</string>
-    <string name="copy_link_cleaner">Salin Tautan (Bersih)</string>
+    <string name="clippy_copy_link">Salin Tautan</string>
+    <string name="clippy_copy_link_cleaner">Salin Tautan (Bersih)</string>
 
-    <string name="copy_success">Disalin ke papan klip</string>
-    <string name="copy_failure">Tidak dapat menyalin tautan</string>
+    <string name="copy_success_clipboard">Disalin ke papan klip</string>
+    <string name="copy_failure_general">Tidak dapat menyalin tautan</string>
 
     <string name="copy_failure_no_valid_links">Tidak ada tautan valid yang ditemukan</string>
     <string name="copy_failure_error_cleaning">Kesalahan saat membersihkan tautan</string>

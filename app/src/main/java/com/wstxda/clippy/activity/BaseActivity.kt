@@ -3,11 +3,14 @@ package com.wstxda.clippy.activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -18,12 +21,18 @@ abstract class BaseActivity : AppCompatActivity() {
         enableEdgeToEdgeNoContrast()
     }
 
+    protected fun setupToolbar(toolbar: Toolbar, showBackButton: Boolean = true) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
+        if (showBackButton) {
+            toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
+    }
+
     private fun enableEdgeToEdgeNoContrast() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             enableEdgeToEdge(
-                navigationBarStyle = SystemBarStyle.auto(
-                    lightScrim = Color.TRANSPARENT, darkScrim = Color.TRANSPARENT
-                )
+                navigationBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
             )
             window.isNavigationBarContrastEnforced = false
         }
@@ -46,5 +55,19 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun finishWithToast(message: String) {
         showToast(message)
         finish()
+    }
+
+    protected open fun getMenuResId(): Int? = null
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        getMenuResId()?.let { menuInflater.inflate(it, menu) }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    protected open fun onMenuItemSelected(item: MenuItem): Boolean = false
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (onMenuItemSelected(item)) true
+        else super.onOptionsItemSelected(item)
     }
 }

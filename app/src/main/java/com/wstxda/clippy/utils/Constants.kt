@@ -2,6 +2,17 @@ package com.wstxda.clippy.utils
 
 object Constants {
 
+    // Preferences keys //
+
+    const val LIBRARY_PREF_KEY = "library"
+    const val THEME_PREF_KEY = "select_theme"
+
+    // Theme values //
+
+    const val THEME_SYSTEM = "system"
+    const val THEME_LIGHT = "light"
+    const val THEME_DARK = "dark"
+
     // Network Configuration //
 
     // RedirectionHandler timeouts
@@ -25,11 +36,26 @@ object Constants {
     const val URL_CLEANER = "UrlCleaner"
     const val URL_VALIDATOR = "UrlValidator"
 
-    // UI Configuration //
+    // LinkCleanerBottomSheet //
 
     // Arguments
     const val ARG_LINKS = "arg_links"
     const val ARG_CLEAN = "arg_clean"
     // Animation
     const val ANIMATION_DURATION_MILLIS = 400L
+
+    // ClipboardActivity //
+
+    // Data preference
+    const val PREFS_NAME = "clippy_storage"
+    // Saved links
+    const val KEY_SAVED_LINKS = "saved_links"
+    // History links
+    const val KEY_HISTORY_LINKS = "history_links"
+    // Max history links size
+    const val MAX_HISTORY_SIZE = 50
+
+    // GitHub API releases URL //
+
+    const val GITHUB_RELEASE_URL = "https://api.github.com/repos/WSTxda/Clippy/releases/latest"
 }

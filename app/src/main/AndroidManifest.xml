@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Clippy"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -15,13 +17,48 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
 
+        <!--clipboard activity (main)-->
+
+        <activity
+            android:name=".activity.ClipboardActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--settings activity-->
+
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Axis" />
+
+        <!--about libraries activity-->
+
+        <activity
+            android:name=".activity.LibraryActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Axis" />
+
+        <!--share to clippy activities-->
+
         <activity
             android:name="com.wstxda.clippy.activity.copy.CopyLinkActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:excludeFromRecents="true"
             android:exported="true"
             android:icon="@mipmap/ic_copy_link"
-            android:label="@string/copy_link"
+            android:label="@string/clippy_copy_link"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent"
             android:windowSoftInputMode="adjustResize">
@@ -43,7 +80,7 @@
             android:excludeFromRecents="true"
             android:exported="true"
             android:icon="@mipmap/ic_copy_link_cleaner"
-            android:label="@string/copy_link_cleaner"
+            android:label="@string/clippy_copy_link_cleaner"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent"
             android:windowSoftInputMode="adjustResize">
@@ -58,6 +95,5 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
     </application>
 </manifest>

@@ -1,9 +1,9 @@
 <resources>
-    <string name="copy_link">Αντιγραφή Συνδέσμου</string>
-    <string name="copy_link_cleaner">Αντιγραφή Καθαρού Συνδέσμου</string>
+    <string name="clippy_copy_link">Αντιγραφή Συνδέσμου</string>
+    <string name="clippy_copy_link_cleaner">Αντιγραφή Καθαρού Συνδέσμου</string>
 
-    <string name="copy_success">Αντιγράφηκε στο πρόχειρο</string>
-    <string name="copy_failure">Δεν είναι δυνατή η αντιγραφή συνδέσμου</string>
+    <string name="copy_success_clipboard">Αντιγράφηκε στο πρόχειρο</string>
+    <string name="copy_failure_general">Δεν είναι δυνατή η αντιγραφή συνδέσμου</string>
 
     <string name="copy_failure_no_valid_links">Δεν βρέθηκαν έγκυροι σύνδεσμοι</string>
     <string name="copy_failure_error_cleaning">Σφάλμα κατά τον καθαρισμό των συνδέσμων</string>
