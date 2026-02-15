@@ -1,9 +1,9 @@
 <resources>
-    <string name="copy_link">نسخ الرابط</string>
-    <string name="copy_link_cleaner">نسخ الرابط (منظّف)</string>
+    <string name="clippy_copy_link">نسخ الرابط</string>
+    <string name="clippy_copy_link_cleaner">نسخ الرابط (منظّف)</string>
 
-    <string name="copy_success">تم النسخ إلى الحافظة</string>
-    <string name="copy_failure">تعذّر نسخ الرابط</string>
+    <string name="copy_success_clipboard">تم النسخ إلى الحافظة</string>
+    <string name="copy_failure_general">تعذّر نسخ الرابط</string>
 
     <string name="copy_failure_no_valid_links">لم يتم العثور على روابط صالحة</string>
     <string name="copy_failure_error_cleaning">حدث خطأ أثناء تنظيف الروابط</string>

@@ -1,9 +1,9 @@
 <resources>
-    <string name="copy_link">Copiar link</string>
-    <string name="copy_link_cleaner">Copiar link (Limpo)</string>
+    <string name="clippy_copy_link">Copiar link</string>
+    <string name="clippy_copy_link_cleaner">Copiar link (Limpo)</string>
 
-    <string name="copy_success">Copiado para área de transferência</string>
-    <string name="copy_failure">Não foi possível copiar o link</string>
+    <string name="copy_success_clipboard">Copiado para área de transferência</string>
+    <string name="copy_failure_general">Não foi possível copiar o link</string>
 
     <string name="copy_failure_no_valid_links">Nenhum link válido encontrado</string>
     <string name="copy_failure_error_cleaning">Erro ao limpar links</string>

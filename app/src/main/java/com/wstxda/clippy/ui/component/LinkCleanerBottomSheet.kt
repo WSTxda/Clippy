@@ -144,7 +144,7 @@ class LinkCleanerBottomSheet : BaseBottomSheet<BottomSheetLinkItemBinding>() {
         when (result) {
             is LinkActionResult.Success -> {
                 copyToClipboard(result.text)
-                finishWithToast(getString(R.string.copy_success))
+                finishWithToast(getString(R.string.copy_success_clipboard))
             }
 
             is LinkActionResult.Error -> {

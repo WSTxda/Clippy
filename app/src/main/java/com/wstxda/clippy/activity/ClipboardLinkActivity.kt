@@ -32,7 +32,7 @@ abstract class ClipboardLinkActivity : BaseActivity() {
         val sharedText = intent.getSharedLink()
 
         if (sharedText.isNullOrBlank()) {
-            finishWithToast(getString(R.string.copy_failure))
+            finishWithToast(getString(R.string.copy_failure_general))
             return
         }
 

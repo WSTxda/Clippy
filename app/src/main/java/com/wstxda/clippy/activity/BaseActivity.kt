@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -18,12 +19,18 @@ abstract class BaseActivity : AppCompatActivity() {
         enableEdgeToEdgeNoContrast()
     }
 
+    protected fun setupToolbar(toolbar: Toolbar, showBackButton: Boolean = true) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
+        if (showBackButton) {
+            toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
+    }
+
     private fun enableEdgeToEdgeNoContrast() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             enableEdgeToEdge(
-                navigationBarStyle = SystemBarStyle.auto(
-                    lightScrim = Color.TRANSPARENT, darkScrim = Color.TRANSPARENT
-                )
+                navigationBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
             )
             window.isNavigationBarContrastEnforced = false
         }
