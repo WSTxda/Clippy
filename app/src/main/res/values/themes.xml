@@ -6,7 +6,7 @@
 
     <!--app theme axis-->
 
-    <style name="AppTheme.Axis" parent="@style/AppTheme.Base" />
+    <style name="AppTheme.Animated" parent="@style/AppTheme.Base" />
 
     <!--app theme transparent-->
 

@@ -39,7 +39,7 @@
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Axis" />
+            android:theme="@style/AppTheme.Animated" />
 
         <!--share to clippy activities-->
 
