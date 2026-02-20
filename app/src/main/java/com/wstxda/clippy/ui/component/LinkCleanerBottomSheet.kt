@@ -18,9 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wstxda.clippy.R
+import android.content.Intent
+import androidx.core.net.toUri
 import com.wstxda.clippy.cleaner.data.UrlCleaningModule
 import com.wstxda.clippy.cleaner.data.LinkActionResult
 import com.wstxda.clippy.data.LinkProcessState
+import com.wstxda.clippy.logic.PreferenceHelper
 import com.wstxda.clippy.databinding.BottomSheetLinkItemBinding
 import com.wstxda.clippy.ui.adapter.LinkItemAdapter
 import com.wstxda.clippy.ui.animator.AnimationBottomSheet
@@ -31,6 +34,7 @@ import kotlinx.coroutines.launch
 class LinkCleanerBottomSheet : BaseBottomSheet<BottomSheetLinkItemBinding>() {
 
     private val viewModel: LinkCleanerViewModel by viewModels()
+    private val preferenceHelper by lazy { PreferenceHelper(requireContext()) }
     private val linkAdapter by lazy { LinkItemAdapter() }
     private var wasFinishedWithToast: Boolean = false
 
@@ -144,6 +148,16 @@ class LinkCleanerBottomSheet : BaseBottomSheet<BottomSheetLinkItemBinding>() {
         when (result) {
             is LinkActionResult.Success -> {
                 copyToClipboard(result.text)
+
+                val openInBrowser =
+                    preferenceHelper.getBoolean(Constants.OPEN_IN_BROWSER_PREF_KEY, false)
+                if (openInBrowser) {
+                    val firstUrl = result.text.lineSequence().firstOrNull()
+                    if (firstUrl != null) {
+                        openInBrowser(firstUrl)
+                    }
+                }
+
                 finishWithToast(getString(R.string.copy_success_clipboard))
             }
 
@@ -157,6 +171,17 @@ class LinkCleanerBottomSheet : BaseBottomSheet<BottomSheetLinkItemBinding>() {
         requireContext().getSystemService<ClipboardManager>()?.setPrimaryClip(
             ClipData.newPlainText("link", text)
         )
+    }
+
+    private fun openInBrowser(url: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri()).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            startActivity(intent)
+        } catch (_: Exception) {
+            finishWithToast(getString(R.string.copy_failure_open_browser))
+        }
     }
 
     private fun finishWithToast(message: String) {

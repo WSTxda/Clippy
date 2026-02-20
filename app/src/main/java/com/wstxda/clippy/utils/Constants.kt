@@ -5,7 +5,11 @@ object Constants {
     // Preferences keys //
 
     const val LIBRARY_PREF_KEY = "library"
+    const val CLEAR_CLIPBOARD_PREF_KEY = "clear_clipboard"
     const val THEME_PREF_KEY = "select_theme"
+    const val SKIP_DIALOG_PREF_KEY = "skip_dialog"
+    const val CLEAN_MODULES_PREF_KEY = "clean_modules"
+    const val OPEN_IN_BROWSER_PREF_KEY = "open_in_browser"
 
     // Theme values //
 

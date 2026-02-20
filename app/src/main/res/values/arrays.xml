@@ -13,4 +13,20 @@
         <item>light</item>
         <item>dark</item>
     </string-array>
+
+    <!--modules values-->
+
+    <string-array name="module_entries">
+        <item>@string/module_shorteners</item>
+        <item>@string/module_trackers</item>
+        <item>@string/module_redirection</item>
+        <item>@string/module_builtin_rules</item>
+    </string-array>
+
+    <string-array name="module_values">
+        <item>SHORTENERS</item>
+        <item>TRACKERS</item>
+        <item>REDIRECTION</item>
+        <item>BUILTIN</item>
+    </string-array>
 </resources>

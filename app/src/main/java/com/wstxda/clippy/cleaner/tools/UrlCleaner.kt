@@ -15,7 +15,8 @@ import kotlinx.coroutines.withContext
 object UrlCleaner {
 
     suspend fun clean(
-        url: String, modules: Set<UrlCleaningModule> = UrlCleaningModule.entries.toSet()
+        url: String,
+        modules: Set<UrlCleaningModule> = UrlCleaningModule.entries.toSet()
     ): String = withContext(Dispatchers.IO) {
         Logcat.logToolExecution(Constants.URL_CLEANER, "clean")
         Logcat.logUrlProcessingStart(Constants.URL_CLEANER, url)
@@ -35,7 +36,8 @@ object UrlCleaner {
     }
 
     private suspend fun applyModules(
-        url: String, modules: Set<UrlCleaningModule>
+        url: String,
+        modules: Set<UrlCleaningModule>
     ): String {
         val moduleActions = buildModuleActions(modules)
 

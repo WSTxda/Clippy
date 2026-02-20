@@ -42,7 +42,8 @@ object LinkProcessor {
         }
 
     suspend fun process(
-        url: String, modules: Set<UrlCleaningModule> = UrlCleaningModule.entries.toSet()
+        url: String,
+        modules: Set<UrlCleaningModule> = UrlCleaningModule.entries.toSet()
     ): LinkProcessorResult {
         Logcat.logUrlProcessingStart(Constants.LINK_PROCESSOR, url)
 

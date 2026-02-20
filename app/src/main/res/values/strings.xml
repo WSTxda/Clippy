@@ -12,6 +12,7 @@
     <!--preferences-->
 
     <string name="pref_category_appearance">Appearance</string>
+    <string name="pref_category_behavior">Behavior</string>
     <string name="pref_category_about">About</string>
 
     <string name="pref_wstxda" translatable="false">WSTxda</string>
@@ -21,11 +22,31 @@
 
     <string name="pref_theme">Theme</string>
 
+    <string name="pref_skip_dialog">Skip dialog when send link</string>
+    <string name="pref_skip_dialog_summary">Directly copy to clipboard without showing the dialog with link preview</string>
+
+    <string name="pref_clean_modules">Cleaning modules</string>
+    <string name="pref_clean_modules_summary">Choose which modules to use when skip dialog is enabled</string>
+
+    <string name="pref_open_in_browser">Open in browser</string>
+    <string name="pref_open_in_browser_summary">Open the link in the browser after copying</string>
+
+    <string name="pref_clear_clipboard">Clear clipboard</string>
+
     <string name="pref_used_library">Libraries</string>
     <string name="pref_used_library_summary">Open source licenses</string>
 
     <string name="pref_version">Version</string>
     <string name="pref_version_number">%s</string>
+
+    <!--modules selector-->
+
+    <string name="module_select">Modules</string>
+    <!--modules-->
+    <string name="module_shorteners">Shorteners</string>
+    <string name="module_trackers">Trackers</string>
+    <string name="module_redirection">Redirections</string>
+    <string name="module_builtin_rules">Builtin rules</string>
 
     <!--theme selector-->
 
@@ -52,6 +73,8 @@
     <string name="copy_failure_no_valid_links">No valid links found</string>
     <string name="copy_failure_error_cleaning">Error cleaning links</string>
     <string name="copy_failure_empty_after_cleaning">Links had no content after cleaning</string>
+    <string name="copy_failure_open_browser">Error opening link in browser</string>
+    <string name="clipboard_success_clear">Clipboard cleared successfully</string>
 
     <!--copy link bottom sheet dialog-->
 
