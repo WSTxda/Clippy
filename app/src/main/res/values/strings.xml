@@ -22,14 +22,14 @@
 
     <string name="pref_theme">Theme</string>
 
-    <string name="pref_skip_dialog">Skip dialog when send link</string>
-    <string name="pref_skip_dialog_summary">Directly copy to clipboard without showing the dialog with link preview</string>
+    <string name="pref_skip_dialog">Skip dialog preview</string>
+    <string name="pref_skip_dialog_summary">Process and copy the link to the clipboard immediately, skipping the dialog for a faster flow but without link preview</string>
 
-    <string name="pref_clean_modules">Cleaning modules</string>
-    <string name="pref_clean_modules_summary">Choose which modules to use when skip dialog is enabled</string>
+    <string name="pref_clean_modules">Process links modules</string>
+    <string name="pref_clean_modules_summary">Choose which modules is used to process links when <b>skip dialog preview</b> option is enabled</string>
 
     <string name="pref_open_in_browser">Open in browser</string>
-    <string name="pref_open_in_browser_summary">Open the link in the browser after copying</string>
+    <string name="pref_open_in_browser_summary">Open the link in the browser after copying it to the clipboard</string>
 
     <string name="pref_clear_clipboard">Clear clipboard</string>
 
@@ -37,16 +37,16 @@
     <string name="pref_used_library_summary">Open source licenses</string>
 
     <string name="pref_version">Version</string>
-    <string name="pref_version_number">%s</string>
+    <string name="pref_version_number" translatable="false">%s</string>
 
     <!--modules selector-->
 
-    <string name="module_select">Modules</string>
+    <string name="module_select">Apply modules</string>
     <!--modules-->
-    <string name="module_shorteners">Shorteners</string>
-    <string name="module_trackers">Trackers</string>
-    <string name="module_redirection">Redirections</string>
-    <string name="module_builtin_rules">Builtin rules</string>
+    <string name="module_shorteners">Shorteners remover</string>
+    <string name="module_trackers">Trackers remover</string>
+    <string name="module_redirection">Redirection handler</string>
+    <string name="module_builtin_rules">Built-in rules</string>
 
     <!--theme selector-->
 
@@ -83,7 +83,7 @@
     <string name="dialog_module_shorteners">Remove shorteners</string>
     <string name="dialog_module_trackers">Remove trackers</string>
     <string name="dialog_module_redirection">Resolve redirections</string>
-    <string name="dialog_module_builtin_rules">Apply builtin rules</string>
+    <string name="dialog_module_builtin_rules">Apply built-in rules</string>
     <!-- dialog buttons-->
     <string name="dialog_clean_button">Clear link</string>
     <string name="dialog_copy_clipboard_button">Copy to clipboard</string>
