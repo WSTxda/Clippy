@@ -14,9 +14,17 @@
 
     <SwitchPreferenceCompat
         android:defaultValue="false"
-        android:icon="@drawable/ic_skip"
-        android:key="skip_dialog"
+        android:icon="@drawable/ic_browser"
+        android:key="open_in_browser"
         android:layout="@layout/preference_material_top"
+        android:summary="@string/pref_open_in_browser_summary"
+        android:title="@string/pref_open_in_browser" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_dialog"
+        android:key="skip_dialog"
+        android:layout="@layout/preference_material_middle"
         android:summary="@string/pref_skip_dialog_summary"
         android:title="@string/pref_skip_dialog" />
 
@@ -27,19 +35,11 @@
         android:entryValues="@array/module_values"
         android:icon="@drawable/ic_modules"
         android:key="clean_modules"
-        android:layout="@layout/preference_material_middle"
+        android:layout="@layout/preference_material_bottom"
         android:summary="@string/pref_clean_modules_summary"
         android:title="@string/pref_clean_modules"
         app:dialogIcon="@drawable/ic_modules_action"
         app:dialogTitle="@string/module_select" />
-
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:icon="@drawable/ic_open_in_browser"
-        android:key="open_in_browser"
-        android:layout="@layout/preference_material_bottom"
-        android:summary="@string/pref_open_in_browser_summary"
-        android:title="@string/pref_open_in_browser" />
 
     <PreferenceCategory
         android:layout="@layout/preference_material_category"
