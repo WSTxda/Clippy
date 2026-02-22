@@ -40,10 +40,19 @@ object BuiltinRulesResolver {
         val hostMatches = uri.host?.matches(rule.pattern) == true
         if (!hostMatches) return false
 
-        val pathMatches = rule.pathPattern?.let { uri.path?.matches(it) } != false
+        val pathMatches = if (rule.pathPattern == null) {
+            true
+        } else {
+            uri.path?.matches(rule.pathPattern) == true
+        }
         if (!pathMatches) return false
 
-        val queryMatches = rule.queryPattern?.let { uri.query?.matches(it) } != false
+        val queryMatches = if (rule.queryPattern == null) {
+            true
+        } else {
+            uri.query?.matches(rule.queryPattern) == true
+        }
+
         return queryMatches
     }
 }

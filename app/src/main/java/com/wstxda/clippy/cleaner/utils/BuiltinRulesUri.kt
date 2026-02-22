@@ -13,7 +13,7 @@ object BuiltinRulesUri {
     fun clearQuery(url: String): String {
         val uri = url.toUri()
         return uri.buildUpon().clearQuery().scheme(uri.scheme).authority(uri.authority)
-            .path(uri.path).build().toString()
+            .path(uri.path).fragment(uri.fragment).build().toString()
     }
 
     fun retainParameters(url: String, paramNameRegex: Regex): String {
@@ -24,13 +24,14 @@ object BuiltinRulesUri {
                     appendQueryParameter(param, value)
                 }
             }
-        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).fragment(uri.fragment).build()
+            .toString()
     }
 
     fun clearTrailingId(url: String): String {
         val uri = url.toUri()
         val modifiedPath = uri.path?.replace(trailingIdRegex, "") ?: uri.path
         return uri.buildUpon().path(modifiedPath).scheme(uri.scheme).authority(uri.authority)
-            .build().toString()
+            .fragment(uri.fragment).build().toString()
     }
 }

@@ -7,6 +7,9 @@ object TextRegexProvider {
     }
 
     val urlRegex: Regex by lazy {
-        """($schemesPattern):\S+""".toRegex()
+        Regex("""($schemesPattern):[^\s<>"'\[\](){}\\|^`]+""")
     }
+
+    val trailingPunctuation =
+        charArrayOf('.', ',', ';', ':', '!', '?', ')', ']', '}', '>', '"', '\'')
 }

@@ -12,7 +12,9 @@ object TextCleaner {
             Constants.TEXT_CLEANER, "Extracting URLs from text: ${text.take(100)}..."
         )
 
-        val urls = TextRegexProvider.urlRegex.findAll(text).map { it.value }.toList()
+        val urls = TextRegexProvider.urlRegex.findAll(text)
+            .map { it.value.trimEnd(*TextRegexProvider.trailingPunctuation) }
+            .filter { it.isNotBlank() }.toList()
 
         Logcat.i(Constants.TEXT_CLEANER, "Extracted ${urls.size} URL(s)")
         return urls

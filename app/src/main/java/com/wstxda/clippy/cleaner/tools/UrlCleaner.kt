@@ -15,8 +15,7 @@ import kotlinx.coroutines.withContext
 object UrlCleaner {
 
     suspend fun clean(
-        url: String,
-        modules: Set<UrlCleaningModule> = UrlCleaningModule.entries.toSet()
+        url: String, modules: Set<UrlCleaningModule> = UrlCleaningModule.entries.toSet()
     ): String = withContext(Dispatchers.IO) {
         Logcat.logToolExecution(Constants.URL_CLEANER, "clean")
         Logcat.logUrlProcessingStart(Constants.URL_CLEANER, url)
@@ -36,8 +35,7 @@ object UrlCleaner {
     }
 
     private suspend fun applyModules(
-        url: String,
-        modules: Set<UrlCleaningModule>
+        url: String, modules: Set<UrlCleaningModule>
     ): String {
         val moduleActions = buildModuleActions(modules)
 
@@ -67,10 +65,10 @@ object UrlCleaner {
             }
         }
 
-        if (modules.contains(UrlCleaningModule.SHORTENERS)) {
+        if (modules.contains(UrlCleaningModule.BUILTIN)) {
             actions.add { url ->
-                Logcat.logModuleExecution(Constants.URL_CLEANER, "SHORTENERS")
-                ShortenerRemover.process(url)
+                Logcat.logModuleExecution(Constants.URL_CLEANER, "BUILTIN")
+                BuiltinRulesResolver.process(url)
             }
         }
 
@@ -81,10 +79,10 @@ object UrlCleaner {
             }
         }
 
-        if (modules.contains(UrlCleaningModule.BUILTIN)) {
+        if (modules.contains(UrlCleaningModule.SHORTENERS)) {
             actions.add { url ->
-                Logcat.logModuleExecution(Constants.URL_CLEANER, "BUILTIN")
-                BuiltinRulesResolver.process(url)
+                Logcat.logModuleExecution(Constants.URL_CLEANER, "SHORTENERS")
+                ShortenerRemover.process(url)
             }
         }
 

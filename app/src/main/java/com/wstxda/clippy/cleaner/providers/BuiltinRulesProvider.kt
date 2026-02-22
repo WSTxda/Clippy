@@ -6,6 +6,77 @@ import com.wstxda.clippy.cleaner.data.BuiltinRulesRegex
 
 object BuiltinRulesProvider {
 
+    private val facebookRetainParams = Regex("^(v|story_fbid|id|set|type)$")
+    private val githubRetainParams   = Regex("^(tab|q|type|language)$")
+    private val redditRetainParams   = Regex("^(context|sort)$")
+    private val xRetainParams  = Regex("^(lang|reply_to)$")
+    private val linkedinBlacklist    = Regex("""^(li_fat_id|trk|trkInfo|utm_.+|ref|tracking.*|original.*|context).*""")
+
+    private fun applyFacebook(url: String): String {
+        val uri = url.toUri()
+        return uri.buildUpon().clearQuery().apply {
+            uri.queryParameterNames.filter { facebookRetainParams.matches(it) }
+                .forEach { param ->
+                    uri.getQueryParameter(param)?.let { value ->
+                        appendQueryParameter(param, value)
+                    }
+                }
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).fragment(uri.fragment)
+            .build().toString()
+    }
+
+    private fun applyGitHub(url: String): String {
+        val uri = url.toUri()
+        return uri.buildUpon().clearQuery().apply {
+            uri.queryParameterNames.filter { githubRetainParams.matches(it) }
+                .forEach { param ->
+                    uri.getQueryParameter(param)?.let { value ->
+                        appendQueryParameter(param, value)
+                    }
+                }
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).fragment(uri.fragment)
+            .build().toString()
+    }
+
+    private fun applyLinkedIn(url: String): String {
+        val uri = url.toUri()
+        return uri.buildUpon().clearQuery().apply {
+            uri.queryParameterNames.filter { !linkedinBlacklist.matches(it) }
+                .forEach { param ->
+                    uri.getQueryParameter(param)?.let { value ->
+                        appendQueryParameter(param, value)
+                    }
+                }
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).fragment(uri.fragment)
+            .build().toString()
+    }
+
+    private fun applyReddit(url: String): String {
+        val uri = url.toUri()
+        return uri.buildUpon().clearQuery().apply {
+            uri.queryParameterNames.filter { redditRetainParams.matches(it) }
+                .forEach { param ->
+                    uri.getQueryParameter(param)?.let { value ->
+                        appendQueryParameter(param, value)
+                    }
+                }
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).fragment(uri.fragment)
+            .build().toString()
+    }
+
+    private fun applyX(url: String): String {
+        val uri = url.toUri()
+        return uri.buildUpon().clearQuery().apply {
+            uri.queryParameterNames.filter { xRetainParams.matches(it) }
+                .forEach { param ->
+                    uri.getQueryParameter(param)?.let { value ->
+                        appendQueryParameter(param, value)
+                    }
+                }
+        }.scheme(uri.scheme).authority(uri.authority).path(uri.path).fragment(uri.fragment)
+            .build().toString()
+    }
+
     val builtinRuleRegexes: List<BuiltinRulesRegex> = listOf(
 
         // Airbnb
@@ -31,9 +102,10 @@ object BuiltinRulesProvider {
                 )
             }),
 
-        // Amazon Search Results
+        // Amazon — search
         BuiltinRulesRegex(
-            pattern = Regex("^(www\\.)?amazon\\.(com|com\\.br|ca|de|es|fr|it|nl|co\\.uk|co\\.jp)/s\\?"),
+            pattern = Regex("^(www\\.)?amazon\\.(com|com\\.br|ca|de|es|fr|it|nl|co\\.uk|co\\.jp)$"),
+            pathPattern = Regex("/s"),
             apply = { url ->
                 BuiltinRulesUri.retainParameters(
                     url, Regex("^(k|keywords|field-keywords|i|rh|url)$")
@@ -61,10 +133,10 @@ object BuiltinRulesProvider {
             pattern = Regex("^app\\.asana\\.com$"), apply = BuiltinRulesUri::clearQuery
         ),
 
-        // AskUbuntu / StackExchange network
+        // StackExchange network (AskUbuntu, ServerFault, StackOverflow, SuperUser, etc.)
         BuiltinRulesRegex(
-            pattern = Regex("(.+\\.)?(stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com$"),
-            pathPattern = Regex("/[aq]/[0-9]+/[0-9]+/?"),
+            pattern = Regex("^(.+\\.)?(stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com$"),
+            pathPattern = Regex("/[aq]/[0-9]+(/[0-9]+)?/?"),
             apply = BuiltinRulesUri::clearTrailingId
         ),
 
@@ -207,18 +279,9 @@ object BuiltinRulesProvider {
 
         // Facebook
         BuiltinRulesRegex(
-            pattern = Regex("^(www\\.)?(facebook|fb|m\\.facebook)\\.com$"), apply = { url ->
-                val uri = url.toUri()
-                uri.buildUpon().clearQuery().apply {
-                    uri.queryParameterNames.filter {
-                        it.matches(Regex("^(v|story_fbid|id|set|type)$"))
-                    }.forEach { param ->
-                        uri.getQueryParameter(param)?.let { value ->
-                            appendQueryParameter(param, value)
-                        }
-                    }
-                }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
-            }),
+            pattern = Regex("^(www\\.)?(facebook|fb|m\\.facebook)\\.com$"),
+            apply = ::applyFacebook
+        ),
 
         // Facebook redirect
         BuiltinRulesRegex(
@@ -240,18 +303,9 @@ object BuiltinRulesProvider {
 
         // GitHub
         BuiltinRulesRegex(
-            pattern = Regex("^(www\\.)?github\\.com$"), apply = { url ->
-                val uri = url.toUri()
-                uri.buildUpon().clearQuery().apply {
-                    uri.queryParameterNames.filter {
-                        it.matches(Regex("^(tab|q|type|language)$"))
-                    }.forEach { param ->
-                        uri.getQueryParameter(param)?.let { value ->
-                            appendQueryParameter(param, value)
-                        }
-                    }
-                }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
-            }),
+            pattern = Regex("^(www\\.)?github\\.com$"),
+            apply = ::applyGitHub
+        ),
 
         // GitLab
         BuiltinRulesRegex(
@@ -285,13 +339,16 @@ object BuiltinRulesProvider {
 
         // Google Forms
         BuiltinRulesRegex(
-            pattern = Regex("^(docs\\.)?google\\.com/forms$"), apply = { url ->
+            pattern = Regex("^docs\\.google\\.com$"),
+            pathPattern = Regex("/forms/.*"),
+            apply = { url ->
                 BuiltinRulesUri.retainParameters(url, Regex("^(viewform|usp|embedded)$"))
             }),
 
         // Google redirect
         BuiltinRulesRegex(
-            pattern = Regex("^(www\\.)?google\\.(com|com\\.br|co\\.uk)/url$"),
+            pattern = Regex("^(www\\.)?google\\.(com|com\\.br|co\\.uk)$"),
+            pathPattern = Regex("/url"),
             queryPattern = Regex(".*\\b(url|q)=.+"),
             apply = { url ->
                 BuiltinRulesUri.extractParameter(url, "url")
@@ -312,7 +369,7 @@ object BuiltinRulesProvider {
         // IMDb
         BuiltinRulesRegex(
             pattern = Regex("^(www\\.)?imdb\\.com$"), apply = { url ->
-                BuiltinRulesUri.retainParameters(url, Regex("^(tt\\d+|s|ref_)$"))
+                BuiltinRulesUri.retainParameters(url, Regex("^(s|ref_)$"))
             }),
 
         // Imgur
@@ -338,18 +395,9 @@ object BuiltinRulesProvider {
 
         // LinkedIn
         BuiltinRulesRegex(
-            pattern = Regex("^(.+\\.)?(linkedin\\.com|lnkd\\.in)$"), apply = { url ->
-                val uri = url.toUri()
-                uri.buildUpon().clearQuery().apply {
-                    uri.queryParameterNames.filter {
-                        !it.matches(Regex("^(li_fat_id|trk|trkInfo|utm_|ref|tracking|original|context).*"))
-                    }.forEach { param ->
-                        uri.getQueryParameter(param)?.let { value ->
-                            appendQueryParameter(param, value)
-                        }
-                    }
-                }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
-            }),
+            pattern = Regex("^(.+\\.)?(linkedin\\.com|lnkd\\.in)$"),
+            apply = ::applyLinkedIn
+        ),
 
         // Magalu
         BuiltinRulesRegex(
@@ -475,18 +523,8 @@ object BuiltinRulesProvider {
         // Reddit
         BuiltinRulesRegex(
             pattern = Regex("^(www\\.)?(reddit\\.com|redd\\.it|old\\.reddit\\.com)$"),
-            apply = { url ->
-                val uri = url.toUri()
-                uri.buildUpon().clearQuery().apply {
-                    uri.queryParameterNames.filter {
-                        it.matches(Regex("^(context|sort)$"))
-                    }.forEach { param ->
-                        uri.getQueryParameter(param)?.let { value ->
-                            appendQueryParameter(param, value)
-                        }
-                    }
-                }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
-            }),
+            apply = ::applyReddit
+        ),
 
         // Reddit redirect
         BuiltinRulesRegex(
@@ -551,13 +589,6 @@ object BuiltinRulesProvider {
             pattern = Regex("^(open\\.)?(spotify\\.com|spotify\\.link)$"), apply = { url ->
                 BuiltinRulesUri.retainParameters(url, Regex("^(si|context|play)$"))
             }),
-
-        // StackOverflow
-        BuiltinRulesRegex(
-            pattern = Regex("(.+\\.)?(stackexchange|stackoverflow|askubuntu|serverfault|superuser)\\.com$"),
-            pathPattern = Regex("/[aq]/[0-9]+(/[0-9]+)?/?"),
-            apply = BuiltinRulesUri::clearTrailingId
-        ),
 
         // Steam
         BuiltinRulesRegex(
@@ -653,7 +684,7 @@ object BuiltinRulesProvider {
             pattern = Regex("^(www\\.)?twitch\\.tv$"), apply = BuiltinRulesUri::clearQuery
         ),
 
-        // Twitter
+        // Twitter t.co shortener
         BuiltinRulesRegex(
             pattern = Regex("^t\\.co$"), apply = BuiltinRulesUri::clearQuery
         ),
@@ -736,18 +767,9 @@ object BuiltinRulesProvider {
 
         // X (Twitter)
         BuiltinRulesRegex(
-            pattern = Regex("^(www\\.)?(twitter|x)\\.com$"), apply = { url ->
-                val uri = url.toUri()
-                uri.buildUpon().clearQuery().apply {
-                    uri.queryParameterNames.filter {
-                        it.matches(Regex("^(lang|reply_to)$"))
-                    }.forEach { param ->
-                        uri.getQueryParameter(param)?.let { value ->
-                            appendQueryParameter(param, value)
-                        }
-                    }
-                }.scheme(uri.scheme).authority(uri.authority).path(uri.path).build().toString()
-            }),
+            pattern = Regex("^(www\\.)?(twitter|x)\\.com$"),
+            apply = ::applyX
+        ),
 
         // Zhihu redirect
         BuiltinRulesRegex(
