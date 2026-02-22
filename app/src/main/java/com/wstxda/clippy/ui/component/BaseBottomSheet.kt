@@ -37,6 +37,7 @@ abstract class BaseBottomSheet<VB : ViewBinding> : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleTextView.setText(titleResId)
+        setupContentFragment(savedInstanceState)
         setupViews(savedInstanceState)
         setupScrollListener()
     }
@@ -46,6 +47,7 @@ abstract class BaseBottomSheet<VB : ViewBinding> : BottomSheetDialogFragment() {
         _binding = null
     }
 
+    protected open fun setupContentFragment(savedInstanceState: Bundle?) {}
     protected open fun setupViews(savedInstanceState: Bundle?) {}
     protected open fun setupScrollListener() {}
 

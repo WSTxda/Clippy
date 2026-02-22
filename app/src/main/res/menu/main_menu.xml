@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_show_tutorial"
+        android:contentDescription="@string/tutorial_title"
+        android:icon="@drawable/ic_help"
+        android:title="@string/tutorial_title"
+        app:showAsAction="always" />
+</menu>

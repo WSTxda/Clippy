@@ -1,0 +1,38 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="280dp"
+    android:height="160dp"
+    android:viewportWidth="280"
+    android:viewportHeight="160"
+    tools:ignore="VectorRaster">
+    <path
+        android:fillColor="?attr/colorPrimaryContainer"
+        android:pathData="M53 89H177V117H53z" />
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M192 117c8.28 0 15 6.72 15 15 0 8.28-6.72 15-15 15-8.28 0-15-6.72-15-15v-15h15Z" />
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M38 117h-0.39c-8.1 0.21-14.61 6.84-14.61 15 0 8.28 6.72 15 15 15 8.16 0 14.79-6.5 15-14.61V132v-15H38Z" />
+    <path
+        android:fillColor="?attr/colorSurfaceContainer"
+        android:pathData="M23 35c0-3.31 2.69-6 6-6h214c3.31 0 6 2.69 6 6v32c0 3.31-2.69 6-6 6h-214c-3.31 0-6-2.69-6-6z" />
+    <path
+        android:fillColor="?attr/colorSurfaceContainerHighest"
+        android:pathData="M124 42H189V60H124z" />
+    <path
+        android:fillColor="?attr/colorSurfaceContainerHighest"
+        android:pathData="M38 42H103V60H38z" />
+    <path
+        android:fillAlpha="0.4"
+        android:fillColor="?attr/colorPrimaryContainer"
+        android:pathData="M233 21A30 30 0 1 0 233 81 30 30 0 1 0 233 21z" />
+    <group>
+        <clip-path android:pathData="M221 39H245V63H221z" />
+        <group>
+            <path
+                android:fillColor="?attr/colorPrimary"
+                android:pathData="M233 59c-0.55 0-1.02-0.2-1.41-0.59-0.4-0.39-0.59-0.86-0.59-1.41 0-0.55 0.2-1.02 0.59-1.41 0.39-0.4 0.86-0.59 1.41-0.59 0.55 0 1.02 0.2 1.41 0.59 0.4 0.39 0.59 0.86 0.59 1.41 0 0.55-0.2 1.02-0.59 1.41-0.39 0.4-0.86 0.59-1.41 0.59Zm0-6c-0.55 0-1.02-0.2-1.41-0.59-0.4-0.39-0.59-0.86-0.59-1.41 0-0.55 0.2-1.02 0.59-1.41 0.39-0.4 0.86-0.59 1.41-0.59 0.55 0 1.02 0.2 1.41 0.59 0.4 0.39 0.59 0.86 0.59 1.41 0 0.55-0.2 1.02-0.59 1.41-0.39 0.4-0.86 0.59-1.41 0.59Zm0-6c-0.55 0-1.02-0.2-1.41-0.59-0.4-0.39-0.59-0.86-0.59-1.41 0-0.55 0.2-1.02 0.59-1.41 0.39-0.4 0.86-0.59 1.41-0.59 0.55 0 1.02 0.2 1.41 0.59 0.4 0.39 0.59 0.86 0.59 1.41 0 0.55-0.2 1.02-0.59 1.41-0.39 0.4-0.86 0.59-1.41 0.59Z" />
+        </group>
+    </group>
+</vector>

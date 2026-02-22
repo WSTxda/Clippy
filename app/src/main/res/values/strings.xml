@@ -66,6 +66,16 @@
     <string name="update_checker_no_internet">No internet connection</string>
     <string name="update_checker_generic_error">Something went wrong… Please try again later</string>
 
+    <!--tutorial-->
+
+    <string name="tutorial_title">How to process and copy links</string>
+
+    <string name="tutorial_share_menu">Using the share menu</string>
+    <string name="tutorial_share_menu_summary">In any app, tap the <b>Share</b> icon or button on a link and select <b>Clippy</b> from the list of apps. You will then have the option to choose <b>Copy link</b> to copy the original link, or <b>Copy link (Clean)</b> to copy the cleaned version using modules</string>
+
+    <string name="tutorial_select_text_menu">Using the text selection menu</string>
+    <string name="tutorial_select_text_summary">Highlight a URL or a piece of text containing a link. In the floating menu that appears (next to "Copy" and "Paste"), tap the three-dot menu and select <b>Copy link</b> to copy the original link, or <b>Copy link (Clean)</b> to copy the cleaned version using modules</string>
+
     <!--copy link messages-->
 
     <string name="copy_success_clipboard">Copied to clipboard</string>

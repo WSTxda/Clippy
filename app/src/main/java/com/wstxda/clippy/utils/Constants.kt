@@ -27,6 +27,7 @@ object Constants {
 
     // UI/ViewModel
     const val LINK_CLEANER_BOTTOM_SHEET = "LinkCleanerBottomSheet"
+    const val TUTORIAL_BOTTOM_SHEET = "TutorialBottomSheet"
     const val LINK_CLEANER_VIEW_MODEL = "LinkCleanerViewModel"
     // Modules
     const val BUILTIN_RULES_RESOLVER = "BuiltinRulesResolver"
