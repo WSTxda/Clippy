@@ -1,15 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.aboutLibraries)
 }
 
 android {
     namespace = "com.wstxda.clippy"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.wstxda.clippy"
@@ -34,6 +31,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        }
+    }
+
     buildFeatures {
         viewBinding = true
     }
@@ -43,7 +46,6 @@ android {
         includeInBundle = false
     }
 
-    //noinspection WrongGradleMethod
     aboutLibraries {
         library {
             duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
