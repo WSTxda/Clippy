@@ -1,24 +1,97 @@
 <resources>
+
+    <!--share options names-->
+
     <string name="clippy_copy_link">Salin Tautan</string>
     <string name="clippy_copy_link_cleaner">Salin Tautan (Bersih)</string>
 
+    <!--preferences-->
+
+    <string name="pref_category_appearance">Tampilan</string>
+    <string name="pref_category_behavior">Perilaku</string>
+    <string name="pref_category_about">Tentang</string>
+
+    <string name="pref_developer">Pengembang</string>
+    <string name="pref_source_code">Repositori kode sumber</string>
+
+    <string name="pref_theme">Tema</string>
+
+    <string name="pref_skip_dialog">Lewati pratinjau dialog</string>
+    <string name="pref_skip_dialog_summary">Proses dan salin tautan ke papan klip secara langsung, melewati dialog untuk alur yang lebih cepat namun tanpa pratinjau tautan</string>
+
+    <string name="pref_clean_modules">Modul pemrosesan tautan</string>
+    <string name="pref_clean_modules_summary">Pilih modul mana yang digunakan untuk memproses tautan saat opsi <b>lewati pratinjau dialog</b> diaktifkan</string>
+
+    <string name="pref_open_in_browser">Buka di peramban</string>
+    <string name="pref_open_in_browser_summary">Buka tautan di peramban setelah menyalinnya ke papan klip</string>
+
+    <string name="pref_clear_clipboard">Bersihkan papan klip</string>
+
+    <string name="pref_used_library">Pustaka</string>
+    <string name="pref_used_library_summary">Lisensi sumber terbuka</string>
+
+    <string name="pref_version">Versi</string>
+
+    <!--modules selector-->
+
+    <string name="module_select">Terapkan modul</string>
+    <!--modules-->
+    <string name="module_shorteners">Penghapus penyingkat</string>
+    <string name="module_trackers">Penghapus pelacak</string>
+    <string name="module_redirection">Penanganan pengalihan</string>
+    <string name="module_builtin_rules">Aturan bawaan</string>
+
+    <!--theme selector-->
+
+    <string name="theme_select">Pilih tema</string>
+    <!--themes modes-->
+    <string name="theme_system">Default sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+
+    <!--update checker-->
+
+    <string name="update_checker_button">Periksa pembaruan</string>
+    <string name="update_checker_download_button">Unduh</string>
+    <!--updater messages-->
+    <string name="update_checker_no_update">Tidak ada pembaruan yang tersedia</string>
+    <string name="update_checker_update_available">Pembaruan baru tersedia: %s</string>
+    <string name="update_checker_no_internet">Tidak ada koneksi internet</string>
+    <string name="update_checker_generic_error">Terjadi kesalahan… Silakan coba lagi nanti</string>
+
+    <!--tutorial-->
+
+    <string name="tutorial_title">Cara memproses dan menyalin tautan</string>
+
+    <string name="tutorial_share_menu">Menggunakan menu berbagi</string>
+    <string name="tutorial_share_menu_summary">Di aplikasi mana pun, ketuk ikon atau tombol <b>Bagikan</b> pada tautan dan pilih <b>Clippy</b> dari daftar aplikasi. Anda kemudian akan memiliki opsi untuk memilih <b>Salin Tautan</b> untuk menyalin tautan asli, atau <b>Salin Tautan (Bersih)</b> untuk menyalin versi yang dibersihkan menggunakan modul</string>
+
+    <string name="tutorial_select_text_menu">Menggunakan menu pemilihan teks</string>
+    <string name="tutorial_select_text_summary">Sorot URL atau teks yang mengandung tautan. Pada menu mengambang yang muncul (di samping "Salin" dan "Tempel"), ketuk menu tiga titik dan pilih <b>Salin Tautan</b> untuk menyalin tautan asli, atau <b>Salin Tautan (Bersih)</b> untuk menyalin versi yang dibersihkan menggunakan modul</string>
+
+    <!--copy link messages-->
+
     <string name="copy_success_clipboard">Disalin ke papan klip</string>
     <string name="copy_failure_general">Tidak dapat menyalin tautan</string>
-
     <string name="copy_failure_no_valid_links">Tidak ada tautan valid yang ditemukan</string>
     <string name="copy_failure_error_cleaning">Kesalahan saat membersihkan tautan</string>
     <string name="copy_failure_empty_after_cleaning">Tautan tidak memiliki konten setelah dibersihkan</string>
+    <string name="copy_failure_open_browser">Gagal membuka tautan di peramban</string>
+    <string name="clipboard_success_clear">Papan klip berhasil dibersihkan</string>
 
+    <!--copy link bottom sheet dialog-->
+
+    <!-- dialog modules-->
     <string name="dialog_apply_all_modules">Terapkan semua modul</string>
     <string name="dialog_module_shorteners">Hapus penyingkat</string>
     <string name="dialog_module_trackers">Hapus pelacak</string>
     <string name="dialog_module_redirection">Selesaikan pengalihan</string>
     <string name="dialog_module_builtin_rules">Terapkan aturan bawaan</string>
-
+    <!-- dialog buttons-->
     <string name="dialog_clean_button">Bersihkan tautan</string>
     <string name="dialog_copy_clipboard_button">Salin ke papan klip</string>
     <string name="dialog_open_in_browser_button">Buka di peramban</string>
-
+    <!--dialog text input-->
     <string name="dialog_original_link">Tautan asli</string>
     <string name="dialog_cleaned_link">Tautan bersih</string>
 </resources>

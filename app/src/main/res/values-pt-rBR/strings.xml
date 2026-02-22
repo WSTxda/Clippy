@@ -1,24 +1,97 @@
 <resources>
+
+    <!--share options names-->
+
     <string name="clippy_copy_link">Copiar link</string>
     <string name="clippy_copy_link_cleaner">Copiar link (Limpo)</string>
 
+    <!--preferences-->
+
+    <string name="pref_category_appearance">Aparência</string>
+    <string name="pref_category_behavior">Comportamento</string>
+    <string name="pref_category_about">Sobre</string>
+
+    <string name="pref_developer">Desenvolvedor</string>
+    <string name="pref_source_code">Repositório com o código fonte</string>
+
+    <string name="pref_theme">Tema</string>
+
+    <string name="pref_skip_dialog">Ignorar prévia do diálogo</string>
+    <string name="pref_skip_dialog_summary">Processa e copia o link para a área de transferência imediatamente, ignorando o diálogo para um fluxo mais rápido, mas sem prévia do link</string>
+
+    <string name="pref_clean_modules">Módulos de processamento de links</string>
+    <string name="pref_clean_modules_summary">Escolha quais módulos são usados para processar links quando a opção <b>ignorar prévia do diálogo</b> estiver ativada</string>
+
+    <string name="pref_open_in_browser">Abrir no navegador</string>
+    <string name="pref_open_in_browser_summary">Abre o link no navegador após copiá-lo para a área de transferência</string>
+
+    <string name="pref_clear_clipboard">Limpar área de transferência</string>
+
+    <string name="pref_used_library">Bibliotecas</string>
+    <string name="pref_used_library_summary">Licenças de código aberto</string>
+
+    <string name="pref_version">Versão</string>
+
+    <!--modules selector-->
+
+    <string name="module_select">Aplicar módulos</string>
+    <!--modules-->
+    <string name="module_shorteners">Removedor de encurtadores</string>
+    <string name="module_trackers">Removedor de rastreadores</string>
+    <string name="module_redirection">Resolver redirecionamentos</string>
+    <string name="module_builtin_rules">Regras embutidas</string>
+
+    <!--theme selector-->
+
+    <string name="theme_select">Selecionar tema</string>
+    <!--themes modes-->
+    <string name="theme_system">Padrão do sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Escuro</string>
+
+    <!--update checker-->
+
+    <string name="update_checker_button">Verificar atualizações</string>
+    <string name="update_checker_download_button">Baixar</string>
+    <!--updater messages-->
+    <string name="update_checker_no_update">Nenhuma atualização disponível</string>
+    <string name="update_checker_update_available">Nova atualização disponível: %s</string>
+    <string name="update_checker_no_internet">Sem conexão com a internet</string>
+    <string name="update_checker_generic_error">Algo deu errado… Tente novamente mais tarde</string>
+
+    <!--tutorial-->
+
+    <string name="tutorial_title">Como processar e copiar links</string>
+
+    <string name="tutorial_share_menu">Usando o menu de compartilhamento</string>
+    <string name="tutorial_share_menu_summary">Em qualquer app, toque no ícone ou botão <b>Compartilhar</b> em um link e selecione <b>Clippy</b> na lista de apps. Você terá a opção de escolher <b>Copiar link</b> para copiar o link original, ou <b>Copiar link (Limpo)</b> para copiar a versão limpa usando os módulos</string>
+
+    <string name="tutorial_select_text_menu">Usando o menu de seleção de texto</string>
+    <string name="tutorial_select_text_summary">Selecione uma URL ou trecho de texto que contenha um link. No menu flutuante que aparece (ao lado de "Copiar" e "Colar"), toque no menu de três pontos e selecione <b>Copiar link</b> para copiar o link original, ou <b>Copiar link (Limpo)</b> para copiar a versão limpa usando os módulos</string>
+
+    <!--copy link messages-->
+
     <string name="copy_success_clipboard">Copiado para área de transferência</string>
     <string name="copy_failure_general">Não foi possível copiar o link</string>
-
     <string name="copy_failure_no_valid_links">Nenhum link válido encontrado</string>
     <string name="copy_failure_error_cleaning">Erro ao limpar links</string>
     <string name="copy_failure_empty_after_cleaning">Os links não continham conteúdo após a limpeza</string>
+    <string name="copy_failure_open_browser">Erro ao abrir o link no navegador</string>
+    <string name="clipboard_success_clear">Área de transferência limpa com sucesso</string>
 
+    <!--copy link bottom sheet dialog-->
+
+    <!-- dialog modules-->
     <string name="dialog_apply_all_modules">Aplicar todos os módulos</string>
     <string name="dialog_module_shorteners">Remover encurtadores</string>
     <string name="dialog_module_trackers">Remover rastreadores</string>
     <string name="dialog_module_redirection">Resolver redirecionamentos</string>
-    <string name="dialog_module_builtin_rules">Aplicar regras imbutidas</string>
-
+    <string name="dialog_module_builtin_rules">Aplicar regras embutidas</string>
+    <!-- dialog buttons-->
     <string name="dialog_clean_button">Limpar link</string>
     <string name="dialog_copy_clipboard_button">Copiar para a área de transferência</string>
     <string name="dialog_open_in_browser_button">Abrir no navegador</string>
-
+    <!--dialog text input-->
     <string name="dialog_original_link">Link original</string>
     <string name="dialog_cleaned_link">Link limpo</string>
 </resources>

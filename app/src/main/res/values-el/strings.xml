@@ -1,24 +1,97 @@
 <resources>
+
+    <!--share options names-->
+
     <string name="clippy_copy_link">Αντιγραφή Συνδέσμου</string>
     <string name="clippy_copy_link_cleaner">Αντιγραφή Καθαρού Συνδέσμου</string>
 
+    <!--preferences-->
+
+    <string name="pref_category_appearance">Εμφάνιση</string>
+    <string name="pref_category_behavior">Συμπεριφορά</string>
+    <string name="pref_category_about">Σχετικά</string>
+
+    <string name="pref_developer">Προγραμματιστής</string>
+    <string name="pref_source_code">Αποθετήριο πηγαίου κώδικα</string>
+
+    <string name="pref_theme">Θέμα</string>
+
+    <string name="pref_skip_dialog">Παράλειψη προεπισκόπησης διαλόγου</string>
+    <string name="pref_skip_dialog_summary">Επεξεργασία και αντιγραφή του συνδέσμου στο πρόχειρο αμέσως, παρακάμπτοντας τον διάλογο για ταχύτερη ροή, αλλά χωρίς προεπισκόπηση συνδέσμου</string>
+
+    <string name="pref_clean_modules">Λειτουργικές μονάδες επεξεργασίας συνδέσμων</string>
+    <string name="pref_clean_modules_summary">Επιλέξτε ποιες μονάδες χρησιμοποιούνται για την επεξεργασία συνδέσμων όταν είναι ενεργοποιημένη η επιλογή <b>παράλειψη προεπισκόπησης διαλόγου</b></string>
+
+    <string name="pref_open_in_browser">Άνοιγμα στο πρόγραμμα περιήγησης</string>
+    <string name="pref_open_in_browser_summary">Άνοιγμα του συνδέσμου στο πρόγραμμα περιήγησης μετά την αντιγραφή στο πρόχειρο</string>
+
+    <string name="pref_clear_clipboard">Εκκαθάριση πρόχειρου</string>
+
+    <string name="pref_used_library">Βιβλιοθήκες</string>
+    <string name="pref_used_library_summary">Άδειες ανοιχτού κώδικα</string>
+
+    <string name="pref_version">Έκδοση</string>
+
+    <!--modules selector-->
+
+    <string name="module_select">Εφαρμογή μονάδων</string>
+    <!--modules-->
+    <string name="module_shorteners">Αφαίρεση συντομευτών</string>
+    <string name="module_trackers">Αφαίρεση ιχνηλατών</string>
+    <string name="module_redirection">Διαχείριση ανακατεύθυνσης</string>
+    <string name="module_builtin_rules">Ενσωματωμένοι κανόνες</string>
+
+    <!--theme selector-->
+
+    <string name="theme_select">Επιλογή θέματος</string>
+    <!--themes modes-->
+    <string name="theme_system">Προεπιλογή συστήματος</string>
+    <string name="theme_light">Φωτεινό</string>
+    <string name="theme_dark">Σκοτεινό</string>
+
+    <!--update checker-->
+
+    <string name="update_checker_button">Έλεγχος ενημερώσεων</string>
+    <string name="update_checker_download_button">Λήψη</string>
+    <!--updater messages-->
+    <string name="update_checker_no_update">Δεν υπάρχει διαθέσιμη ενημέρωση</string>
+    <string name="update_checker_update_available">Νέα ενημέρωση διαθέσιμη: %s</string>
+    <string name="update_checker_no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="update_checker_generic_error">Κάτι πήγε στραβά… Παρακαλώ δοκιμάστε ξανά αργότερα</string>
+
+    <!--tutorial-->
+
+    <string name="tutorial_title">Πώς να επεξεργαστείτε και να αντιγράψετε συνδέσμους</string>
+
+    <string name="tutorial_share_menu">Χρησιμοποιώντας το μενού κοινής χρήσης</string>
+    <string name="tutorial_share_menu_summary">Σε οποιαδήποτε εφαρμογή, πατήστε το εικονίδιο ή το κουμπί <b>Κοινή χρήση</b> σε έναν σύνδεσμο και επιλέξτε <b>Clippy</b> από τη λίστα εφαρμογών. Στη συνέχεια θα έχετε την επιλογή <b>Αντιγραφή Συνδέσμου</b> για αντιγραφή του αρχικού συνδέσμου, ή <b>Αντιγραφή Καθαρού Συνδέσμου</b> για αντιγραφή της καθαρισμένης έκδοσης με χρήση μονάδων</string>
+
+    <string name="tutorial_select_text_menu">Χρησιμοποιώντας το μενού επιλογής κειμένου</string>
+    <string name="tutorial_select_text_summary">Επισημάνετε μια διεύθυνση URL ή ένα τμήμα κειμένου που περιέχει σύνδεσμο. Στο αιωρούμενο μενού που εμφανίζεται (δίπλα στα "Αντιγραφή" και "Επικόλληση"), πατήστε το μενού με τις τρεις τελείες και επιλέξτε <b>Αντιγραφή Συνδέσμου</b> για αντιγραφή του αρχικού συνδέσμου, ή <b>Αντιγραφή Καθαρού Συνδέσμου</b> για αντιγραφή της καθαρισμένης έκδοσης με χρήση μονάδων</string>
+
+    <!--copy link messages-->
+
     <string name="copy_success_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_failure_general">Δεν είναι δυνατή η αντιγραφή συνδέσμου</string>
-
     <string name="copy_failure_no_valid_links">Δεν βρέθηκαν έγκυροι σύνδεσμοι</string>
     <string name="copy_failure_error_cleaning">Σφάλμα κατά τον καθαρισμό των συνδέσμων</string>
     <string name="copy_failure_empty_after_cleaning">Οι σύνδεσμοι δεν είχαν περιεχόμενο μετά τον καθαρισμό</string>
+    <string name="copy_failure_open_browser">Σφάλμα ανοίγματος συνδέσμου στο πρόγραμμα περιήγησης</string>
+    <string name="clipboard_success_clear">Το πρόχειρο εκκαθαρίστηκε επιτυχώς</string>
 
+    <!--copy link bottom sheet dialog-->
+
+    <!-- dialog modules-->
     <string name="dialog_apply_all_modules">Εφαρμογή όλων των ενοτήτων</string>
     <string name="dialog_module_shorteners">Αφαίρεση συντομεύσεων</string>
     <string name="dialog_module_trackers">Αφαίρεση ιχνηλατών</string>
     <string name="dialog_module_redirection">Επίλυση ανακατευθύνσεων</string>
     <string name="dialog_module_builtin_rules">Εφαρμογή ενσωματωμένων κανόνων</string>
-
+    <!-- dialog buttons-->
     <string name="dialog_clean_button">Εκκαθάριση συνδέσμου</string>
     <string name="dialog_copy_clipboard_button">Αντιγραφή στο πρόχειρο</string>
     <string name="dialog_open_in_browser_button">Άνοιγμα στο πρόγραμμα περιήγησης</string>
-
+    <!--dialog text input-->
     <string name="dialog_original_link">Αρχικός σύνδεσμος</string>
     <string name="dialog_cleaned_link">Καθαρισμένος σύνδεσμος</string>
 </resources>

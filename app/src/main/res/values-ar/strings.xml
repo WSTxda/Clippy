@@ -1,24 +1,97 @@
 <resources>
+
+    <!--share options names-->
+
     <string name="clippy_copy_link">نسخ الرابط</string>
     <string name="clippy_copy_link_cleaner">نسخ الرابط (منظّف)</string>
 
+    <!--preferences-->
+
+    <string name="pref_category_appearance">المظهر</string>
+    <string name="pref_category_behavior">السلوك</string>
+    <string name="pref_category_about">حول</string>
+
+    <string name="pref_developer">المطوّر</string>
+    <string name="pref_source_code">مستودع كود المصدر</string>
+
+    <string name="pref_theme">السمة</string>
+
+    <string name="pref_skip_dialog">تخطي معاينة الحوار</string>
+    <string name="pref_skip_dialog_summary">معالجة الرابط ونسخه إلى الحافظة فورًا، مع تخطي الحوار للحصول على تدفق أسرع ولكن دون معاينة الرابط</string>
+
+    <string name="pref_clean_modules">وحدات معالجة الروابط</string>
+    <string name="pref_clean_modules_summary">اختر الوحدات المستخدمة لمعالجة الروابط عند تفعيل خيار <b>تخطي معاينة الحوار</b></string>
+
+    <string name="pref_open_in_browser">الفتح في المتصفح</string>
+    <string name="pref_open_in_browser_summary">فتح الرابط في المتصفح بعد نسخه إلى الحافظة</string>
+
+    <string name="pref_clear_clipboard">مسح الحافظة</string>
+
+    <string name="pref_used_library">المكتبات</string>
+    <string name="pref_used_library_summary">تراخيص المصدر المفتوح</string>
+
+    <string name="pref_version">الإصدار</string>
+
+    <!--modules selector-->
+
+    <string name="module_select">تطبيق الوحدات</string>
+    <!--modules-->
+    <string name="module_shorteners">مزيل الروابط المختصرة</string>
+    <string name="module_trackers">مزيل أدوات التتبع</string>
+    <string name="module_redirection">معالج إعادة التوجيه</string>
+    <string name="module_builtin_rules">القواعد المدمجة</string>
+
+    <!--theme selector-->
+
+    <string name="theme_select">اختر السمة</string>
+    <!--themes modes-->
+    <string name="theme_system">الإعداد الافتراضي للنظام</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme_dark">داكن</string>
+
+    <!--update checker-->
+
+    <string name="update_checker_button">التحقق من التحديثات</string>
+    <string name="update_checker_download_button">تنزيل</string>
+    <!--updater messages-->
+    <string name="update_checker_no_update">لا يوجد تحديث متاح</string>
+    <string name="update_checker_update_available">تحديث جديد متاح: %s</string>
+    <string name="update_checker_no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="update_checker_generic_error">حدث خطأ ما… يرجى المحاولة مرة أخرى لاحقًا</string>
+
+    <!--tutorial-->
+
+    <string name="tutorial_title">كيفية معالجة الروابط ونسخها</string>
+
+    <string name="tutorial_share_menu">استخدام قائمة المشاركة</string>
+    <string name="tutorial_share_menu_summary">في أي تطبيق، اضغط على أيقونة أو زر <b>المشاركة</b> على رابط وحدد <b>Clippy</b> من قائمة التطبيقات. ستتاح لك بعد ذلك خيار <b>نسخ الرابط</b> لنسخ الرابط الأصلي، أو <b>نسخ الرابط (منظّف)</b> لنسخ النسخة المنظفة باستخدام الوحدات</string>
+
+    <string name="tutorial_select_text_menu">استخدام قائمة تحديد النص</string>
+    <string name="tutorial_select_text_summary">قم بتحديد عنوان URL أو نص يحتوي على رابط. في القائمة العائمة التي تظهر (بجانب "نسخ" و"لصق")، اضغط على قائمة النقاط الثلاث وحدد <b>نسخ الرابط</b> لنسخ الرابط الأصلي، أو <b>نسخ الرابط (منظّف)</b> لنسخ النسخة المنظفة باستخدام الوحدات</string>
+
+    <!--copy link messages-->
+
     <string name="copy_success_clipboard">تم النسخ إلى الحافظة</string>
     <string name="copy_failure_general">تعذّر نسخ الرابط</string>
-
     <string name="copy_failure_no_valid_links">لم يتم العثور على روابط صالحة</string>
     <string name="copy_failure_error_cleaning">حدث خطأ أثناء تنظيف الروابط</string>
     <string name="copy_failure_empty_after_cleaning">لم تحتوي الروابط على محتوى بعد التنظيف</string>
+    <string name="copy_failure_open_browser">خطأ في فتح الرابط في المتصفح</string>
+    <string name="clipboard_success_clear">تم مسح الحافظة بنجاح</string>
 
+    <!--copy link bottom sheet dialog-->
+
+    <!-- dialog modules-->
     <string name="dialog_apply_all_modules">تطبيق جميع الوحدات</string>
     <string name="dialog_module_shorteners">إزالة الروابط المختصرة</string>
     <string name="dialog_module_trackers">إزالة أدوات التتبع</string>
     <string name="dialog_module_redirection">حل عمليات إعادة التوجيه</string>
     <string name="dialog_module_builtin_rules">تطبيق القواعد المدمجة</string>
-
+    <!-- dialog buttons-->
     <string name="dialog_clean_button">مسح الرابط</string>
     <string name="dialog_copy_clipboard_button">نسخ إلى الحافظة</string>
     <string name="dialog_open_in_browser_button">فتح في المتصفح</string>
-
+    <!--dialog text input-->
     <string name="dialog_original_link">الرابط الأصلي</string>
     <string name="dialog_cleaned_link">الرابط المنظف</string>
 </resources>

@@ -1,24 +1,97 @@
 <resources>
+
+    <!--share options names-->
+
     <string name="clippy_copy_link">Sao chép liên kết</string>
     <string name="clippy_copy_link_cleaner">Sao chép liên kết đã làm sạch</string>
 
+    <!--preferences-->
+
+    <string name="pref_category_appearance">Giao diện</string>
+    <string name="pref_category_behavior">Hành vi</string>
+    <string name="pref_category_about">Giới thiệu</string>
+
+    <string name="pref_developer">Nhà phát triển</string>
+    <string name="pref_source_code">Kho mã nguồn</string>
+
+    <string name="pref_theme">Giao diện</string>
+
+    <string name="pref_skip_dialog">Bỏ qua xem trước hộp thoại</string>
+    <string name="pref_skip_dialog_summary">Xử lý và sao chép liên kết vào bộ nhớ tạm ngay lập tức, bỏ qua hộp thoại để có quy trình nhanh hơn nhưng không có xem trước liên kết</string>
+
+    <string name="pref_clean_modules">Các mô-đun xử lý liên kết</string>
+    <string name="pref_clean_modules_summary">Chọn mô-đun nào được sử dụng để xử lý liên kết khi tùy chọn <b>bỏ qua xem trước hộp thoại</b> được bật</string>
+
+    <string name="pref_open_in_browser">Mở trong trình duyệt</string>
+    <string name="pref_open_in_browser_summary">Mở liên kết trong trình duyệt sau khi sao chép vào bộ nhớ tạm</string>
+
+    <string name="pref_clear_clipboard">Xóa bộ nhớ tạm</string>
+
+    <string name="pref_used_library">Thư viện</string>
+    <string name="pref_used_library_summary">Giấy phép mã nguồn mở</string>
+
+    <string name="pref_version">Phiên bản</string>
+
+    <!--modules selector-->
+
+    <string name="module_select">Áp dụng mô-đun</string>
+    <!--modules-->
+    <string name="module_shorteners">Trình xóa liên kết rút gọn</string>
+    <string name="module_trackers">Trình xóa trình theo dõi</string>
+    <string name="module_redirection">Trình xử lý chuyển hướng</string>
+    <string name="module_builtin_rules">Quy tắc tích hợp sẵn</string>
+
+    <!--theme selector-->
+
+    <string name="theme_select">Chọn giao diện</string>
+    <!--themes modes-->
+    <string name="theme_system">Mặc định hệ thống</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
+
+    <!--update checker-->
+
+    <string name="update_checker_button">Kiểm tra cập nhật</string>
+    <string name="update_checker_download_button">Tải xuống</string>
+    <!--updater messages-->
+    <string name="update_checker_no_update">Không có bản cập nhật nào</string>
+    <string name="update_checker_update_available">Có bản cập nhật mới: %s</string>
+    <string name="update_checker_no_internet">Không có kết nối internet</string>
+    <string name="update_checker_generic_error">Đã xảy ra lỗi… Vui lòng thử lại sau</string>
+
+    <!--tutorial-->
+
+    <string name="tutorial_title">Cách xử lý và sao chép liên kết</string>
+
+    <string name="tutorial_share_menu">Sử dụng menu chia sẻ</string>
+    <string name="tutorial_share_menu_summary">Trong bất kỳ ứng dụng nào, nhấn vào biểu tượng hoặc nút <b>Chia sẻ</b> trên liên kết và chọn <b>Clippy</b> từ danh sách ứng dụng. Bạn sẽ có tùy chọn chọn <b>Sao chép liên kết</b> để sao chép liên kết gốc, hoặc <b>Sao chép liên kết đã làm sạch</b> để sao chép phiên bản đã làm sạch sử dụng các mô-đun</string>
+
+    <string name="tutorial_select_text_menu">Sử dụng menu chọn văn bản</string>
+    <string name="tutorial_select_text_summary">Tô sáng URL hoặc đoạn văn bản chứa liên kết. Trong menu nổi xuất hiện (bên cạnh "Sao chép" và "Dán"), nhấn vào menu ba chấm và chọn <b>Sao chép liên kết</b> để sao chép liên kết gốc, hoặc <b>Sao chép liên kết đã làm sạch</b> để sao chép phiên bản đã làm sạch sử dụng các mô-đun</string>
+
+    <!--copy link messages-->
+
     <string name="copy_success_clipboard">Đã sao chép vào bảng nhớ tạm</string>
     <string name="copy_failure_general">Không thể sao chép liên kết</string>
-
     <string name="copy_failure_no_valid_links">Không tìm thấy đường link hợp lệ</string>
     <string name="copy_failure_error_cleaning">Không thể làm sạch đường link</string>
     <string name="copy_failure_empty_after_cleaning">Liên kết không có nội dung sau khi làm sạch</string>
+    <string name="copy_failure_open_browser">Lỗi khi mở liên kết trong trình duyệt</string>
+    <string name="clipboard_success_clear">Đã xóa bộ nhớ tạm thành công</string>
 
+    <!--copy link bottom sheet dialog-->
+
+    <!-- dialog modules-->
     <string name="dialog_apply_all_modules">Áp dụng tất cả mô-đun</string>
     <string name="dialog_module_shorteners">Xóa liên kết rút gọn</string>
     <string name="dialog_module_trackers">Xóa trình theo dõi</string>
     <string name="dialog_module_redirection">Giải quyết chuyển hướng</string>
     <string name="dialog_module_builtin_rules">Áp dụng các quy tắc tích hợp</string>
-
+    <!-- dialog buttons-->
     <string name="dialog_clean_button">Xóa link</string>
     <string name="dialog_copy_clipboard_button">Sao chép vào bộ nhớ tạm</string>
     <string name="dialog_open_in_browser_button">Mở trong trình duyệt</string>
-
+    <!--dialog text input-->
     <string name="dialog_original_link">Liên kết gốc</string>
     <string name="dialog_cleaned_link">Liên kết đã làm sạch</string>
 </resources>
