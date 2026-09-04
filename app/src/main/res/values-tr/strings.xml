@@ -1,0 +1,102 @@
+<resources>
+
+    <!--app names-->
+    <string name="app_name" translatable="false">Clippy</string>
+
+    <!--share options names-->
+    <string name="clippy_copy_link">Bağlantıyı Kopyala</string>
+    <string name="clippy_copy_link_cleaner">Bağlantıyı Kopyala (Temiz)</string>
+
+    <!--preferences-->
+    <string name="pref_category_appearance">Görünüm</string>
+    <string name="pref_category_behavior">Davranış</string>
+    <string name="pref_category_about">Hakkında</string>
+
+    <string name="pref_wstxda" translatable="false">WSTxda</string>
+    <string name="pref_github" translatable="false">GitHub</string>
+    <string name="pref_developer">Geliştirici</string>
+    <string name="pref_source_code">Kaynak kodu deposu</string>
+
+    <string name="pref_theme">Tema</string>
+
+    <string name="pref_skip_dialog">İletişim kutusu önizlemesini atla</string>
+    <string name="pref_skip_dialog_summary">Daha hızlı bir akış için iletişim kutusunu atlayarak bağlantıyı hemen işleyin ve panoya kopyalayın, ancak bağlantı önizlemesi olmadan</string>
+
+    <string name="pref_clean_modules">Bağlantı işleme modülleri</string>
+    <string name="pref_clean_modules_summary"><b>İletişim kutusu önizlemesini atla</b> seçeneği etkinleştirildiğinde bağlantıları işlemek için hangi modüllerin kullanılacağını seçin</string>
+
+    <string name="pref_open_in_browser">Tarayıcıda aç</string>
+    <string name="pref_open_in_browser_summary">Panoya kopyaladıktan sonra bağlantıyı tarayıcıda açın</string>
+
+    <string name="pref_clear_clipboard">Panoyu temizle</string>
+
+    <string name="pref_used_library">Kütüphaneler</string>
+    <string name="pref_used_library_summary">Açık kaynak lisansları</string>
+
+    <string name="pref_version">Sürüm</string>
+    <string name="pref_version_number" translatable="false">%s</string>
+  
+    <!--modules selector-->
+    <string name="module_select">Modülleri uygula</string>
+  
+    <!--modules-->
+    <string name="module_shorteners">Kısaltıcı temizleyici</string>
+    <string name="module_trackers">Takipçi temizleyici</string>
+    <string name="module_redirection">Yönlendirme işleyici</string>
+    <string name="module_builtin_rules">Dahili kurallar</string>
+
+    <!--theme selector-->
+    <string name="theme_select">Tema seç</string>
+  
+    <!--themes modes-->
+    <string name="theme_system">Sistem varsayılanı</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
+
+    <!--update checker-->
+    <string name="update_checker_button">Güncellemeleri denetle</string>
+    <string name="update_checker_download_button">İndir</string>
+  
+    <!--updater messages-->
+    <string name="update_checker_no_update">Güncelleme bulunamadı</string>
+    <string name="update_checker_update_available">Yeni güncelleme mevcut: %s</string>
+    <string name="update_checker_no_internet">İnternet bağlantısı yok</string>
+    <string name="update_checker_generic_error">Bir şeyler yanlış gitti… Lütfen daha sonra tekrar deneyin</string>
+
+    <!--tutorial-->
+    <string name="tutorial_title">Bağlantıları işleme ve kopyalama</string>
+
+    <string name="tutorial_share_menu">Paylaş menüsünü kullanma</string>
+    <string name="tutorial_share_menu_summary">Herhangi bir uygulamada, bir bağlantı üzerindeki <b>Paylaş</b> simgesine veya düğmesine dokunun ve uygulamalar listesinden <b>Clippy</b>'yi seçin. Ardından, orijinal bağlantıyı kopyalamak için <b>Bağlantıyı Kopyala</b>'yı ya da modülleri kullanarak temizlenmiş sürümü kopyalamak için <b>Bağlantıyı Kopyala (Temiz)</b> seçeneğini belirleyebilirsiniz</string>
+
+    <string name="tutorial_select_text_menu">Metin seçimi menüsünü kullanma</string>
+    <string name="tutorial_select_text_summary">Bir URL'yi veya bağlantı içeren bir metin parçasını vurgulayın. Beliren kayan menüde ("Kopyala" ve "Yapıştır"ın yanında), üç nokta menüsüne dokunun ve orijinal bağlantıyı kopyalamak için <b>Bağlantıyı Kopyala</b>'yı, ya da modülleri kullanarak temizlenmiş sürümü kopyalamak için <b>Bağlantıyı Kopyala (Temiz)</b> seçeneğini belirleyin</string>
+    
+    <!--copy link messages-->
+    <string name="copy_success_clipboard">Panoya kopyalandı</string>
+    <string name="copy_failure_general">Bağlantı kopyalanamadı</string>
+    <string name="copy_failure_no_valid_links">Geçerli bir bağlantı bulunamadı</string>
+    <string name="copy_failure_error_cleaning">Bağlantı temizleme hatası</string>
+    <string name="copy_failure_empty_after_cleaning">Temizleme sonrası bağlantıda içerik kalmadı</string>
+    <string name="copy_failure_open_browser">Bağlantı tarayıcıda açılırken hata oluştu</string>
+    <string name="clipboard_success_clear">Pano başarıyla temizlendi</string>
+
+    <!--copy link bottom sheet dialog-->
+
+    <!-- dialog modules-->
+    <string name="dialog_apply_all_modules">Tüm modülleri uygula</string>
+    <string name="dialog_module_shorteners">Kısaltıcıları kaldır</string>
+    <string name="dialog_module_trackers">Takipçileri kaldır</string>
+    <string name="dialog_module_redirection">Yönlendirmeleri çözümle</string>
+    <string name="dialog_module_builtin_rules">Dahili kuralları uygula</string>
+  
+    <!-- dialog buttons-->
+    <string name="dialog_clean_button">Bağlantıyı temizle</string>
+    <string name="dialog_copy_clipboard_button">Panoya kopyala</string>
+    <string name="dialog_open_in_browser_button">Tarayıcıda aç</string>
+  
+    <!--dialog text input-->
+    <string name="dialog_original_link">Orijinal bağlantı</string>
+    <string name="dialog_cleaned_link">Temizlenmiş bağlantı</string>
+  
+</resources>

@@ -1,3 +1,5 @@
+| English | [Türkçe](README.tr.md) |
+
 # Clippy
 
 Easily copy links directly from your device’s sharing menu, with built-in support for removing URL shorteners and tracking parameters for a cleaner, more secure link experience.
